@@ -1,0 +1,130 @@
+ion-content {
+  --background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.logo-container img {
+  width: 120px;
+  height: 120px;
+}
+
+.lang-switch {
+  font-size: 14px;
+  font-weight: bold;
+  color: red;
+}
+
+ion-list {
+  width: 90%;
+}
+
+.button-container {
+  width: 90%;
+  margin-top: 20px;
+}
+
+/* Asegurar fondo blanco en toda la pantalla */
+ion-content {
+  --background: #ffffff !important;
+}
+
+/* Eliminar el fondo oscuro en los inputs */
+ion-item {
+  --background: transparent !important; /* Fondo transparente */
+  --border-radius: 8px;
+  --padding-start: 10px;
+  --padding-end: 10px;
+}
+
+/* Ajustar estilos del input */
+ion-input {
+  --background: #ffffff !important; /* Fondo blanco */
+  --color: #000000 !important; /* Texto negro */
+  --placeholder-color: #666666 !important; /* Color del placeholder */
+  --border: 1px solid #cccccc;
+  --padding-start: 10px;
+}
+
+/* Opcional: si el fondo negro sigue, forzar un color claro */
+ion-list {
+  background: transparent !important;
+}
+
+ion-item {
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+  --inner-padding-top: 10px;
+  --inner-padding-bottom: 10px;
+}
+
+ion-label {
+  --color: #000000 !important;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+ion-input {
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --background: #ffffff;
+  border-radius: 8px;
+}
+
+ion-item ion-label {
+  margin-bottom: 0px !important;
+}
+::ng-deep ion-label {
+  font-size: 16px !important; // Tamaño fijo del label
+  transform: translateY(0px) !important; // Evita cambios en la posición
+  transition: none !important; // Desactiva animaciones que cambian el tamaño
+}
+
+::ng-deep ion-item {
+  --highlight-color-focused: transparent !important; // Evita resaltado azul al hacer clic
+}
+ion-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-container {
+  width: 90%; // Ajusta el ancho máximo del contenido
+  max-width: 400px; // Evita que sea demasiado grande en pantallas grandes
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ion-list {
+  width: 100%; // Asegura que los inputs ocupen todo el ancho del contenedor
+}
+
+.button-container {
+  width: 100%; // Asegura que los botones ocupen todo el ancho disponible
+  display: flex;
+  flex-direction: column;
+  gap: 10px; // Espaciado entre los botones
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

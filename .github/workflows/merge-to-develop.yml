@@ -1,0 +1,80 @@
+name: Tests, Coverage, and Deploy to S3
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: Run unit tests with coverage
+        run: npm run test -- --watch=false --code-coverage
+
+      - name: Validate coverage per component (minimum 71%)
+        run: |
+          FILE=$(find ./coverage -type f -name coverage-summary.json | head -n 1)
+          echo "Using coverage file: $FILE"
+          
+          node -e "
+          const coverage = require('$FILE');
+          const required = 71;
+          let failed = false;
+          Object.keys(coverage)
+            .filter(file => file.endsWith('.component.ts'))
+            .forEach(file => {
+              const data = coverage[file];
+              console.log(\`Coverage for \${file}:\`);
+              console.log(\`  Statements: \${data.statements.pct}%\`);
+              console.log(\`  Branches: \${data.branches.pct}%\`);
+              console.log(\`  Functions: \${data.functions.pct}%\`);
+              console.log(\`  Lines: \${data.lines.pct}%\`);
+              if (
+                data.statements.pct < required ||
+                data.branches.pct < required ||
+                data.functions.pct < required ||
+                data.lines.pct < required
+              ) {
+                console.error(\`❌ Coverage for \${file} is below \${required}%\`);
+                failed = true;
+              }
+            });
+          if (failed) process.exit(1);
+          "
+
+  deploy:
+    needs: test  # 📌 Solo ejecuta deploy si test pasa
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if SOURCE_DIR exists
+        run: if [ ! -d "www/" ]; then echo "❌ Error: La carpeta www/ no existe"; exit 1; fi
+
+      - name: Sync files to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks --delete --exclude '.git*/*'
+          aws-region: us-east-1
+          aws-s3-bucket: ${{ secrets.AWS_S3_BUCKET }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

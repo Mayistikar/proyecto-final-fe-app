@@ -1,0 +1,43 @@
+ion-content {
+  --background: #fff; /* Fondo blanco */
+  color: #000; /* Asegura que el texto sea visible */
+}
+
+.form-container {
+  width: 90%;
+  max-width: 400px;
+  margin: auto; /* Centra horizontalmente */
+  padding-top: 20px; /* Espaciado superior */
+}
+
+ion-list {
+  width: 100%;
+  background: transparent; /* Evita fondo oscuro */
+}
+
+ion-item {
+  --background: transparent; /* Evita color de fondo oscuro */
+  --border-radius: 8px;
+  --inner-padding-end: 10px;
+  border-bottom: 1px solid #ccc;
+  color: #000; /* Asegura texto negro */
+}
+
+ion-label {
+  color: #000; /* Hace que el texto sea visible */
+
+}
+
+ion-input {
+  color: #000; /* Hace que el texto ingresado sea visible */
+  margin-top: 5px;
+}
+
+ion-button {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+
