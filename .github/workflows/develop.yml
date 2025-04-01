@@ -33,7 +33,7 @@ jobs:
         run: |
           FILE=$(find ./coverage -type f -name coverage-summary.json | head -n 1)
           echo "Using coverage file: $FILE"
-          
+
           node -e "
           const coverage = require('$FILE');
           const required = 71;
@@ -59,22 +59,3 @@ jobs:
             });
           if (failed) process.exit(1);
           "
-
-  deploy:
-    needs: test  # 📌 Solo ejecuta deploy si test pasa
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Check if SOURCE_DIR exists
-        run: if [ ! -d "www/" ]; then echo "❌ Error: La carpeta www/ no existe"; exit 1; fi
-
-      - name: Sync files to S3
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --follow-symlinks --delete --exclude '.git*/*'
-          aws-region: us-east-1
-          aws-s3-bucket: ${{ secrets.AWS_S3_BUCKET }}
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
