@@ -44,7 +44,7 @@ jobs:
         run: |
           cd android
           chmod +x ./gradlew
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease -Dorg.gradle.java.home=$JAVA_HOME
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
