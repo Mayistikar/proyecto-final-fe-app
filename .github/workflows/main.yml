@@ -49,13 +49,15 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleRelease
 
-      - name: Upload APK to S3
-        uses: aws-actions/s3-sync@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          source-dir: android/app/build/outputs/apk/release
-          destination-bucket: ${{ secrets.S3_BUCKET_NAME }}
-          destination-prefix: apk/
-          region: ${{ secrets.AWS_REGION }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: List build output
+        run: ls -la android/app/build/outputs/apk/release
+
+      - name: Deploy to S3
+        run: aws s3 sync android/app/build/outputs/apk/release s3://${{ secrets.S3_BUCKET_NAME }}/apk/ --delete
