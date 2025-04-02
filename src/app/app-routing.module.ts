@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'client-visit',
     loadComponent: () => import('./seller/client-visit/client-visit.component').then( m => m.ClientVisitPage)
+  },
+  {
+    path: 'home-client',
+    loadComponent: () => import('./client/home/home-client.page').then( m => m.HomePageClient)
   }
 ];
 

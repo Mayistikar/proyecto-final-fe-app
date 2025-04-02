@@ -9,10 +9,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginPage } from "./login/login.page";
 import { ClientVisitPage } from './seller/client-visit/client-visit.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HomePage } from './seller/home/home.page';
+import { HomePageClient } from './client/home/home-client.page';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, LoginPage, ClientVisitPage, HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, LoginPage, ClientVisitPage, HttpClientModule, HomePage,HomePageClient],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
