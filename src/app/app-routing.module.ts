@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'home',
     loadComponent: () => import('./seller/home/home.page').then( m => m.HomePage)
+  },
+  {
+    path: 'client-visit',
+    loadComponent: () => import('./seller/client-visit/client-visit.component').then( m => m.ClientVisitPage)
   }
 ];
 
