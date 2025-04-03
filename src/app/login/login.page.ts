@@ -31,7 +31,17 @@ export class LoginPage {
     this.loginClientService.loginClient(this.email, this.password).subscribe({
       next: async () => {
         await this.showAlert('Éxito', 'Inicio de sesión exitoso.');
-        this.router.navigate(['/home']);
+
+        const role =  this.loginClientService.getUserRole();
+        console.log('Rol:', role);
+
+        if(role === 'client'){
+          this.router.navigate(['/home-client']);
+        }else if(role === 'seller'){
+          this.router.navigate(['/home']);
+        }else{
+          this.showAlert('Error', 'Rol no reconocido.');
+        }
       },
       error: (err) => {
         this.showAlert('Error', 'Credenciales incorrectas. Inténtalo nuevamente.');
