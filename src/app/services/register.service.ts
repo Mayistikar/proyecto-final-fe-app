@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RegisterService {
 
-  private apiUrl = 'https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod/api';
+  private apiUrl = 'https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod';
 
   constructor(private http:HttpClient) { }
   registerClient(full_name: string, email: string, phone: string,password: string, confirm_password: string, address: string): Observable<any> {
