@@ -15,17 +15,17 @@
   <ion-list>
     <ion-item>
       <ion-label position="floating">Usuario</ion-label>
-      <ion-input type="text" value="andrespelaezgaviria4"></ion-input>
+      <ion-input type="text" [(ngModel)]="email" value="andrespelaezgaviria4"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" value="dt2patel"></ion-input>
+      <ion-input type="password"  [(ngModel)]="password" value="dt2patel"></ion-input>
     </ion-item>
   </ion-list>
 
   <div class="button-container">
-    <ion-button expand="block" color="primary">Ingresar</ion-button>
+    <ion-button expand="block" color="primary"  (click)="login()" >Ingresar</ion-button>
     <ion-button expand="block" fill="outline" color="primary" [routerLink]="['/register']" routerLinkActive="router-link-active" >Registrarse</ion-button>
   </div>
 </ion-content>
