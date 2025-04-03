@@ -16,27 +16,27 @@ import { RegisterService } from 'src/app/services/register.service';
 })
 export class RegisterPage  {
 
-  name: string = '';
+  full_name : string = '';
   email: string = '';
   phone: string = '';
-  direccion: string = '';
+  address: string = '';
   password: string = '';
-  confirmPassword: string = '';
+  confirm_password: string = '';
 
   constructor(private registerService: RegisterService, private router: Router, private alertCtrl: AlertController) {}
 
   async registrarse() {
-    if (!this.name || !this.email || !this.phone || !this.direccion || !this.password || !this.confirmPassword) {
+    if (!this.full_name || !this.email || !this.phone || !this.address || !this.password || !this.confirm_password) {
       this.mostrarAlerta('Error', 'Todos los campos son obligatorios.');
       return;
     }
 
-    if (this.password !== this.confirmPassword) {
+    if (this.password !== this.confirm_password) {
       this.mostrarAlerta('Error', 'Las contraseñas no coinciden.');
       return;
     }
 
-    this.registerService.registerClient(this.name, this.email, this.phone).subscribe({
+    this.registerService.registerClient(this.full_name, this.email, this.phone, this.confirm_password, this.password, this.address).subscribe({
       next: async () => {
         await this.mostrarAlerta('Éxito', 'Se ha registrado con exitoso a la app.');
         this.router.navigate(['/login']);
@@ -57,5 +57,5 @@ export class RegisterPage  {
     await alert.present();
   }
 
-  
+
 }
