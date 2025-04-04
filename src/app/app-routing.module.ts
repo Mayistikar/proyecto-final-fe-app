@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RoleGuard } from './guards/role.guard';
 
 const routes: Routes = [
   {
@@ -17,15 +18,21 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadComponent: () => import('./seller/home/home.page').then( m => m.HomePage)
+    loadComponent: () => import('./seller/home/home.page').then( m => m.HomePage),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'seller' } // Rol esperado para esta ruta
   },
   {
     path: 'client-visit',
-    loadComponent: () => import('./seller/client-visit/client-visit.component').then( m => m.ClientVisitPage)
+    loadComponent: () => import('./seller/client-visit/client-visit.component').then( m => m.ClientVisitPage),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'seller' } // Rol esperado para esta ruta
   },
   {
     path: 'home-client',
-    loadComponent: () => import('./client/home/home-client.page').then( m => m.HomePageClient)
+    loadComponent: () => import('./client/home/home-client.page').then( m => m.HomePageClient),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'client' } // Rol esperado para esta ruta
   }
 ];
 

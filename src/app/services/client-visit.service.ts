@@ -7,14 +7,14 @@ import { Injectable } from '@angular/core';
 
 export class ClientVisitService {
 
-  private apiUrl = 'https://67e8565920e3af747c4108d1.mockapi.io/api/v1'; // URL de MockAPI
+  private apiUrl = 'https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod'; // URL de MockAPI
 
   constructor(private http:HttpClient) { }
 
-  registerClientVisit(clientId: string, sellerId: string, visitDate: string, duration:number,comments: string, results: string) {
-    const body = { clientId, sellerId, visitDate, duration, comments, results };
-    
-    return this.http.post(`${this.apiUrl}/client-visit`, body);
+  registerClientVisit(client_id: string, seller_id: string, visit_datetime: Date, duration_minutes:number,observations: string, result: string) {
+    const body = { client_id, seller_id, visit_datetime, duration_minutes, observations, result };
+
+    return this.http.post(`${this.apiUrl}/api/visits`, body);
   }
 
   getClients() {

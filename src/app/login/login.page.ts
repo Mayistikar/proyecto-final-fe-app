@@ -33,6 +33,8 @@ export class LoginPage {
         await this.showAlert('Éxito', 'Inicio de sesión exitoso.');
 
         const role =  this.loginClientService.getUserRole();
+        const seller_id = this.loginClientService.getUserId();
+        console.log('ID Vendedor:', seller_id);
         console.log('Rol:', role);
 
         if(role === 'client'){

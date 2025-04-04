@@ -20,6 +20,8 @@ export class LoginClientService {
         if(response.access_token && response.role){
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('role', response.role);
+          localStorage.setItem('user_id', response.id);
+
         }
       }));
   }
@@ -28,6 +30,11 @@ export class LoginClientService {
     return localStorage.getItem('role') || '';
   }
 
+  getUserId(): string {
+    return localStorage.getItem('user_id') || '';
+  }
+
+
   isAuthenticated(): boolean {
     return localStorage.getItem('access_token') !== null;
   }
@@ -35,6 +42,7 @@ export class LoginClientService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('user_id');
   }
 
 
