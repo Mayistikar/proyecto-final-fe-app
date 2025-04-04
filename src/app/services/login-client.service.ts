@@ -40,7 +40,7 @@ export class LoginClientService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('access_token');
     localStorage.removeItem('role');
     localStorage.removeItem('user_id');
   }
