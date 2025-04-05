@@ -1,0 +1,37 @@
+{
+  "login": {
+    "title": "CCP STORE",
+    "language_switch": "ESP/ENG",
+    "username_label": "Usuario",
+    "password_label": "Contraseña",
+    "login_button": "Ingresar",
+    "register_button": "Registrarse"
+  },
+  "seller": {
+    "home": {
+      "title": "CCP STORE VENDEDOR",
+      "createOrder": "Crear Pedido",
+      "assignedClients": "Clientes Asignados",
+      "clientVisit": "Registro Visita Cliente",
+      "dailyRoute": "Ruta Diaria",
+      "videoProcessing": "Procesamiento Video",
+      "recommendations": "Recomendaciones"
+    },
+    "clientVisit": {
+      "title": "Registro de Visita a Cliente",
+      "visitDateTimeLabel": "Fecha y Hora de la visita",
+      "visitDateTimePlaceholder": "Ingrese su Fecha y Hora",
+      "durationLabel": "Duración de la visita",
+      "durationPlaceholder": "Ingrese duración en minutos",
+      "observationsLabel": "Observaciones",
+      "observationsPlaceholder": "Escriba sus observaciones",
+      "clientIdLabel": "Cliente ID",
+      "clientIdPlaceholder": "Escriba el email del cliente",
+      "resultsTitle": "Resultados",
+      "interestedButton": "Interesado",
+      "notInterestedButton": "No Interesado",
+      "followUpButton": "Seguimiento",
+      "syncButton": "Sincronizar Registro"
+    }
+  }
+}

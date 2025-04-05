@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { LoginClientService } from '../services/login-client.service';
 import { of, throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 describe('LoginPage', () => {
@@ -41,6 +42,7 @@ describe('LoginPage', () => {
     TestBed.configureTestingModule({
       imports: [
         IonicModule.forRoot(),
+        TranslateModule.forRoot(),
         LoginPage
       ],
       providers: [
@@ -121,6 +123,7 @@ describe('LoginPage', () => {
 
 
 })
+
 
 
 

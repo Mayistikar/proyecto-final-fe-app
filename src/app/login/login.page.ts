@@ -5,20 +5,31 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { LoginClientService } from '../services/login-client.service';
 import { AlertController } from '@ionic/angular';
+import { TranslatePipe } from "@ngx-translate/core";
+import { TranslationService } from "../services/translation.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule,RouterModule]
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule, TranslatePipe]
 })
 export class LoginPage {
 
   email: string = '';
   password: string = '';
 
-  constructor(private loginClientService: LoginClientService, private router: Router,private alertCtrl: AlertController) {}
+  constructor(
+    private loginClientService: LoginClientService,
+    private router: Router,
+    private alertCtrl: AlertController,
+    private translationService: TranslationService
+  ) {}
+
+  switchLanguage() {
+    this.translationService.switchLanguage();
+  }
 
   async login() {
     if (!this.email || !this.password) {
@@ -61,7 +72,4 @@ export class LoginPage {
     await alert.present();
   }
 
-
 }
-
-

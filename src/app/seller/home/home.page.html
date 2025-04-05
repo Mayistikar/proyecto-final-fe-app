@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title class="title">CCP STORE VENDEDOR</ion-title>
+    <ion-title class="title">{{ 'seller.home.title' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,14 +11,12 @@
     </div>
 
     <div class="button-container">
-      <ion-button expand="block">Crear Pedido</ion-button>
-      <ion-button expand="block">Clientes Asignados</ion-button>
-      <ion-button expand="block"[routerLink]="['/client-visit']" routerLinkActive="router-link-active">Registro Visita Cliente</ion-button>
-      <ion-button expand="block">Ruta Diaria</ion-button>
-      <ion-button expand="block">Procesamiento Video</ion-button>
-      <ion-button expand="block">Recomendaciones</ion-button>
+      <ion-button expand="block">{{ 'seller.home.createOrder' | translate }}</ion-button>
+      <ion-button expand="block">{{ 'seller.home.assignedClients' | translate }}</ion-button>
+      <ion-button expand="block" [routerLink]="['/client-visit']" routerLinkActive="router-link-active">{{ 'seller.home.clientVisit' | translate }}</ion-button>
+      <ion-button expand="block">{{ 'seller.home.dailyRoute' | translate }}</ion-button>
+      <ion-button expand="block">{{ 'seller.home.videoProcessing' | translate }}</ion-button>
+      <ion-button expand="block">{{ 'seller.home.recommendations' | translate }}</ion-button>
     </div>
   </div>
 </ion-content>
-
-
