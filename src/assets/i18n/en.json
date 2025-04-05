@@ -1,0 +1,37 @@
+{
+  "login": {
+    "title": "CCP STORE",
+    "language_switch": "ESP/ENG",
+    "username_label": "Username",
+    "password_label": "Password",
+    "login_button": "Login",
+    "register_button": "Register"
+  },
+  "seller": {
+    "home": {
+      "title": "CCP STORE SELLER",
+      "createOrder": "Create Order",
+      "assignedClients": "Assigned Clients",
+      "clientVisit": "Client Visit Registration",
+      "dailyRoute": "Daily Route",
+      "videoProcessing": "Video Processing",
+      "recommendations": "Recommendations"
+    },
+    "clientVisit": {
+      "title": "Client Visit Registration",
+      "visitDateTimeLabel": "Visit Date and Time",
+      "visitDateTimePlaceholder": "Enter Visit Date and Time",
+      "durationLabel": "Visit Duration",
+      "durationPlaceholder": "Enter duration in minutes",
+      "observationsLabel": "Observations",
+      "observationsPlaceholder": "Enter your observations",
+      "clientIdLabel": "Client ID",
+      "clientIdPlaceholder": "Enter client's email",
+      "resultsTitle": "Results",
+      "interestedButton": "Interested",
+      "notInterestedButton": "Not Interested",
+      "followUpButton": "Follow Up",
+      "syncButton": "Sync Registration"
+    }
+  }
+}

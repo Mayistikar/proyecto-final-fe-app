@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
 import { ClientVisitService } from 'src/app/services/client-visit.service';
+import { TranslatePipe } from "@ngx-translate/core";
 
 export enum VisitResult {
   INTERESTED = 'Interesado',
@@ -16,7 +17,7 @@ export enum VisitResult {
   templateUrl: './client-visit.component.html',
   styleUrls: ['./client-visit.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule],
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule, TranslatePipe],
   providers:[ClientVisitService]
 })
 export class ClientVisitPage {
