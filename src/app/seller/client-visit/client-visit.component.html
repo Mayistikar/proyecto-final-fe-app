@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro de Visita a Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <!-- Fecha y Hora -->
+    <ion-item>
+      <ion-label position="stacked"><strong>Fecha y Hora de la visita</strong></ion-label>
+      <ion-input placeholder="Ingrese su Fecha y Hora" type="datetime-local" [(ngModel)]="visit_datetime"></ion-input>
+    </ion-item>
+
+    <!-- Duración de la visita -->
+    <ion-item>
+      <ion-label position="stacked"><strong>Duración de la visita</strong></ion-label>
+      <ion-input placeholder="Ingrese duración en minutos" type="number" [(ngModel)]="duration_minutes"></ion-input>
+    </ion-item>
+
+    <!-- Observaciones -->
+    <ion-item>
+      <ion-label position="stacked"><strong>Observaciones</strong></ion-label>
+      <ion-textarea placeholder="Escriba sus observaciones" [(ngModel)]="observations"></ion-textarea>
+    </ion-item>
+
+    <!-- Selección de Cliente -->
+    <!-- <ion-item>
+      <ion-label>Cliente</ion-label>
+      <ion-select placeholder="Seleccione un cliente" [(ngModel)]="client_id">
+        <ion-select-option *ngFor="let client of clients" [value]="client.id">
+          {{ client.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item> -->
+
+    <!-- Selección de Cliente -->
+    <ion-item>
+      <ion-label position="stacked"><strong>Cliente ID</strong></ion-label>
+      <ion-textarea placeholder="Escriba el email del cliente" [(ngModel)]="client_id"></ion-textarea>
+    </ion-item>
+
+    <!-- Resultados -->
+    <div class="resultados-container">
+      <ion-label class="resultados-title"><strong>Resultados</strong></ion-label>
+      <div class="botones-resultados">
+        <ion-button fill="outline" color="primary" (click)="setResult(VisitResult.INTERESTED)">Interesado</ion-button>
+        <ion-button fill="outline" color="primary" (click)="setResult(VisitResult.NOT_INTERESTED)">No Interesado</ion-button>
+        <ion-button fill="outline" color="primary" (click)="setResult(VisitResult.FOLLOW_UP)">Seguimiento</ion-button>
+      </div>
+    </div>
+  </ion-list>
+
+  <!-- Botón de Sincronizar -->
+  <ion-button expand="full" class="boton-sincronizar" (click)="registerClientVisit()">
+    Sincronizar Registro
+  </ion-button>
+</ion-content>

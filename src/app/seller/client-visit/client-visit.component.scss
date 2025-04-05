@@ -1,0 +1,80 @@
+/* Estilos del encabezado */
+ion-header {
+    ion-toolbar {
+      background: linear-gradient(to right, #007bff, #0056b3) !important;
+      color: white !important;
+      --background: none;
+    }
+  }
+  
+ion-list {
+    width: 100%;
+    background: transparent;
+  }
+  
+ion-item {
+    --background: transparent;
+    color: #000;
+  }
+  
+ion-content {
+    --background: white !important;
+  }
+  
+  /* Estilos del contenedor de resultados */
+.resultados-container {
+    margin-top: 20px;
+  }
+  
+  /* Estilo del título de resultados */
+.resultados-title {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: bold;
+    color: #000;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+  }
+  
+  /* Botones de resultados (Interesado, No Interesado, Seguimiento) */
+.botones-resultados {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+  
+.resultados-container .botones-resultados .botones-resultado ion-button {
+    background-color: #0090DA; /* Fondo azul */
+    color: white !important; /* Texto blanco */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 15px;
+    text-align: center;
+    flex: 1;
+    margin: 0 5px;
+    border: 1px solid #0090DA; /* Borde azul */
+}
+  
+  /* Estilo del botón de sincronización */
+.boton-sincronizar {
+    margin-top: 20px;
+    color: white !important;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+ion-list, ion-item {
+    background: transparent !important;
+    --background: transparent !important;
+    color: #000;
+  }
+ion-item::part(native) {
+    color: black !important;
+  }
+  
+ion-input::part(native) {
+    color: black !important;
+  }
