@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ClientVisitService } from 'src/app/services/client-visit.service';
 
 export enum VisitResult {
@@ -16,7 +16,7 @@ export enum VisitResult {
   templateUrl: './client-visit.component.html',
   styleUrls: ['./client-visit.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule],
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule],
   providers:[ClientVisitService]
 })
 export class ClientVisitPage {
@@ -52,7 +52,12 @@ export class ClientVisitPage {
   }
 
   registerClientVisit() {
-    if (!this.client_id || !this.seller_id || !this.visit_datetime || this.duration_minutes <= 0 || !this.observations || !this.result) {
+    if (!this.client_id ||
+      !this.seller_id ||
+      !this.visit_datetime ||
+      this.duration_minutes == null || this.duration_minutes <= 0 ||
+      !this.observations ||
+      !this.result) {
       alert('Todos los campos son obligatorios.');
       return;
     }

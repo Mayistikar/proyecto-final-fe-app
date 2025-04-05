@@ -1,12 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ClientVisitPage, VisitResult } from './client-visit.component';
 import { ClientVisitService } from 'src/app/services/client-visit.service';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { NavController } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -22,11 +19,9 @@ describe('ClientVisitPage', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        IonicModule.forRoot(),
+        ClientVisitPage, // ✅ Importar el componente standalone
         RouterTestingModule,
         HttpClientTestingModule,
-        CommonModule,
-        FormsModule
       ],
       providers: [
         { provide: NavController, useValue: jasmine.createSpyObj('NavController', ['navigateForward']) },
@@ -38,7 +33,7 @@ describe('ClientVisitPage', () => {
     fixture = TestBed.createComponent(ClientVisitPage);
     component = fixture.componentInstance;
 
-    // Espiar alert() en lugar de AlertController
+    // Espiar alert()
     spyOn(window, 'alert');
 
     fixture.detectChanges();
@@ -67,9 +62,33 @@ describe('ClientVisitPage', () => {
     expect(mockClientVisitService.registerClientVisit).not.toHaveBeenCalled();
   });
 
+  it('should register the visit and navigate on success', fakeAsync(() => {
+    component.client_id = '1';
+    component.seller_id = '2';
+    component.visit_datetime = '2025-04-04T10:00:00Z';
+    component.duration_minutes = 45;
+    component.observations = 'Cliente interesado';
+    component.result = VisitResult.INTERESTED;
 
+    mockClientVisitService.registerClientVisit.and.returnValue(of({}));
 
+    component.registerClientVisit();
+    tick();
+
+    expect(mockClientVisitService.registerClientVisit).toHaveBeenCalledWith(
+      '1',
+      '2',
+      new Date('2025-04-04T10:00:00Z'),
+      45,
+      'Cliente interesado',
+      VisitResult.INTERESTED
+    );
+
+    expect(window.alert).toHaveBeenCalledWith('Visita registrada exitosamente.');
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
+  }));
 });
+
 
 
 
