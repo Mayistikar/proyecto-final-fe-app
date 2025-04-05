@@ -33,6 +33,12 @@ const routes: Routes = [
     loadComponent: () => import('./client/home/home-client.page').then( m => m.HomePageClient),
     canActivate: [RoleGuard],
     data: { expectedRole: 'client' } // Rol esperado para esta ruta
+  },
+  {
+    path: 'deliveries',
+    loadComponent: () => import('./client/deliveries/deliveries.component').then( m => m.DeliveriesComponent),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'client' } // Rol esperado para esta ruta
   }
 ];
 
