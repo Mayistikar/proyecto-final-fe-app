@@ -6,6 +6,7 @@ import { NavController } from '@ionic/angular';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { of, throwError } from 'rxjs';
 
 describe('ClientVisitPage', () => {
   let component: ClientVisitPage;
@@ -34,8 +35,9 @@ describe('ClientVisitPage', () => {
     fixture = TestBed.createComponent(ClientVisitPage);
     component = fixture.componentInstance;
 
-    // Espiar alert()
+    // Espiar alert() y console.error()
     spyOn(window, 'alert');
+    spyOn(console, 'error');
 
     fixture.detectChanges();
   });
@@ -63,34 +65,56 @@ describe('ClientVisitPage', () => {
     expect(mockClientVisitService.registerClientVisit).not.toHaveBeenCalled();
   });
 
-  // it('should register the visit and navigate on success', fakeAsync(() => {
-  //   component.client_id = '1';
-  //   component.seller_id = '2';
-  //   component.visit_datetime = '2025-04-04T10:00:00Z';
-  //   component.duration_minutes = 45;
-  //   component.observations = 'Cliente interesado';
-  //   component.result = VisitResult.INTERESTED;
+  it('should register a visit successfully', () => {
+    // Set valid data
+    component.client_id = 'client123';
+    component.seller_id = 'seller123';
+    component.visit_datetime = new Date().toISOString();
+    component.duration_minutes = 30;
+    component.observations = 'Test observation';
+    component.result = VisitResult.INTERESTED;
 
-  //   mockClientVisitService.registerClientVisit.and.returnValue(of({}));
+    const visitDate = new Date(component.visit_datetime);
+    mockClientVisitService.registerClientVisit.and.returnValue(of(null));
 
-  //   component.registerClientVisit();
-  //   tick();
+    component.registerClientVisit();
 
-  //   expect(mockClientVisitService.registerClientVisit).toHaveBeenCalledWith(
-  //     '1',
-  //     '2',
-  //     new Date('2025-04-04T10:00:00Z'),
-  //     45,
-  //     'Cliente interesado',
-  //     VisitResult.INTERESTED
-  //   );
+    expect(mockClientVisitService.registerClientVisit).toHaveBeenCalledWith(
+      'client123',
+      'seller123',
+      visitDate,
+      30,
+      'Test observation',
+      VisitResult.INTERESTED
+    );
+    expect(window.alert).toHaveBeenCalledWith('Visita registrada exitosamente.');
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
+  });
 
-  //   expect(window.alert).toHaveBeenCalledWith('Visita registrada exitosamente.');
-  //   expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
-  // }));
+  it('should alert error on registration failure', () => {
+    // Set valid data
+    component.client_id = 'client123';
+    component.seller_id = 'seller123';
+    component.visit_datetime = new Date().toISOString();
+    component.duration_minutes = 45;
+    component.observations = 'Error test observation';
+    component.result = VisitResult.FOLLOW_UP;
+
+    const visitDate = new Date(component.visit_datetime);
+    const testError = new Error('Test error');
+    mockClientVisitService.registerClientVisit.and.returnValue(throwError(testError));
+
+    component.registerClientVisit();
+
+    expect(mockClientVisitService.registerClientVisit).toHaveBeenCalledWith(
+      'client123',
+      'seller123',
+      visitDate,
+      45,
+      'Error test observation',
+      VisitResult.FOLLOW_UP
+    );
+    expect(window.alert).toHaveBeenCalledWith('Hubo un problema al registrar la visita. Inténtalo nuevamente.');
+    expect(console.error).toHaveBeenCalledWith(testError);
+  });
 });
-
-
-
-
-

@@ -17,8 +17,7 @@ export enum VisitResult {
   templateUrl: './client-visit.component.html',
   styleUrls: ['./client-visit.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule, TranslatePipe],
-  providers:[ClientVisitService]
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule, TranslatePipe]
 })
 export class ClientVisitPage {
   seller_id: string = '';
@@ -26,7 +25,7 @@ export class ClientVisitPage {
   visit_datetime: string = '';
   duration_minutes: number = 0;
   observations: string = '';
-  result:VisitResult = VisitResult.NOT_INTERESTED ;
+  result: VisitResult = VisitResult.NOT_INTERESTED;
   clients: any[] = [];
 
   public VisitResult = VisitResult; // Para usar en el HTML
