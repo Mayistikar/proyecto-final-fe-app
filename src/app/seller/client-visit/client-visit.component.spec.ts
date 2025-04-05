@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClientVisitPage, VisitResult } from './client-visit.component';
 import { ClientVisitService } from 'src/app/services/client-visit.service';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
 import { NavController } from '@ionic/angular';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ClientVisitPage', () => {
   let component: ClientVisitPage;
@@ -22,6 +22,7 @@ describe('ClientVisitPage', () => {
         ClientVisitPage, // ✅ Importar el componente standalone
         RouterTestingModule,
         HttpClientTestingModule,
+        TranslateModule.forRoot(),
       ],
       providers: [
         { provide: NavController, useValue: jasmine.createSpyObj('NavController', ['navigateForward']) },

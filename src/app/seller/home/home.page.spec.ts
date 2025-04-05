@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomePage } from './home.page';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('HomePage', () => {
   let component: HomePage;
@@ -9,7 +10,10 @@ describe('HomePage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomePage],
+      imports: [
+        HomePage,
+        TranslateModule.forRoot(),
+      ],
       providers: [
         {
           provide: ActivatedRoute,
