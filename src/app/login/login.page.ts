@@ -7,6 +7,8 @@ import { LoginClientService } from '../services/login-client.service';
 import { AlertController } from '@ionic/angular';
 import { TranslatePipe } from "@ngx-translate/core";
 import { TranslationService } from "../services/translation.service";
+import { LoadingController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-login',
@@ -19,12 +21,15 @@ export class LoginPage {
 
   email: string = '';
   password: string = '';
+  private spinner: any;
+
 
   constructor(
     private loginClientService: LoginClientService,
     private router: Router,
     private alertCtrl: AlertController,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private loadingController: LoadingController
   ) {}
 
   switchLanguage() {
@@ -36,27 +41,27 @@ export class LoginPage {
       this.showAlert('Error', 'Todos los campos son obligatorios.');
       return;
     }
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+
+    await this.presentSpinner('Iniciando sesión...');
 
     this.loginClientService.loginClient(this.email, this.password).subscribe({
       next: async () => {
+        await this.dismissSpinner();
         await this.showAlert('Éxito', 'Inicio de sesión exitoso.');
 
-        const role =  this.loginClientService.getUserRole();
+        const role = this.loginClientService.getUserRole();
         const seller_id = this.loginClientService.getUserId();
-        console.log('ID Vendedor:', seller_id);
-        console.log('Rol:', role);
 
         if(role === 'client'){
           this.router.navigate(['/home-client']);
-        }else if(role === 'seller'){
+        } else if(role === 'seller'){
           this.router.navigate(['/home']);
-        }else{
+        } else {
           this.showAlert('Error', 'Rol no reconocido.');
         }
       },
-      error: (err) => {
+      error: async (err) => {
+        await this.dismissSpinner();
         this.showAlert('Error', 'Credenciales incorrectas. Inténtalo nuevamente.');
         console.error(err);
       }
@@ -71,5 +76,19 @@ export class LoginPage {
     });
     await alert.present();
   }
+
+  async presentSpinner(message: string) {
+    this.spinner = await this.loadingController.create({
+      message: message,
+    });
+    await this.spinner.present();
+  }
+  async dismissSpinner() {
+    if (this.spinner) {
+      await this.spinner.dismiss();
+    }
+  }
+
+
 
 }
