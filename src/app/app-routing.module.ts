@@ -25,7 +25,7 @@ const routes: Routes = [
   {
     path: 'client-visit',
     loadComponent: () => import('./seller/client-visit/client-visit.component').then( m => m.ClientVisitPage),
-    canActivate: [RoleGuard],
+    // canActivate: [RoleGuard],
     data: { expectedRole: 'seller' } // Rol esperado para esta ruta
   },
   {

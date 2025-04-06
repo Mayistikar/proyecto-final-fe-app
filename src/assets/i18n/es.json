@@ -25,7 +25,7 @@
       "durationPlaceholder": "Ingrese duración en minutos",
       "observationsLabel": "Observaciones",
       "observationsPlaceholder": "Escriba sus observaciones",
-      "clientIdLabel": "Cliente ID",
+      "clientIdLabel": "Correo Cliente",
       "clientIdPlaceholder": "Escriba el email del cliente",
       "resultsTitle": "Resultados",
       "interestedButton": "Interesado",

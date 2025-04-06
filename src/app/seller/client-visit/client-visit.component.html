@@ -8,45 +8,50 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list>
-    <!-- Fecha y Hora -->
-    <ion-item>
+  <form [formGroup]="clientVisitForm" (ngSubmit)="onSubmit()">
+
+  <ion-list class="ion-margin-bottom">
+    <ion-item  lines="none" class="ion-margin-bottom">
       <ion-label position="stacked"><strong>{{ 'seller.clientVisit.visitDateTimeLabel' | translate }}</strong></ion-label>
-      <ion-input [placeholder]="'seller.clientVisit.visitDateTimePlaceholder' | translate" type="datetime-local" [(ngModel)]="visit_datetime"></ion-input>
+      <ion-datetime-button datetime="datetime" color="secondary"></ion-datetime-button>
+
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="datetime" formControlName="visit_datetime" ></ion-datetime>
+        </ng-template>
+      </ion-modal>
     </ion-item>
 
-    <!-- Duración de la visita -->
     <ion-item>
       <ion-label position="stacked"><strong>{{ 'seller.clientVisit.durationLabel' | translate }}</strong></ion-label>
-      <ion-input [placeholder]="'seller.clientVisit.durationPlaceholder' | translate" type="number" [(ngModel)]="duration_minutes"></ion-input>
+      <ion-input [placeholder]="'seller.clientVisit.durationPlaceholder' | translate" type="number" formControlName="duration_minutes"></ion-input>
     </ion-item>
 
-    <!-- Observaciones -->
     <ion-item>
       <ion-label position="stacked"><strong>{{ 'seller.clientVisit.observationsLabel' | translate }}</strong></ion-label>
-      <ion-textarea [placeholder]="'seller.clientVisit.observationsPlaceholder' | translate" [(ngModel)]="observations"></ion-textarea>
+      <ion-textarea [placeholder]="'seller.clientVisit.observationsPlaceholder' | translate" formControlName="observations"></ion-textarea>
     </ion-item>
 
-    <!-- Selección de Cliente -->
+
     <ion-item>
       <ion-label position="stacked"><strong>{{ 'seller.clientVisit.clientIdLabel' | translate }}</strong></ion-label>
-      <ion-textarea [placeholder]="'seller.clientVisit.clientIdPlaceholder' | translate" [(ngModel)]="client_id"></ion-textarea>
+      <ion-textarea [placeholder]="'seller.clientVisit.clientIdPlaceholder' | translate" formControlName="client_id"></ion-textarea>
     </ion-item>
 
-    <!-- Resultados -->
     <div class="resultados-container">
       <ion-label class="resultados-title"><strong>{{ 'seller.clientVisit.resultsTitle' | translate }}</strong></ion-label>
       <div class="botones-resultados">
-        <ion-button fill="outline" color="primary" (click)="setResult(VisitResult.INTERESTED)">{{ 'seller.clientVisit.interestedButton' | translate }}</ion-button>
-        <ion-button fill="outline" color="primary" (click)="setResult(VisitResult.NOT_INTERESTED)">{{ 'seller.clientVisit.notInterestedButton' | translate }}</ion-button>
-        <ion-button fill="outline" color="primary" (click)="setResult(VisitResult.FOLLOW_UP)">{{ 'seller.clientVisit.followUpButton' | translate }}</ion-button>
+        <ion-button [fill]="buttonState['interested'] ? 'solid' : 'outline'" color="primary" (click)="setResult(VisitResult.INTERESTED)">{{ 'seller.clientVisit.interestedButton' | translate }}</ion-button>
+        <ion-button [fill]="buttonState['not_interested'] ? 'solid' : 'outline'" color="primary" (click)="setResult(VisitResult.NOT_INTERESTED)">{{ 'seller.clientVisit.notInterestedButton' | translate }}</ion-button>
+        <ion-button [fill]="buttonState['follow_up'] ? 'solid' : 'outline'" color="primary" (click)="setResult(VisitResult.FOLLOW_UP)">{{ 'seller.clientVisit.followUpButton' | translate }}</ion-button>
       </div>
     </div>
   </ion-list>
 
-  <!-- Botón de Sincronizar -->
-  <ion-button expand="full" class="boton-sincronizar" (click)="registerClientVisit()">
+  <ion-button  type="submit" expand="block">
     {{ 'seller.clientVisit.syncButton' | translate }}
   </ion-button>
+
+  </form>
 </ion-content>
 
