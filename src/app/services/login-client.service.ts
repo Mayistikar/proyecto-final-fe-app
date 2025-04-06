@@ -34,6 +34,10 @@ export class LoginClientService {
     return localStorage.getItem('user_id') || '';
   }
 
+  setUserEmail(email: string) {
+    localStorage.setItem('user_email', email);
+  }
+
 
   isAuthenticated(): boolean {
     return localStorage.getItem('access_token') !== null;

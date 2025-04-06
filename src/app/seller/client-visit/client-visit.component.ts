@@ -103,6 +103,7 @@ export class ClientVisitPage {
       not_interested: result === VisitResult.NOT_INTERESTED,
       follow_up: result === VisitResult.FOLLOW_UP
     };
+    console.log(this.clientVisitForm.getRawValue())
   }
 
   async  onSubmit() {
