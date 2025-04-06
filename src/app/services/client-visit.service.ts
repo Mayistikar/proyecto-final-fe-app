@@ -14,10 +14,8 @@ export class ClientVisitService {
 
   constructor(private http:HttpClient) { }
 
-  registerClientVisit(client_id: string, seller_id: string, visit_datetime: Date, duration_minutes:number,observations: string, result: string):Observable<any> {
-    const body = { client_id, seller_id, visit_datetime, duration_minutes, observations, result };
-
-    return this.http.post(`${this.apiUrl}/api/visits`, body).pipe(
+  registerClientVisit(payload: any):Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/visits`, payload).pipe(
       tap(()=> console.log('Visita registrada con éxito')),
       catchError((error) => {
         console.error('Error al registrar visita:', error);
@@ -25,6 +23,12 @@ export class ClientVisitService {
   }
 
   getClients():Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/clients`);
+    return this.http.get<any[]>(`${this.apiUrl}/api/visits/seller/vendedor_authorized@example.com`).pipe(
+      tap((clients) => console.log('Clientes obtenidos:', clients)),
+      catchError((error) => {
+        console.error('Error al obtener clientes:', error);
+        return throwError(() => error);
+      })
+    );
   }
 }

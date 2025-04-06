@@ -1,4 +1,7 @@
 {
+  "common": {
+    "language": "es-ES"
+  },
   "login": {
     "title": "CCP STORE",
     "language_switch": "ESP/ENG",
@@ -25,13 +28,16 @@
       "durationPlaceholder": "Ingrese duración en minutos",
       "observationsLabel": "Observaciones",
       "observationsPlaceholder": "Escriba sus observaciones",
-      "clientIdLabel": "Cliente ID",
+      "clientIdLabel": "Correo Cliente",
       "clientIdPlaceholder": "Escriba el email del cliente",
       "resultsTitle": "Resultados",
       "interestedButton": "Interesado",
       "notInterestedButton": "No Interesado",
       "followUpButton": "Seguimiento",
-      "syncButton": "Sincronizar Registro"
+      "syncButton": "Sincronizar Registro",
+      "syncingButton": "Sincronizando Registro",
+      "syncSuccess": "Registro sincronizado con éxito",
+        "syncError": "Error al sincronizar el registro"
     }
   }
 }
