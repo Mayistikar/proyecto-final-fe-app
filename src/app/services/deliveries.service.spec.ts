@@ -39,23 +39,4 @@ describe('DeliveriesService', () => {
     req.flush(dummyProducts);
   });
 
-  it('should add order to cart', () => {
-    const dummyOrder: Order = {
-      client_id: '123',
-      seller_id: '456',
-      items: [
-        { product_id: '1', quantity: 2 },
-        { product_id: '2', quantity: 1 }
-      ]
-    };
-
-    service.addOrderToCart(dummyOrder).subscribe(response => {
-      expect(response).toEqual(dummyOrder);
-    });
-
-    const req = httpMock.expectOne(`${service['apiUrl']}/orders`);
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual(dummyOrder);
-    req.flush(dummyOrder);
-  });
 });

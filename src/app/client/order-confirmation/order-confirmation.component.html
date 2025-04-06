@@ -9,7 +9,7 @@
 
 <ion-content class="order-confirmation-content">
 
-  <div class="order-confirmation">
+  <div class="order-confirmation ion-margin-bottom">
 
     <div class="search-bar">
       <input type="text" [placeholder]="'client.order.search' | translate" [(ngModel)]="terminoBusqueda" />
@@ -18,32 +18,33 @@
 
     <div class="detalle-pedido">
       <div class="detalle-pedido-header">
-        <label for="cantidad">{{ 'client.order.details' | translate }}</label>
+        <label>{{ 'client.order.details' | translate }}</label>
       </div>
 
       <div class="item" *ngFor="let item of detalleFiltrado">
         <div class="left-section">
-          <img src="assets/login-image.jpg" alt="{{ item.nombre }}" class="producto-imagen" />
+          <img src="assets/login-image.jpg" alt="{{ item.product_name }}" class="producto-imagen" />
           <div class="producto-info">
-            <div class="producto-nombre">{{ item.nombre }}</div>
-            <div class="producto-cantidad">Cantidad: {{ item.cantidad }}</div>
+            <div class="producto-nombre">{{ item.product_name }}</div>
+            <div class="producto-cantidad">{{ 'client.order.quantity' | translate }}: {{ item.quantity }}</div>
           </div>
         </div>
         <div class="precio">
-          <div>Precio total :</div>
-          <div>${{ item.precioTotal }}</div>
+          <div>{{ 'client.order.subtotal' | translate  }}:</div>
+          <div>${{ item.subtotal }}</div>
         </div>
       </div>
       <div class="total-pedido" *ngIf="detallePedido.length > 0">
-        <strong>Total del pedido: ${{ obtenerTotalPedido() }}</strong>
+        <strong>{{ 'client.order.total' | translate }}: ${{ obtenerTotalPedido() }}</strong>
       </div>
     </div>
 
-
-    <footer class="footer">
-      <span>Inicio</span>
-      <span>Pedidos</span>
-    </footer>
   </div>
+
+
+  <button class="confirmar-orden" (click)="orderConfirmation()" [disabled]="detallePedido.length === 0">
+    {{ 'client.order.orderConfirmation' | translate }}
+  </button>
+
 
 </ion-content>

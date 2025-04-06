@@ -1,9 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
 import { IonHeader, IonContent, IonToolbar, IonButtons, IonBackButton, IonTitle } from "@ionic/angular/standalone";
 import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import {
+  DeliveriesService,
+  ProductAdded,
+  OrderCreated
+} from "../../services/deliveries.service";
 
 @Component({
   selector: 'app-order-confirmation',
@@ -12,41 +17,55 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [
     IonHeader, IonContent, IonToolbar, IonButtons, IonBackButton, IonTitle,
-    CommonModule, FormsModule, TranslateModule
+    CommonModule, FormsModule, TranslateModule,
   ]
 
 })
 export class OrderConfirmationComponent implements OnInit {
+  detallePedido: ProductAdded[] = [];
+  orderId: string = '';
+
+  constructor(private deliveryService : DeliveriesService, private router: Router) {}
 
   ngOnInit(): void {
-    const pedidoGuardado = localStorage.getItem('detallePedidoConfirmado');
-    if (pedidoGuardado) {
-      this.detallePedido = JSON.parse(pedidoGuardado);
-      localStorage.removeItem('detallePedidoConfirmado'); // si quieres limpiar
+    const orderString = localStorage.getItem('order');
+    if (orderString) {
+      const order: OrderCreated = JSON.parse(orderString);
+      this.orderId = order.id;
+      this.detallePedido = order.items;
     }
-    setInterval(() => console.log("Valor actual del término de búsqueda:", this.terminoBusqueda), 1000);
   }
-
-
-  detallePedido: any[] = [];
-
 
   terminoBusqueda: string = '';
 
   get detalleFiltrado(): any[] {
     if (!this.terminoBusqueda) return this.detallePedido;
     return this.detallePedido.filter(item =>
-      item.nombre.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+      item.product_name.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
     );
   }
-
 
   limpiarBusqueda(): void {
     this.terminoBusqueda = '';
   }
 
   obtenerTotalPedido(): number {
-    return this.detallePedido.reduce((total, item) => total + item.precioTotal, 0);
+    return this.detallePedido.reduce((total, item) => total + item.subtotal, 0);
+  }
+
+  orderConfirmation(): void {
+    this.deliveryService.confirmOrder(this.orderId).subscribe({
+      next: (response) => {
+        console.log('Order confirmed:', response);
+        alert('Order confirmed successfully!');
+        localStorage.removeItem('order');
+        this.router.navigate(['/home-client']);
+      },
+      error: (error) => {
+        console.error('Error confirming order:', error);
+        alert('Error confirming order. Please try again.');
+      }
+    });
   }
 
 }

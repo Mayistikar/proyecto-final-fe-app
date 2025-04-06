@@ -8,6 +8,7 @@ export interface OrderItem {
 }
 
 export interface Order {
+  id: string;
   client_id: string;
   seller_id: string;
   items: OrderItem[];
@@ -24,6 +25,27 @@ export interface Product {
   created_at: string;
 }
 
+
+export interface OrderCreated {
+  id: string;
+  client_id: string;
+  seller_id: string;
+  state: string;
+  total: number;
+  deliver_date: string | null;
+  created_at: string;
+  items: ProductAdded[];
+}
+
+export interface ProductAdded {
+  product_id: string;
+  product_name: string;
+  quantity: number;
+  price: number;
+  subtotal: number;
+  status: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,7 +59,11 @@ export class DeliveriesService {
     return this.http.get<Product[]>(`${this.apiUrl}/products`);
   }
 
-  addOrderToCart(order: Order) {
+  addOrderToCart(order: Order): Observable<any> {
     return this.http.post(`${this.apiUrl}/orders`, order);
+  }
+
+  confirmOrder(orderID:string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/orders/${orderID}/confirm`, {});
   }
 }

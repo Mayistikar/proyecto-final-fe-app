@@ -65,7 +65,6 @@ export class ClientVisitPage {
     this.clientVisitService.getClients().subscribe({
       next: (clients) => {
         this.clients = clients;
-        console.log(this.clients);
       },
       error: (err) => {
         console.error('Error al cargar clientes:', err);
@@ -107,12 +106,7 @@ export class ClientVisitPage {
   }
 
   async  onSubmit() {
-    console.log('Submit button clicked');
-    console.log(this.clientVisitForm.getRawValue());
-
     if (!this.clientVisitForm.valid) {
-      console.warn('Form is invalid');
-      console.table(this.clientVisitForm.value);
       return;
     }
 
