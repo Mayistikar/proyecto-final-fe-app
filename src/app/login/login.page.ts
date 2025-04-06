@@ -54,6 +54,7 @@ export class LoginPage {
 
         const role = this.loginClientService.getUserRole();
         const seller_id = this.loginClientService.getUserId();
+        this.loginClientService.setUserEmail(this.email);
 
         if(role === 'client'){
           this.router.navigate(['/home-client']);
@@ -67,6 +68,7 @@ export class LoginPage {
         await this.dismissSpinner();
         await this.showAlert('Error', 'Credenciales incorrectas. Inténtalo nuevamente.');
         console.error(err);
+
       }
     });
   }
