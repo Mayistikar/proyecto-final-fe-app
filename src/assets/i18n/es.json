@@ -39,5 +39,19 @@
       "syncSuccess": "Registro sincronizado con éxito",
         "syncError": "Error al sincronizar el registro"
     }
+  },
+  "client": {
+    "home": {
+      "title": "CCP STORE CLIENTE",
+      "createOrder": "Crear Pedido",
+      "myOrders": "Mis Pedidos",
+      "orderStatus": "Estado del Pedido",
+      "deliveryTracking": "Entregas Programadas"
+    },
+    "order": {
+      "confirmation-title": "Confirmar Orden",
+      "search": "Buscar",
+      "details": "Detalles del Pedido"
+    }
   }
 }

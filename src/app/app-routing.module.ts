@@ -25,25 +25,25 @@ const routes: Routes = [
   {
     path: 'client-visit',
     loadComponent: () => import('./seller/client-visit/client-visit.component').then( m => m.ClientVisitPage),
-    // canActivate: [RoleGuard],
+    canActivate: [RoleGuard],
     data: { expectedRole: 'seller' } // Rol esperado para esta ruta
   },
   {
     path: 'home-client',
     loadComponent: () => import('./client/home/home-client.page').then( m => m.HomePageClient),
-    canActivate: [RoleGuard],
+    // canActivate: [RoleGuard],
     data: { expectedRole: 'client' } // Rol esperado para esta ruta
   },
   {
     path: 'deliveries',
     loadComponent: () => import('./client/deliveries/deliveries.component').then( m => m.DeliveriesComponent),
-    canActivate: [RoleGuard],
+    // canActivate: [RoleGuard],
     data: { expectedRole: 'client' } // Rol esperado para esta ruta
   },
   {
     path:'order-confirmation',
     loadComponent : () => import('./client/order-confirmation/order-confirmation.component').then( m => m.OrderConfirmationComponent),
-    canActivate: [RoleGuard],
+    // canActivate: [RoleGuard],
     data: { expectedRole: 'client' } // Rol esperado para esta ruta
   }
 ];

@@ -39,5 +39,19 @@
         "syncSuccess": "Registration synced successfully",
         "syncError": "Error syncing the registration"
     }
+  },
+  "client": {
+    "home": {
+      "title": "CCP STORE CLIENT",
+      "createOrder": "Create Order",
+      "myOrders": "My Orders",
+      "orderStatus": "Order Status",
+      "deliveryTracking": "Delivery Tracking"
+    },
+    "order": {
+      "confirmation-title": "Confirm Order",
+      "search": "Search",
+      "details": "Order Details"
+    }
   }
 }
