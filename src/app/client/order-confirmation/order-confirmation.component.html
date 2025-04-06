@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ 'seller.clientVisit.title' | translate }}</ion-title>
+    <ion-title>{{ 'client.order.confirmation-title' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,20 +11,14 @@
 
   <div class="order-confirmation">
 
-
     <div class="search-bar">
-      <input type="text" placeholder="Buscar productos" [(ngModel)]="terminoBusqueda" />
+      <input type="text" [placeholder]="'client.order.search' | translate" [(ngModel)]="terminoBusqueda" />
       <button (click)="limpiarBusqueda()">x</button>
     </div>
 
-
-
-
-
-
     <div class="detalle-pedido">
       <div class="detalle-pedido-header">
-        <label for="cantidad">Detalle del pedido</label>
+        <label for="cantidad">{{ 'client.order.details' | translate }}</label>
       </div>
 
       <div class="item" *ngFor="let item of detalleFiltrado">
