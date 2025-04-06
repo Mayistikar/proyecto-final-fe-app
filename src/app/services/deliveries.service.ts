@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DeliveriesService {
 
-  private apiUrl = 'https://67e8565920e3af747c4108d1.mockapi.io/api/v1/'; // URL de MockAPI
+  private apiUrl = 'https://67e8565920e3af747c4108d1.mockapi.io/api/v1'; // URL de MockAPI
 
   constructor(private http:HttpClient) { }
 

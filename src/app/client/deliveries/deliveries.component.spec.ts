@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DeliveriesComponent } from './deliveries.component';
 import { DeliveriesService } from 'src/app/services/deliveries.service';
 import { of, throwError } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 
 describe('DeliveriesComponent', () => {
   let component: DeliveriesComponent;
@@ -17,11 +19,12 @@ describe('DeliveriesComponent', () => {
     const spy = jasmine.createSpyObj('DeliveriesService', ['getProducts']);
 
     await TestBed.configureTestingModule({
-      imports: [DeliveriesComponent],
+      imports: [DeliveriesComponent, HttpClientTestingModule], // 👈 Aquí
       providers: [
         { provide: DeliveriesService, useValue: spy }
       ]
     }).compileComponents();
+
 
     deliveryServiceSpy = TestBed.inject(DeliveriesService) as jasmine.SpyObj<DeliveriesService>;
     deliveryServiceSpy.getProducts.and.returnValue(of(mockProductos));
