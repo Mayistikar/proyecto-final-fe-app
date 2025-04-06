@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
 import { ClientVisitService } from 'src/app/services/client-visit.service';
-import { TranslatePipe, TranslateService } from "@ngx-translate/core";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import {FormGroup, FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
@@ -24,7 +24,7 @@ export enum VisitResult {
     CommonModule,
     IonicModule,
     RouterModule,
-    TranslatePipe,
+    TranslateModule,
     ReactiveFormsModule,
   ]
 })
@@ -160,3 +160,4 @@ export class ClientVisitPage {
   }
 
 }
+
