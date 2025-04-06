@@ -15,7 +15,38 @@
       <button class="clear-search">×</button>
     </div>
 
+    <!-- <div class="productos-grid">
+      <div class="producto" *ngFor="let producto of productosFiltrados" (click)="seleccionarProducto(producto) ">
+        <div class="imagen-placeholder">
+          <img src="assets/login-image.jpg" alt="{{producto.nombre}}" class="producto-imagen-grid" />
+        </div>
+        <div class="info">
+          <span class="nombre">{{ producto.nombre }}</span>
+          <span class="stock">Stock: {{ producto.stock }}</span>
+        </div>
+      </div>
+    </div> -->
+
     <div class="productos-grid">
+      <div
+        class="producto"
+        *ngFor="let producto of productosFiltrados"
+        (click)="seleccionarProducto(producto)"
+        [class.seleccionado]="productoSeleccionado?.id === producto.id"
+      >
+        <div class="imagen-placeholder">
+          <img src="assets/login-image.jpg" alt="{{producto.nombre}}" class="producto-imagen-grid" />
+        </div>
+        <div class="info">
+          <span class="nombre">{{ producto.nombre }}</span>
+          <span class="stock">Stock: {{ producto.stock }}</span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- <div class="productos-grid">
       <div class="producto">
         <div class="imagen-placeholder">
           <img src="assets/login-image.jpg" alt="Producto 1" class="producto-imagen-grid" />
@@ -43,16 +74,16 @@
           <span class="stock">Stock: 42</span>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="cantidad-deseada">
       <label for="cantidad">Cantidad deseada:</label>
-      <input type="number" id="cantidad" name="cantidad" min="1" />
+      <input type="number" id="cantidad" name="cantidad" min="1" [(ngModel)]="cantidadDeseada" />
       <button class="clear-cantidad">×</button>
     </div>
 
 
-    <button class="agregar-producto">Agregar Producto</button>
+    <button class="agregar-producto" (click)="agregarProducto()">Agregar Producto</button>
 
     <!-- <div class="detalle-pedido">
       <h2>Detalle del Pedido</h2>
@@ -72,8 +103,7 @@
       </div>
     </div> -->
 
-    <div class="detalle-pedido">
-      <!-- <h2>Detalle del Pedido</h2> -->
+    <!-- <div class="detalle-pedido">
       <div class="detalle-pedido-header">
         <label for="cantidad">Detalle del pedido</label>
       </div>
@@ -118,8 +148,30 @@
           <div>$45</div>
         </div>
       </div>
-    </div>
+    </div> -->
 
+    <div class="detalle-pedido">
+      <div class="detalle-pedido-header">
+        <label for="cantidad">Detalle del pedido</label>
+      </div>
+
+      <div class="item" *ngFor="let item of detallePedido">
+        <div class="left-section">
+          <img src="assets/login-image.jpg" alt="{{ item.nombre }}" class="producto-imagen" />
+          <div class="producto-info">
+            <div class="producto-nombre">{{ item.nombre }}</div>
+            <div class="producto-cantidad">Cantidad: {{ item.cantidad }}</div>
+          </div>
+        </div>
+        <div class="precio">
+          <div>Precio total :</div>
+          <div>${{ item.precioTotal }}</div>
+        </div>
+      </div>
+      <div class="total-pedido" *ngIf="detallePedido.length > 0">
+        <strong>Total del pedido: ${{ obtenerTotalPedido() }}</strong>
+      </div>
+    </div>
 
 
     <button class="confirmar-orden">Confirmar Orden</button>

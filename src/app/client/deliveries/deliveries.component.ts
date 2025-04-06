@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { DeliveriesService } from 'src/app/services/deliveries.service';
 
 @Component({
   selector: 'app-deliveries',
@@ -12,12 +13,14 @@ import { IonicModule } from '@ionic/angular';
 })
 export class DeliveriesComponent   {
 
-  productos = [
-    { id: 1, nombre: 'Manzanas', stock: 20, precio: 2500 },
-    { id: 2, nombre: 'Peras', stock: 15, precio: 3000 },
-    { id: 3, nombre: 'Bananas', stock: 10, precio: 1500 },
-    { id: 4, nombre: 'Naranjas', stock: 12, precio: 2800 },
-  ];
+  constructor(private deliveryService : DeliveriesService) {
+    this.cargarProductos();
+  }
+
+  productos: any[] = [];
+
+
+
 
   // Variables de control
   cantidadDeseada: number = 0;
@@ -31,6 +34,18 @@ export class DeliveriesComponent   {
   seleccionarProducto(producto: any): void {
     this.productoSeleccionado = producto;
     this.cantidadDeseada = 0;
+    console.log('Producto seleccionado:', producto);
+  }
+
+  cargarProductos(): void {
+    this.deliveryService.getProducts().subscribe({
+      next: (data) => {
+        this.productos = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar productos:', err);
+      }
+    });
   }
 
   // Agregar producto al pedido con verificación de stock
@@ -62,6 +77,7 @@ export class DeliveriesComponent   {
       precioUnitario: this.productoSeleccionado.precio,
       precioTotal: precioTotal
     });
+    console.log('Detalle pedido actualizado:', this.detallePedido);
 
     // Limpiar selección
     this.cantidadDeseada = 0;
@@ -94,6 +110,15 @@ export class DeliveriesComponent   {
       p.nombre.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
     );
   }
+  obtenerTotalPedido(): number {
+    const total = this.detallePedido.reduce((sum, item) => sum + Number(item.precioTotal), 0);
+    console.log('Total calculado:', total);
+    return total;
+  }
+
+
+
+
 
   limpiarBusqueda(): void {
     this.terminoBusqueda = '';

@@ -298,6 +298,20 @@ ion-header {
   font-size: 0.9rem;
 }
 
+.producto.seleccionado {
+  border: 2px solid #3880ff;
+  background-color: #e0f0ff;
+  border-radius: 10px;
+}
+
+.total-pedido {
+  font-size: 18px;
+  margin-top: 10px;
+  color: black; /* Asegúrate de que no esté en blanco */
+  display: block; /* No display: none */
+}
+
+
 
 
 
