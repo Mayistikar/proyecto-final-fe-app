@@ -62,7 +62,7 @@ export class LoginPage {
       },
       error: async (err) => {
         await this.dismissSpinner();
-        this.showAlert('Error', 'Credenciales incorrectas. Inténtalo nuevamente.');
+        await this.showAlert('Error', 'Credenciales incorrectas. Inténtalo nuevamente.');
         console.error(err);
       }
     });
