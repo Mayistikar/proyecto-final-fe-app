@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface OrderItem {
   product_id: string;
@@ -32,8 +33,8 @@ export class DeliveriesService {
 
   constructor(private http:HttpClient) { }
 
-  getProducts() {
-    return this.http.get<any[]>(`${this.apiUrl}/products`);
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}/products`);
   }
 
   addOrderToCart(order: Order) {
