@@ -1,0 +1,170 @@
+ion-header {
+  ion-toolbar {
+    background: linear-gradient(to right, #007bff, #0056b3) !important;
+    color: white !important;
+    --background: none;
+  }
+}
+
+.order-confirmation-content {
+  --ion-background-color: #ffffff !important;
+  --ion-background-color-rgb: 255, 255, 255 !important;
+  background-color: #ffffff !important;
+}
+.order-confirmation-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 16px;
+  background-color: #f4f5f8;
+
+  .order-confirmation {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  // .search-bar {
+  //   display: flex;
+  //   align-items: center;
+  //   gap: 8px;
+  //   background-color: #fff;
+  //   border-radius: 8px;
+  //   padding: 8px 12px;
+  //   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+  //   input {
+  //     flex: 1;
+  //     border: none;
+  //     font-size: 16px;
+  //     outline: none;
+  //     background: transparent;
+  //   }
+
+  //   .clear-search {
+  //     border: none;
+  //     background: transparent;
+  //     font-size: 20px;
+  //     color: #888;
+  //     cursor: pointer;
+  //   }
+  // }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+    input {
+      flex: 1;
+      border: none;
+      font-size: 16px;
+      outline: none;
+      background: transparent;
+      color: #000; // Asegura que el texto sea visible
+    }
+
+    button {
+      border: none;
+      background: transparent;
+      font-size: 20px;
+      color: #888; // Cambia el color del icono
+      cursor: pointer;
+    }
+
+  }
+
+
+
+
+  .detalle-pedido {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    .detalle-pedido-header {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 8px;
+
+      .left-section {
+        display: flex;
+        align-items: center;
+
+        .producto-imagen {
+          width: 60px;
+          height: 60px;
+          object-fit: cover;
+          border-radius: 8px;
+          margin-right: 12px;
+        }
+
+        .producto-info {
+          .producto-nombre {
+            font-weight: 600;
+            font-size: 16px;
+            color: black;
+          }
+
+          .producto-cantidad {
+            font-size: 14px;
+            color: #666;
+          }
+        }
+      }
+
+      .precio {
+        text-align: right;
+
+        div:first-child {
+          font-size: 14px;
+          color: #555;
+        }
+
+        div:last-child {
+          font-weight: bold;
+          font-size: 16px;
+          color: #1e88e5;
+        }
+      }
+    }
+
+    .total-pedido {
+      margin-top: 16px;
+      font-size: 18px;
+      text-align: right;
+      color: #2e7d32;
+    }
+  }
+
+  .footer {
+    margin-top: 24px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-around;
+    background: #ffffff;
+    border-top: 1px solid #ddd;
+    font-weight: 500;
+    color: #666;
+  }
+}
+
+p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}

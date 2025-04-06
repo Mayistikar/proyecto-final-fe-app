@@ -39,6 +39,12 @@ const routes: Routes = [
     loadComponent: () => import('./client/deliveries/deliveries.component').then( m => m.DeliveriesComponent),
     canActivate: [RoleGuard],
     data: { expectedRole: 'client' } // Rol esperado para esta ruta
+  },
+  {
+    path:'order-confirmation',
+    loadComponent : () => import('./client/order-confirmation/order-confirmation.component').then( m => m.OrderConfirmationComponent),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'client' } // Rol esperado para esta ruta
   }
 ];
 
