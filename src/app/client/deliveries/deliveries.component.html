@@ -47,15 +47,15 @@
 
       <div class="item" *ngFor="let item of detallePedido">
         <div class="left-section">
-          <img src="assets/login-image.jpg" alt="{{ item.name }}" class="producto-imagen" />
+          <img src="assets/login-image.jpg" alt="{{ item.product_name }}" class="producto-imagen" />
           <div class="producto-info">
-            <div class="producto-nombre">{{ item.name }}</div>
+            <div class="producto-nombre">{{ item.product_name }}</div>
             <div class="producto-cantidad">{{ 'client.order.quantity' | translate }}: {{ item.quantity }}</div>
           </div>
         </div>
         <div class="precio">
           <div>{{ 'client.order.subtotal' | translate }}:</div>
-          <div>${{ item.total }}</div>
+          <div>${{ item.subtotal }}</div>
         </div>
       </div>
       <div class="total-pedido" *ngIf="detallePedido.length > 0">

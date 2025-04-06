@@ -36,8 +36,6 @@ export class LoginPage {
       this.showAlert('Error', 'Todos los campos son obligatorios.');
       return;
     }
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
 
     this.loginClientService.loginClient(this.email, this.password).subscribe({
       next: async () => {
@@ -45,8 +43,6 @@ export class LoginPage {
 
         const role =  this.loginClientService.getUserRole();
         const seller_id = this.loginClientService.getUserId();
-        console.log('ID Vendedor:', seller_id);
-        console.log('Rol:', role);
 
         if(role === 'client'){
           this.router.navigate(['/home-client']);

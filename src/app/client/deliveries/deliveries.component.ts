@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { DeliveriesService, Product, Order, OrderItem } from 'src/app/services/deliveries.service';
+import {DeliveriesService, Product, Order, OrderItem, ProductAdded} from 'src/app/services/deliveries.service';
 import { Router } from '@angular/router';
 import {TranslateModule} from "@ngx-translate/core";
 
@@ -16,14 +16,14 @@ import {TranslateModule} from "@ngx-translate/core";
 export class DeliveriesComponent   {
 
   order : Order = {
+    id: '',
     client_id: '',
-    seller_id: '53ceb643-0af6-49b2-90c1-96b328359ac6',
+    seller_id: '',
     items: []
   }
   constructor(private deliveryService : DeliveriesService, private router: Router) {
     this.order.client_id = <string>localStorage.getItem('user_id');
-    console.log({order: this.order});
-
+    this.order.seller_id = <string>localStorage.getItem('user_id');
     this.cargarProductos();
   }
 
@@ -32,7 +32,7 @@ export class DeliveriesComponent   {
   // Variables de control
   cantidadDeseada: number = 0;
   productoSeleccionado: any = null;
-  detallePedido: any[] = [];
+  detallePedido: ProductAdded[] = [];
 
   // Búsqueda
   terminoBusqueda: string = '';
@@ -41,14 +41,12 @@ export class DeliveriesComponent   {
   seleccionarProducto(producto: Product): void {
     this.productoSeleccionado = producto;
     this.cantidadDeseada = 0;
-    console.log('Producto seleccionado:', producto);
   }
 
   cargarProductos(): void {
     this.deliveryService.getProducts().subscribe({
       next: (data) => {
         this.productos = data;
-        console.log('Productos cargados:', this.productos);
       },
       error: (err) => {
         console.error('Error al cargar productos:', err);
@@ -79,13 +77,13 @@ export class DeliveriesComponent   {
     // Agregar al detalle del pedido
     const precioTotal = this.cantidadDeseada * this.productoSeleccionado.price;
     this.detallePedido.push({
-      id: this.productoSeleccionado.id,
-      name: this.productoSeleccionado.name,
+      product_id: this.productoSeleccionado.id,
+      product_name: this.productoSeleccionado.name,
       quantity: this.cantidadDeseada,
-      unitPrice: this.productoSeleccionado.price,
-      total: precioTotal
+      price: this.productoSeleccionado.price,
+      subtotal: precioTotal,
+      status: 'empty'
     });
-    console.log('Detalle pedido actualizado:', this.detallePedido);
 
     // Limpiar selección
     this.cantidadDeseada = 0;
@@ -100,21 +98,18 @@ export class DeliveriesComponent   {
 
     this.detallePedido.map(producto => {
       this.order.items.push({
-        product_id: producto.id,
+        product_id: producto.product_id,
         quantity: producto.quantity
       })
     })
 
-    console.log('Pedido confirmado:', this.order);
-    console.log('Detalle pedido actualizado:', this.detallePedido);
     alert('¡Pedido confirmado con éxito!');
 
-    localStorage.setItem('order', JSON.stringify(this.detallePedido));
 
     this.deliveryService.addOrderToCart(this.order).subscribe(
       (response) => {
-        console.log('Pedido enviado:', response);
-        alert('Pedido enviado con éxito.');
+        localStorage.setItem('order', JSON.stringify(response.order));
+
         this.detallePedido = [];
         this.cantidadDeseada = 0;
         this.productoSeleccionado = null;
@@ -141,8 +136,7 @@ export class DeliveriesComponent   {
   }
 
   obtenerTotalPedido(): number {
-    const total = this.detallePedido.reduce((sum, item) => sum + Number(item.total), 0);
-    console.log('Total calculado:', total);
+    const total = this.detallePedido.reduce((sum, item) => sum + Number(item.subtotal), 0);
     return total;
   }
 
@@ -150,8 +144,5 @@ export class DeliveriesComponent   {
     this.terminoBusqueda = '';
   }
 
-  limpiarCantidad(): void {
-    this.cantidadDeseada = 0;
-  }
 
 }
