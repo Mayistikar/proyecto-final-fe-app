@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'client.order.confirmation-title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="order-confirmation-content">
+
+  <div class="order-confirmation ion-margin-bottom">
+
+    <div class="search-bar">
+      <input type="text" [placeholder]="'client.order.search' | translate" [(ngModel)]="terminoBusqueda" />
+      <button (click)="limpiarBusqueda()">x</button>
+    </div>
+
+    <div class="detalle-pedido">
+      <div class="detalle-pedido-header">
+        <label>{{ 'client.order.details' | translate }}</label>
+      </div>
+
+      <div class="item" *ngFor="let item of detalleFiltrado">
+        <div class="left-section">
+          <img src="assets/login-image.jpg" alt="{{ item.product_name }}" class="producto-imagen" />
+          <div class="producto-info">
+            <div class="producto-nombre">{{ item.product_name }}</div>
+            <div class="producto-cantidad">{{ 'client.order.quantity' | translate }}: {{ item.quantity }}</div>
+          </div>
+        </div>
+        <div class="precio">
+          <div>{{ 'client.order.subtotal' | translate  }}:</div>
+          <div>${{ item.subtotal }}</div>
+        </div>
+      </div>
+      <div class="total-pedido" *ngIf="detallePedido.length > 0">
+        <strong>{{ 'client.order.total' | translate }}: ${{ obtenerTotalPedido() }}</strong>
+      </div>
+    </div>
+
+  </div>
+
+
+  <button class="confirmar-orden" (click)="orderConfirmation()" [disabled]="detallePedido.length === 0">
+    {{ 'client.order.orderConfirmation' | translate }}
+  </button>
+
+
+</ion-content>

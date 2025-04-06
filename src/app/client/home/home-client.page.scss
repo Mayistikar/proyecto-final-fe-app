@@ -1,0 +1,59 @@
+ion-content {
+    --background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa toda la pantalla */
+    text-align: center;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+  
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+  
+.logo-container img {
+    width: 120px;
+    height: auto;
+}
+  
+.button-container {
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+ion-button {
+    width: 100%;
+    max-width: 300px; /* Ajuste para que los botones no sean demasiado grandes */
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+  
+  
+ion-toolbar {
+    --background: #007bff; /* Color de fondo del header */
+    --color: #fff; /* Color del texto del header */
+    text-align: center; /* Centra el texto (pero no funciona directamente en ion-title) */
+}
+  
+ion-title {
+    color: #fff; /* Hace que el texto sea blanco */
+    text-align: center; /* Asegura que el texto esté alineado */
+    width: 100%;
+    font-weight: bold;
+}

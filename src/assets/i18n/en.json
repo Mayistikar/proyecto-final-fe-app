@@ -1,0 +1,65 @@
+{
+  "common": {
+    "language": "en-EN"
+  },
+  "login": {
+    "title": "CCP STORE",
+    "language_switch": "ESP/ENG",
+    "username_label": "Username",
+    "password_label": "Password",
+    "login_button": "Login",
+    "register_button": "Register"
+  },
+  "seller": {
+    "home": {
+      "title": "CCP STORE SELLER",
+      "createOrder": "Create Order",
+      "assignedClients": "Assigned Clients",
+      "clientVisit": "Client Visit Registration",
+      "dailyRoute": "Daily Route",
+      "videoProcessing": "Video Processing",
+      "recommendations": "Recommendations"
+    },
+    "clientVisit": {
+      "title": "Client Visit Registration",
+      "visitDateTimeLabel": "Visit Date and Time",
+      "visitDateTimePlaceholder": "Enter Visit Date and Time",
+      "durationLabel": "Visit Duration",
+      "durationPlaceholder": "Enter duration in minutes",
+      "observationsLabel": "Observations",
+      "observationsPlaceholder": "Enter your observations",
+      "clientIdLabel": "Client Email",
+      "clientIdPlaceholder": "Enter client's email",
+      "resultsTitle": "Results",
+      "interestedButton": "Interested",
+      "notInterestedButton": "Not Interested",
+      "followUpButton": "Follow Up",
+      "syncButton": "Sync Registration",
+      "syncingButton": "Syncing Registration",
+        "syncSuccess": "Registration synced successfully",
+        "syncError": "Error syncing the registration"
+    }
+  },
+  "client": {
+    "home": {
+      "title": "CCP STORE CLIENT",
+      "createOrder": "Create Order",
+      "myOrders": "My Orders",
+      "orderStatus": "Order Status",
+      "deliveryTracking": "Delivery Tracking"
+    },
+    "order": {
+      "confirmation-title": "Confirm Order",
+      "creation-title": "Create Order",
+      "search": "Search",
+      "details": "Order Details",
+      "quantity": "Quantity",
+      "addProduct": "Add Product",
+      "orderCreation": "Buy",
+      "orderConfirmation": "Order Confirmation",
+      "stock": "Stock",
+      "total": "Total",
+      "subtotal": "Subtotal"
+    }
+  }
+}

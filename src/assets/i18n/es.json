@@ -1,0 +1,65 @@
+{
+  "common": {
+    "language": "es-ES"
+  },
+  "login": {
+    "title": "CCP STORE",
+    "language_switch": "ESP/ENG",
+    "username_label": "Usuario",
+    "password_label": "Contraseña",
+    "login_button": "Ingresar",
+    "register_button": "Registrarse"
+  },
+  "seller": {
+    "home": {
+      "title": "CCP STORE VENDEDOR",
+      "createOrder": "Crear Pedido",
+      "assignedClients": "Clientes Asignados",
+      "clientVisit": "Registro Visita Cliente",
+      "dailyRoute": "Ruta Diaria",
+      "videoProcessing": "Procesamiento Video",
+      "recommendations": "Recomendaciones"
+    },
+    "clientVisit": {
+      "title": "Registro de Visita a Cliente",
+      "visitDateTimeLabel": "Fecha y Hora de la visita",
+      "visitDateTimePlaceholder": "Ingrese su Fecha y Hora",
+      "durationLabel": "Duración de la visita",
+      "durationPlaceholder": "Ingrese duración en minutos",
+      "observationsLabel": "Observaciones",
+      "observationsPlaceholder": "Escriba sus observaciones",
+      "clientIdLabel": "Correo Cliente",
+      "clientIdPlaceholder": "Escriba el email del cliente",
+      "resultsTitle": "Resultados",
+      "interestedButton": "Interesado",
+      "notInterestedButton": "No Interesado",
+      "followUpButton": "Seguimiento",
+      "syncButton": "Sincronizar Registro",
+      "syncingButton": "Sincronizando Registro",
+      "syncSuccess": "Registro sincronizado con éxito",
+        "syncError": "Error al sincronizar el registro"
+    }
+  },
+  "client": {
+    "home": {
+      "title": "CCP STORE CLIENTE",
+      "createOrder": "Crear Pedido",
+      "myOrders": "Mis Pedidos",
+      "orderStatus": "Estado del Pedido",
+      "deliveryTracking": "Entregas Programadas"
+    },
+    "order": {
+      "confirmation-title": "Confirmar Orden",
+      "creation-title": "Crear Orden",
+      "search": "Buscar",
+      "details": "Detalles del Pedido",
+      "quantity": "Cantidad",
+      "addProduct": "Agregar Producto",
+      "orderCreation": "Comprar",
+      "orderConfirmation": "Confirmar Orden",
+      "stock": "Disponibles",
+      "total": "Total",
+      "subtotal": "Subtotal"
+    }
+  }
+}

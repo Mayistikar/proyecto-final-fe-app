@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'client.order.creation-title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="crear-pedido-content">
+
+  <div class="crear-pedido">
+    <div class="search-bar">
+      <input type="text" [placeholder]="'search' | translate" [(ngModel)]="terminoBusqueda" />
+      <button class="clear-search" (click)="limpiarBusqueda()">×</button>
+    </div>
+
+    <div class="productos-grid">
+      <div
+        class="producto"
+        *ngFor="let producto of productosFiltrados"
+        (click)="seleccionarProducto(producto)"
+        [class.seleccionado]="productoSeleccionado?.id === producto.id"
+      >
+        <div class="imagen-placeholder">
+          <img [src]="producto.image || 'assets/login-image.jpg'" alt="{{producto.name}}" class="producto-imagen-grid" />
+        </div>
+        <div class="info">
+          <span class="nombre">{{ producto.name }}</span>
+          <span class="stock">{{ 'client.order.stock' | translate }}: {{ producto.stock }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cantidad-deseada">
+      <label for="cantidad">{{ 'client.order.quantity' | translate }}:</label>
+      <input type="number" id="cantidad" name="cantidad" min="1" [(ngModel)]="cantidadDeseada" />
+      <button class="clear-cantidad">×</button>
+    </div>
+
+    <button class="agregar-producto" (click)="agregarProducto()">{{ 'client.order.addProduct' | translate }}</button>
+
+    <div class="detalle-pedido">
+      <div class="detalle-pedido-header">
+        <label for="cantidad">{{ 'client.order.details' | translate }}</label>
+      </div>
+
+      <div class="item" *ngFor="let item of detallePedido">
+        <div class="left-section">
+          <img src="assets/login-image.jpg" alt="{{ item.product_name }}" class="producto-imagen" />
+          <div class="producto-info">
+            <div class="producto-nombre">{{ item.product_name }}</div>
+            <div class="producto-cantidad">{{ 'client.order.quantity' | translate }}: {{ item.quantity }}</div>
+          </div>
+        </div>
+        <div class="precio">
+          <div>{{ 'client.order.subtotal' | translate }}:</div>
+          <div>${{ item.subtotal }}</div>
+        </div>
+      </div>
+      <div class="total-pedido" *ngIf="detallePedido.length > 0">
+        <strong>{{ 'client.order.total' | translate }}: ${{ obtenerTotalPedido() }}</strong>
+      </div>
+    </div>
+
+    <button class="confirmar-orden" (click)="confirmarOrden()" [disabled]="detallePedido.length === 0">
+      {{ 'client.order.orderCreation' | translate }}
+    </button>
+
+  </div>
+
+</ion-content>
+
+
+
