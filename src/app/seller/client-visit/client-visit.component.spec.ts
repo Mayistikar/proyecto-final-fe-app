@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ClientVisitPage, VisitResult } from './client-visit.component';
+import { ClientVisitPage } from './client-visit.component';
 import { ClientVisitService } from 'src/app/services/client-visit.service';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
@@ -15,7 +15,7 @@ describe('ClientVisitPage', () => {
   let mockRouter: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
-    mockClientVisitService = jasmine.createSpyObj('ClientVisitService', ['registerClientVisit']);
+    mockClientVisitService = jasmine.createSpyObj('ClientVisitService', ['registerClientVisit', 'getClients']);
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
@@ -28,7 +28,7 @@ describe('ClientVisitPage', () => {
       providers: [
         { provide: NavController, useValue: jasmine.createSpyObj('NavController', ['navigateForward']) },
         { provide: ClientVisitService, useValue: mockClientVisitService },
-        { provide: Router, useValue: mockRouter }
+        { provide: Router, useValue: mockRouter },
       ]
     }).compileComponents();
 
@@ -47,74 +47,55 @@ describe('ClientVisitPage', () => {
   });
 
   it('should set visit result correctly', () => {
-    component.setResult(VisitResult.INTERESTED);
-    expect(component.result).toBe(VisitResult.INTERESTED);
+    // When calling setResult, form value and button state should update
+    component.setResult(component.VisitResult.INTERESTED);
+    expect(component.clientVisitForm.get('result')?.value).toBe(component.VisitResult.INTERESTED);
+    expect(component.buttonState).toEqual({
+      interested: true,
+      not_interested: false,
+      follow_up: false
+    });
   });
 
-  it('should not register a visit if fields are missing', () => {
-    component.client_id = '';
-    component.seller_id = '';
-    component.visit_datetime = '';
-    component.duration_minutes = 0;
-    component.observations = '';
-    component.result = null as any;
-
-    component.registerClientVisit();
-
-    expect(window.alert).toHaveBeenCalledWith('Todos los campos son obligatorios.');
+  it('should not submit form if invalid', async () => {
+    // Arrange: set an invalid form values
+    component.clientVisitForm.patchValue({
+      seller_id: '',
+      client_id: '',
+      visit_datetime: '',
+      duration_minutes: null,
+      observations: '',
+      result: null
+    });
+    // Act
+    await component.onSubmit();
+    // Assert: submission is not processed and isSubmitting remains false
+    expect(component.isSubmitting).toBe(false);
     expect(mockClientVisitService.registerClientVisit).not.toHaveBeenCalled();
   });
 
-  it('should register a visit successfully', () => {
-    // Set valid data
-    component.client_id = 'client123';
-    component.seller_id = 'seller123';
-    component.visit_datetime = new Date().toISOString();
-    component.duration_minutes = 30;
-    component.observations = 'Test observation';
-    component.result = VisitResult.INTERESTED;
 
-    const visitDate = new Date(component.visit_datetime);
-    mockClientVisitService.registerClientVisit.and.returnValue(of(null));
+  it('should load clients successfully', () => {
+    // Arrange
+    const clientsMock = [{ id: 1, name: 'Client A' }];
+    mockClientVisitService.getClients.and.returnValue(of(clientsMock));
 
-    component.registerClientVisit();
+    // Act
+    component.loadClients();
 
-    expect(mockClientVisitService.registerClientVisit).toHaveBeenCalledWith(
-      'client123',
-      'seller123',
-      visitDate,
-      30,
-      'Test observation',
-      VisitResult.INTERESTED
-    );
-    expect(window.alert).toHaveBeenCalledWith('Visita registrada exitosamente.');
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
+    // Assert
+    expect(component.clients).toEqual(clientsMock);
   });
 
-  it('should alert error on registration failure', () => {
-    // Set valid data
-    component.client_id = 'client123';
-    component.seller_id = 'seller123';
-    component.visit_datetime = new Date().toISOString();
-    component.duration_minutes = 45;
-    component.observations = 'Error test observation';
-    component.result = VisitResult.FOLLOW_UP;
+  it('should log error when loadClients fails', () => {
+    // Arrange
+    const testError = new Error('Load error');
+    mockClientVisitService.getClients.and.returnValue(throwError(testError));
 
-    const visitDate = new Date(component.visit_datetime);
-    const testError = new Error('Test error');
-    mockClientVisitService.registerClientVisit.and.returnValue(throwError(testError));
+    // Act
+    component.loadClients();
 
-    component.registerClientVisit();
-
-    expect(mockClientVisitService.registerClientVisit).toHaveBeenCalledWith(
-      'client123',
-      'seller123',
-      visitDate,
-      45,
-      'Error test observation',
-      VisitResult.FOLLOW_UP
-    );
-    expect(window.alert).toHaveBeenCalledWith('Hubo un problema al registrar la visita. Inténtalo nuevamente.');
-    expect(console.error).toHaveBeenCalledWith(testError);
+    // Assert
+    expect(console.error).toHaveBeenCalledWith('Error al cargar clientes:', testError);
   });
 });

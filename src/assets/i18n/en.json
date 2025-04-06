@@ -1,4 +1,7 @@
 {
+  "common": {
+    "language": "en-EN"
+  },
   "login": {
     "title": "CCP STORE",
     "language_switch": "ESP/ENG",
@@ -31,7 +34,10 @@
       "interestedButton": "Interested",
       "notInterestedButton": "Not Interested",
       "followUpButton": "Follow Up",
-      "syncButton": "Sync Registration"
+      "syncButton": "Sync Registration",
+      "syncingButton": "Syncing Registration",
+        "syncSuccess": "Registration synced successfully",
+        "syncError": "Error syncing the registration"
     }
   }
 }

@@ -37,14 +37,7 @@ describe('ClientVisitService', () => {
       result: 'Seguimiento'
     };
 
-    service.registerClientVisit(
-      mockData.client_id,
-      mockData.seller_id,
-      mockData.visit_datetime,
-      mockData.duration_minutes,
-      mockData.observations,
-      mockData.result
-    ).subscribe({
+    service.registerClientVisit(mockData).subscribe({
       next: () => {
         fail('Esperaba que falle la solicitud');
       },

@@ -3,8 +3,11 @@ import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
 import { ClientVisitService } from 'src/app/services/client-visit.service';
-import { TranslatePipe } from "@ngx-translate/core";
+import { TranslatePipe, TranslateService } from "@ngx-translate/core";
 import {FormGroup, FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { firstValueFrom } from 'rxjs';
+
 
 export enum VisitResult {
   INTERESTED = 'interested',
@@ -22,22 +25,38 @@ export enum VisitResult {
     IonicModule,
     RouterModule,
     TranslatePipe,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class ClientVisitPage {
 
-  private clients: any[] = [];
+  clients: any[] = [];
   public VisitResult = VisitResult;
   public buttonState: { [key: string]: boolean } = {
     "interested": false,
     "not_interested": false,
-    "follow_up": false
+    "follow_up": true
   };
   public isSubmitting: boolean = false;
+  private spinner: any;
 
-  constructor(private clientVisitService: ClientVisitService, private router: Router) {
-    const seller_id:string = localStorage.getItem('seller_id') || '';
+  clientVisitForm = new FormGroup({
+    seller_id: new FormControl('', [Validators.required]),
+    client_id: new FormControl('', [Validators.required, Validators.email]),
+    visit_datetime: new FormControl(new Date().toISOString(), [Validators.required]),
+    duration_minutes: new FormControl(0, [Validators.required, Validators.min(1)]),
+    observations: new FormControl('', [Validators.required]),
+    result: new FormControl(VisitResult.NOT_INTERESTED, [Validators.required])
+  });
+
+
+  constructor(
+    private clientVisitService: ClientVisitService,
+    private router: Router,
+    public loadingController: LoadingController,
+    public toastController: ToastController,
+    public translateService: TranslateService) {
+    const seller_id:string = localStorage.getItem('user_email') || '';
     this.clientVisitForm.get('seller_id')?.setValue(seller_id)
     this.loadClients();
   }
@@ -53,15 +72,6 @@ export class ClientVisitPage {
       },
     });
   }
-
-  clientVisitForm = new FormGroup({
-    seller_id: new FormControl('', [Validators.required]),
-    client_id: new FormControl('', [Validators.required]),
-    visit_datetime: new FormControl(new Date().toISOString(), [Validators.required]),
-    duration_minutes: new FormControl(0, [Validators.required, Validators.min(1)]),
-    observations: new FormControl('', [Validators.required]),
-    result: new FormControl(VisitResult.NOT_INTERESTED, [Validators.required])
-  });
 
   get seller_id() {
     return this.clientVisitForm.get('seller_id')!;
@@ -96,7 +106,7 @@ export class ClientVisitPage {
     };
   }
 
-  onSubmit() {
+  async  onSubmit() {
     console.log('Submit button clicked');
     console.log(this.clientVisitForm.getRawValue());
 
@@ -108,18 +118,45 @@ export class ClientVisitPage {
 
     this.isSubmitting = true;
 
-    const payload = this.clientVisitForm.getRawValue();
+    const loadingMessage = await firstValueFrom(this.translateService.get('seller.clientVisit.syncingButton'));
+    await this.presentSpinner(loadingMessage);
 
+    const payload = this.clientVisitForm.getRawValue();
     this.clientVisitService.registerClientVisit(payload).subscribe({
       next: () => {
-        alert('Visita registrada exitosamente.');
+        this.translateService.get('seller.clientVisit.syncSuccess').subscribe(text => {
+          this.presentToast(text, 'top');
+        });
+        this.isSubmitting = false;
+        this.spinner.dismiss();
         this.router.navigate(['/home']);
       },
       error: (err) => {
-        alert('Hubo un problema al registrar la visita. Inténtalo nuevamente.');
+        this.translateService.get('seller.clientVisit.syncError').subscribe(text => {
+          this.presentToast(text, 'top');
+        });
+        this.isSubmitting = false;
+        this.spinner.dismiss();
         console.error(err);
       },
     });
+  }
+
+  async presentToast(message: string, position: any) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: position || 'top',
+    });
+
+    await toast.present();
+  }
+
+  async presentSpinner(message: string) {
+    this.spinner = await this.loadingController.create({
+      message: message,
+    });
+    await  this.spinner.present();
   }
 
 }
