@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'seller.clientVisit.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="order-confirmation-content">
+
+  <div class="order-confirmation">
+
+
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar productos" [(ngModel)]="terminoBusqueda" />
+      <button (click)="limpiarBusqueda()">x</button>
+    </div>
+
+
+
+
+
+
+    <div class="detalle-pedido">
+      <div class="detalle-pedido-header">
+        <label for="cantidad">Detalle del pedido</label>
+      </div>
+
+      <div class="item" *ngFor="let item of detalleFiltrado">
+        <div class="left-section">
+          <img src="assets/login-image.jpg" alt="{{ item.nombre }}" class="producto-imagen" />
+          <div class="producto-info">
+            <div class="producto-nombre">{{ item.nombre }}</div>
+            <div class="producto-cantidad">Cantidad: {{ item.cantidad }}</div>
+          </div>
+        </div>
+        <div class="precio">
+          <div>Precio total :</div>
+          <div>${{ item.precioTotal }}</div>
+        </div>
+      </div>
+      <div class="total-pedido" *ngIf="detallePedido.length > 0">
+        <strong>Total del pedido: ${{ obtenerTotalPedido() }}</strong>
+      </div>
+    </div>
+
+
+    <footer class="footer">
+      <span>Inicio</span>
+      <span>Pedidos</span>
+    </footer>
+  </div>
+
+</ion-content>

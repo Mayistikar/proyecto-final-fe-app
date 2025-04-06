@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { DeliveriesService } from 'src/app/services/deliveries.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-deliveries',
@@ -13,7 +14,7 @@ import { DeliveriesService } from 'src/app/services/deliveries.service';
 })
 export class DeliveriesComponent   {
 
-  constructor(private deliveryService : DeliveriesService) {
+  constructor(private deliveryService : DeliveriesService, private router: Router) {
     this.cargarProductos();
   }
 
@@ -94,11 +95,18 @@ export class DeliveriesComponent   {
     console.log('Pedido confirmado:', this.detallePedido);
     alert('¡Pedido confirmado con éxito!');
 
+    // Guardar el detalle del pedido en localStorage
+    localStorage.setItem('detallePedidoConfirmado', JSON.stringify(this.detallePedido));
+
+    // Opcional: navegar a la página de confirmación
+    this.router.navigate(['/order-confirmation']); // Asegúrate que la ruta existe
+
     // Reiniciar
     this.detallePedido = [];
     this.cantidadDeseada = 0;
     this.productoSeleccionado = null;
   }
+
 
   // Filtrado de productos según término
   get productosFiltrados() {
