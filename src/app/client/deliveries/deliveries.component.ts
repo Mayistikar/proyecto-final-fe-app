@@ -2,40 +2,45 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { DeliveriesService } from 'src/app/services/deliveries.service';
+import {DeliveriesService, Product, Order, OrderItem, ProductAdded} from 'src/app/services/deliveries.service';
 import { Router } from '@angular/router';
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-deliveries',
   templateUrl: './deliveries.component.html',
   styleUrls: ['./deliveries.component.scss'],
   standalone: true,
-  imports: [CommonModule,FormsModule, IonicModule],
+  imports: [CommonModule, FormsModule, IonicModule, TranslateModule],
 })
 export class DeliveriesComponent   {
 
+  order : Order = {
+    id: '',
+    client_id: '',
+    seller_id: '',
+    items: []
+  }
   constructor(private deliveryService : DeliveriesService, private router: Router) {
+    this.order.client_id = <string>localStorage.getItem('user_id');
+    this.order.seller_id = <string>localStorage.getItem('user_id');
     this.cargarProductos();
   }
 
-  productos: any[] = [];
-
-
-
+  productos: Product[] = [];
 
   // Variables de control
   cantidadDeseada: number = 0;
   productoSeleccionado: any = null;
-  detallePedido: any[] = [];
+  detallePedido: ProductAdded[] = [];
 
   // Búsqueda
   terminoBusqueda: string = '';
 
   // Seleccionar producto desde el card
-  seleccionarProducto(producto: any): void {
+  seleccionarProducto(producto: Product): void {
     this.productoSeleccionado = producto;
     this.cantidadDeseada = 0;
-    console.log('Producto seleccionado:', producto);
   }
 
   cargarProductos(): void {
@@ -70,43 +75,54 @@ export class DeliveriesComponent   {
     this.productoSeleccionado.stock -= this.cantidadDeseada;
 
     // Agregar al detalle del pedido
-    const precioTotal = this.cantidadDeseada * this.productoSeleccionado.precio;
+    const precioTotal = this.cantidadDeseada * this.productoSeleccionado.price;
     this.detallePedido.push({
-      id: this.productoSeleccionado.id,
-      nombre: this.productoSeleccionado.nombre,
-      cantidad: this.cantidadDeseada,
-      precioUnitario: this.productoSeleccionado.precio,
-      precioTotal: precioTotal
+      product_id: this.productoSeleccionado.id,
+      product_name: this.productoSeleccionado.name,
+      quantity: this.cantidadDeseada,
+      price: this.productoSeleccionado.price,
+      subtotal: precioTotal,
+      status: 'empty'
     });
-    console.log('Detalle pedido actualizado:', this.detallePedido);
 
     // Limpiar selección
     this.cantidadDeseada = 0;
     this.productoSeleccionado = null;
   }
 
-  // Confirmar orden (podrías aquí enviar al backend)
-  confirmarOrden(): void {
+  confirmarOrden(): void{
     if (this.detallePedido.length === 0) {
       alert('Agrega productos al pedido antes de confirmar.');
       return;
     }
 
-    console.log('Pedido confirmado:', this.detallePedido);
+    this.detallePedido.map(producto => {
+      this.order.items.push({
+        product_id: producto.product_id,
+        quantity: producto.quantity
+      })
+    })
+
     alert('¡Pedido confirmado con éxito!');
 
-    // Guardar el detalle del pedido en localStorage
-    localStorage.setItem('detallePedidoConfirmado', JSON.stringify(this.detallePedido));
 
-    // Opcional: navegar a la página de confirmación
-    this.router.navigate(['/order-confirmation']); // Asegúrate que la ruta existe
+    this.deliveryService.addOrderToCart(this.order).subscribe(
+      (response) => {
+        localStorage.setItem('order', JSON.stringify(response.order));
 
-    // Reiniciar
-    this.detallePedido = [];
-    this.cantidadDeseada = 0;
-    this.productoSeleccionado = null;
+        this.detallePedido = [];
+        this.cantidadDeseada = 0;
+        this.productoSeleccionado = null;
+        this.order.items = [];
+        this.router.navigate(['/order-confirmation']);
+      },
+      (error) => {
+        console.error('Error al enviar el pedido:', error);
+        alert('Error al enviar el pedido.');
+      }
+    );
+    return;
   }
-
 
   // Filtrado de productos según término
   get productosFiltrados() {
@@ -115,25 +131,18 @@ export class DeliveriesComponent   {
     }
 
     return this.productos.filter(p =>
-      p.nombre.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+      p.name.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
     );
   }
+
   obtenerTotalPedido(): number {
-    const total = this.detallePedido.reduce((sum, item) => sum + Number(item.precioTotal), 0);
-    console.log('Total calculado:', total);
+    const total = this.detallePedido.reduce((sum, item) => sum + Number(item.subtotal), 0);
     return total;
   }
-
-
-
-
 
   limpiarBusqueda(): void {
     this.terminoBusqueda = '';
   }
 
-  limpiarCantidad(): void {
-    this.cantidadDeseada = 0;
-  }
 
 }

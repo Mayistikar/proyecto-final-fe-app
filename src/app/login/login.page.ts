@@ -42,7 +42,10 @@ export class LoginPage {
       return;
     }
 
+
     await this.presentSpinner('Iniciando sesión...');
+
+
 
     this.loginClientService.loginClient(this.email, this.password).subscribe({
       next: async () => {

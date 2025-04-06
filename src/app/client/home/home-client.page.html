@@ -1,21 +1,20 @@
 <ion-header>
     <ion-toolbar color="primary">
-      <ion-title class="title">CCP STORE CLIENTES</ion-title>
+      <ion-title class="title">{{ 'client.home.title' | translate}}</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-content>
     <div class="content-container">
       <div class="logo-container">
         <img src="assets/login-image.jpg" alt="Logo CCP Store" />
       </div>
-  
+
       <div class="button-container">
-        <ion-button expand="block">Crear Pedido</ion-button>
-        <ion-button expand="block">Mis Pedidos</ion-button>
-        <ion-button expand="block">Estado de Pedidos</ion-button>
-        <ion-button expand="block">Entregas Programadas</ion-button>
+        <ion-button expand="block" [routerLink]="['/deliveries']" routerLinkActive="router-link-active">{{ 'client.home.createOrder' | translate }}</ion-button>
+        <ion-button expand="block">{{ 'client.home.myOrders' | translate }}</ion-button>
+        <ion-button expand="block">{{ 'client.home.orderStatus' | translate }}</ion-button>
+        <ion-button expand="block">{{ 'client.home.deliveryTracking' | translate }}</ion-button>
       </div>
     </div>
 </ion-content>
-  

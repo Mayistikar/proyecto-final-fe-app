@@ -39,5 +39,27 @@
       "syncSuccess": "Registro sincronizado con éxito",
         "syncError": "Error al sincronizar el registro"
     }
+  },
+  "client": {
+    "home": {
+      "title": "CCP STORE CLIENTE",
+      "createOrder": "Crear Pedido",
+      "myOrders": "Mis Pedidos",
+      "orderStatus": "Estado del Pedido",
+      "deliveryTracking": "Entregas Programadas"
+    },
+    "order": {
+      "confirmation-title": "Confirmar Orden",
+      "creation-title": "Crear Orden",
+      "search": "Buscar",
+      "details": "Detalles del Pedido",
+      "quantity": "Cantidad",
+      "addProduct": "Agregar Producto",
+      "orderCreation": "Comprar",
+      "orderConfirmation": "Confirmar Orden",
+      "stock": "Disponibles",
+      "total": "Total",
+      "subtotal": "Subtotal"
+    }
   }
 }
