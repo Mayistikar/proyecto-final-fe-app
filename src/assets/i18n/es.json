@@ -50,8 +50,16 @@
     },
     "order": {
       "confirmation-title": "Confirmar Orden",
+      "creation-title": "Crear Orden",
       "search": "Buscar",
-      "details": "Detalles del Pedido"
+      "details": "Detalles del Pedido",
+      "quantity": "Cantidad",
+      "addProduct": "Agregar Producto",
+      "orderCreation": "Comprar",
+      "orderConfirmation": "Confirmar Orden",
+      "stock": "Disponibles",
+      "total": "Total",
+      "subtotal": "Subtotal"
     }
   }
 }
