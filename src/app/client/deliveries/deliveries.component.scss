@@ -1,0 +1,317 @@
+ion-header {
+  ion-toolbar {
+    background: linear-gradient(to right, #007bff, #0056b3) !important;
+    color: white !important;
+    --background: none;
+  }
+}
+
+/* Estilos del encabezado */
+.crear-pedido {
+  font-family: sans-serif;
+  padding: 1rem;
+
+  // .header {
+  //   display: flex;
+  //   align-items: center;
+  //   gap: 1rem;
+  //   background-color: #416375;
+  //   color: white;
+  //   padding: 1rem;
+  //   border-radius: 0.5rem;
+
+  //   .back-button {
+  //     background: none;
+  //     border: none;
+  //     color: white;
+  //     font-size: 1.5rem;
+  //   }
+
+  //   h1 {
+  //     font-size: 1.2rem;
+  //     margin: 0;
+  //   }
+  // }
+
+  // .search-bar {
+  //   display: flex;
+  //   margin: 1rem 0;
+  //   color: #ffffff;
+
+  //   input {
+  //     flex: 1;
+  //     padding: 0.5rem;
+  //     border: 1px solid #ccc;
+  //     border-radius: 0.5rem 0 0 0.5rem;
+  //     color: #ffffff;
+  //   }
+
+  //   .clear-search {
+  //     background-color: #eee;
+  //     border: none;
+  //     padding: 0.5rem 1rem;
+  //     border-radius: 0 0.5rem 0.5rem 0;
+  //   }
+  // }
+  .search-bar {
+    display: flex;
+    margin: 1rem 0;
+    color: #ffffff;
+
+    input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem 0 0 0.5rem;
+      color: black; // texto que escribe el usuario
+      background-color: #ffffff; // opcional: para que combine con el dark theme
+
+      &::placeholder {
+        color: black; // ← esto es lo que te falta
+        opacity: 1;     // ← para asegurar que se vea blanco
+      }
+    }
+
+    .clear-search {
+      background-color: #eee;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+  }
+
+
+  .productos-grid {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    scroll-snap-type: x mandatory;
+
+    .producto {
+      flex: 0 0 auto;
+      width: 180px;
+      background-color: #f1f1f1;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      scroll-snap-align: start;
+
+      .imagen-placeholder {
+        img {
+          // Estilos directamente al <img> dentro del contenedor
+          max-width: 100%;
+          height: auto;
+          object-fit: cover;
+          border-radius: 0.75rem;
+        }
+      }
+
+      .info {
+        .nombre,
+        .stock {
+          display: block;
+          color: black;
+          font-size: 0.9rem;
+        }
+      }
+
+    }
+  }
+
+  // .cantidad-deseada {
+  //   display: flex;
+  //   align-items: center;
+  //   gap: 0.5rem;
+  //   border-bottom: 1px solid #ccc;
+  //   padding-bottom: 0.5rem;
+  //   margin-bottom: 1rem;
+  //   color: black;
+
+  //   input{
+  //     background-color: white;
+  //   }
+
+  //   .clear-cantidad {
+  //     background: none;
+  //     border: none;
+  //     font-size: 1.2rem;
+  //     color: black;
+  //   }
+  // }
+
+  .cantidad-deseada {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    color: black;
+
+    input {
+      background-color: transparent; // ← hace el input transparente
+      border: none; // opcional: quita el borde
+      color: black; // asegúrate que el texto sea visible
+      font-size: 1rem; // opcional
+      outline: none; // opcional: quita el borde azul al hacer focus
+    }
+
+    .clear-cantidad {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: black;
+      cursor: pointer;
+    }
+  }
+
+
+  .agregar-producto {
+    width: 100%;
+    background-color: #0288d1;
+    color: white;
+    padding: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .detalle-pedido {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+
+
+    label {
+      font-size: 1rem;
+      // margin-bottom: 1rem black 1px ;
+      color: black;
+      // border-bottom: 1px solid black;
+    }
+
+    .detalle-pedido-header{
+      margin-bottom: 1px solid black;
+      color: black;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 4px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #ccc;
+
+      .producto-nombre {
+        color: #0288d1;
+        font-weight: 500;
+      }
+
+      .producto-cantidad,
+      .precio {
+        font-size: 0.9rem;
+        color: black;
+      }
+    }
+  }
+
+  .confirmar-orden {
+    width: 100%;
+    background-color: #0288d1;
+    color: white;
+    padding: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem 0;
+    color: #666;
+    font-weight: bold;
+  }
+}
+
+.crear-pedido-content {
+  --background: transparent !important;
+  background: transparent !important;
+
+  // En modo oscuro también se debe forzar el fondo
+  ion-content {
+    --background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  // Y para modo oscuro explícitamente:
+  @media (prefers-color-scheme: dark) {
+    & {
+      --background: transparent !important;
+      background-color: transparent !important;
+    }
+  }
+}
+
+.crear-pedido-content {
+  --ion-background-color: #ffffff !important;
+  --ion-background-color-rgb: 255, 255, 255 !important;
+  background-color: #ffffff !important;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Alinea verticalmente todo al centro */
+  padding: 0.5rem 0;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  flex-shrink: 1;
+}
+
+.producto-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.producto-imagen {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+}
+
+.precio {
+  text-align: right;
+  white-space: nowrap; /* Esto evita que el texto se parta en varias líneas */
+  font-size: 0.9rem;
+}
+
+.producto.seleccionado {
+  border: 2px solid #3880ff;
+  background-color: #e0f0ff;
+  border-radius: 10px;
+}
+
+.total-pedido {
+  font-size: 18px;
+  margin-top: 10px;
+  color: black; /* Asegúrate de que no esté en blanco */
+  display: block; /* No display: none */
+}
+
+
+
+
+
