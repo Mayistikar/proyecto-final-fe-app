@@ -11,8 +11,8 @@
 
   <div class="crear-pedido">
     <div class="search-bar">
-      <input type="text" placeholder="Buscar productos" />
-      <button class="clear-search">×</button>
+      <input type="text" placeholder="Buscar productos" [(ngModel)]="terminoBusqueda" />
+      <button class="clear-search" (click)="limpiarBusqueda()">×</button>
     </div>
 
     <!-- <div class="productos-grid">
@@ -174,7 +174,9 @@
     </div>
 
 
-    <button class="confirmar-orden">Confirmar Orden</button>
+    <button class="confirmar-orden" (click)="confirmarOrden()" [disabled]="detallePedido.length === 0">
+      Confirmar Orden
+    </button>
 
     <footer class="footer">
       <span>Inicio</span>

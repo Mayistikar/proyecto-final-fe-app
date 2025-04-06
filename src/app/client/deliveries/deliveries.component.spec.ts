@@ -19,7 +19,7 @@ describe('DeliveriesComponent', () => {
     const spy = jasmine.createSpyObj('DeliveriesService', ['getProducts']);
 
     await TestBed.configureTestingModule({
-      imports: [DeliveriesComponent, HttpClientTestingModule], // 👈 Aquí
+      imports: [DeliveriesComponent, HttpClientTestingModule],
       providers: [
         { provide: DeliveriesService, useValue: spy }
       ]
