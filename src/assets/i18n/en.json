@@ -8,7 +8,13 @@
     "username_label": "Username",
     "password_label": "Password",
     "login_button": "Login",
-    "register_button": "Register"
+    "register_button": "Register",
+    "fields_required": "All fields are required.",
+    "loading": "Logging in...",
+    "success": "Login successful.",
+    "invalid_credentials": "Invalid credentials. Please try again.",
+    "unknown_role": "Unrecognized role.",
+    "close": "Close"
   },
   "seller": {
     "home": {
