@@ -8,7 +8,13 @@
     "username_label": "Usuario",
     "password_label": "Contraseña",
     "login_button": "Ingresar",
-    "register_button": "Registrarse"
+    "register_button": "Registrarse",
+    "fields_required": "Todos los campos son obligatorios.",
+    "loading": "Iniciando sesión...",
+    "success": "Inicio de sesión exitoso.",
+    "invalid_credentials": "Credenciales incorrectas. Inténtalo nuevamente.",
+    "unknown_role": "Rol no reconocido.",
+    "close": "Cerrar"
   },
   "seller": {
     "home": {
