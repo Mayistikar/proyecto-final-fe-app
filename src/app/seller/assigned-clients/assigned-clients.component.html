@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Clientes Asignados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card class="search-bar">
+    <ion-item lines="none">
+      <ion-icon name="search-outline" slot="start"></ion-icon>
+      <ion-input placeholder="Buscar Clientes" [(ngModel)]="searchText"></ion-input>
+      <ion-icon name="close-outline" slot="end" (click)="clearSearch()"></ion-icon>
+    </ion-item>
+  </ion-card>
+
+  <ion-label class="section-title">Lista de Clientes</ion-label>
+
+  <ion-list>
+    <ion-item *ngFor="let cliente of clientesFiltrados()">
+      <ion-avatar slot="start">
+        <ion-icon name="person-circle-outline" class="avatar-icon"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2 class="nombre">{{ cliente.nombre }}</h2>
+        <p>{{ cliente.direccion }}</p>
+      </ion-label>
+      <ion-note slot="end">{{ cliente.telefono }}</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <div class="extra-notes">
+    <ion-label class="notas-title">Notas adicionales</ion-label>
+    <p class="nota">Nota 1</p>
+  </div>
+
+  <ion-button expand="block" class="update-button" (click)="actualizarLista()">Actualizar Lista</ion-button>
+
+</ion-content>
+
