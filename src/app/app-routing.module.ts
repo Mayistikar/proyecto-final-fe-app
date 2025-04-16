@@ -51,6 +51,10 @@ const routes: Routes = [
     loadComponent: () => import('./seller/assigned-clients/assigned-clients.component').then( m => m.AssignedClientsComponent),
     // canActivate: [RoleGuard],
     // data: { expectedRole: 'seller' } // Rol esperado para esta ruta
+  },
+  {
+    path: 'seller-client-assignment',
+    loadComponent: () => import('./seller/seller-client-assignment/seller-client-assignment.component').then(m => m.SellerClientAssignmentComponent)
   }
 ];
 

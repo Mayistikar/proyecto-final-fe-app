@@ -25,17 +25,32 @@
         <ion-icon name="person-circle-outline" class="avatar-icon"></ion-icon>
       </ion-avatar>
       <ion-label>
-        <h2 class="nombre">{{ cliente.nombre }}</h2>
-        <p>{{ cliente.direccion }}</p>
+        <h2 class="nombre">{{ cliente.name }}</h2>
+        <p>{{ cliente.address }}</p>
       </ion-label>
-      <ion-note slot="end">{{ cliente.telefono }}</ion-note>
+      <ion-note slot="end">{{ cliente.phone }}</ion-note>
     </ion-item>
   </ion-list>
 
-  <div class="extra-notes">
+  <!-- <div class="extra-notes">
     <ion-label class="notas-title">Notas adicionales</ion-label>
     <p class="nota">Nota 1</p>
+    <ion-input placeholder="Notas generales de clientes"></ion-input>
+    <ion-button expand="block" class="update-button" >Guardar</ion-button>
+  </div> -->
+
+  <div class="extra-notes">
+    <ion-label class="notas-title">Notas adicionales</ion-label>
+
+    <p class="nota">Nota 1</p>
+    <div class="notas-row">
+      <ion-input placeholder="Notas generales de clientes"></ion-input>
+      <ion-button expand="block" class="update-button">Guardar</ion-button>
+    </div>
+
+
   </div>
+
 
   <ion-button expand="block" class="update-button" (click)="actualizarLista()">Actualizar Lista</ion-button>
 

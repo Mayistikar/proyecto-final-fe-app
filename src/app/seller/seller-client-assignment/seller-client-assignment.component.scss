@@ -1,3 +1,75 @@
+.search-box {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 16px 0 10px 8px;
+  color: #1a237e;
+}
+
+.nombre {
+  font-weight: bold;
+  font-size: 16px;
+  color: #1a237e;
+  margin-bottom: 4px;
+}
+
+ion-item {
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.assign-button {
+  margin-top: 24px;
+  border-radius: 10px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+ion-icon{
+  color: black;
+}
+
+ion-input{
+  background-color: #ffffff;
+  color: black;
+  // border: 1px solid #ccc;
+}
+
+ion-list{
+  background-color: #ffffff;
+}
+
+ion-label{
+  background-color: #ffffff;
+}
+
+ion-item {
+  background-color: #ffffff;
+  --background:#ffffff ;
+}
+
+ion-title{
+  color: white;
+}
+
+
+
+.update-button {
+  white-space: nowrap; /* para que el botón no se parta en dos líneas */
+}
+
+ion-back-button{
+  color: #ffffff;
+}
+
 .search-bar {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -28,22 +100,7 @@ ion-note {
   color: #555;
 }
 
-.extra-notes {
-  margin-top: 20px;
-  padding: 0 8px;
-}
 
-.notas-title {
-  font-weight: bold;
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-
-.nota {
-  margin-top: 2px;
-  font-size: 14px;
-  color: #444;
-}
 
 .update-button {
   margin-top: 24px;
@@ -88,6 +145,7 @@ ion-input{
 
 ion-list{
   background-color: #ffffff;
+  color: black ;
 }
 
 ion-label{
@@ -103,15 +161,7 @@ ion-title{
   color: white;
 }
 
-.notas-row {
-  display: flex;
-  gap: 8px; /* espacio entre el input y el botón */
-  align-items: center;
-}
 
-.notas-row ion-input {
-  flex: 1; /* para que el input tome el espacio restante */
-}
 
 .update-button {
   white-space: nowrap; /* para que el botón no se parta en dos líneas */
@@ -120,6 +170,5 @@ ion-title{
 ion-back-button{
   color: #ffffff;
 }
-
 
 

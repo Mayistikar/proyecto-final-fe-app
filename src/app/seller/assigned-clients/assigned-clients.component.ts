@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from "@ngx-translate/core";
-import { ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
+import { AssignedClientsService } from 'src/app/services/assigned-clients.service'; // Asegúrate que el path sea correcto
 
 @Component({
   selector: 'app-assigned-clients',
@@ -25,24 +22,35 @@ import { FormsModule } from '@angular/forms';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AssignedClientsComponent   {
+export class AssignedClientsComponent implements OnInit {
 
   searchText: string = '';
+  clients: any[] = [];
 
-  clientes = [
-    { nombre: 'Juan Perez', direccion: 'Av. Principal 123', telefono: '123-456-789' },
-    { nombre: 'María Rodriguez', direccion: 'Calle secundaria 545', telefono: '945-564-524' },
-    { nombre: 'María Rodriguez', direccion: 'Calle secundaria 545', telefono: '945-564-524' },
-    { nombre: 'María Rodriguez', direccion: 'Calle secundaria 545', telefono: '945-564-524' },
-  ];
+  constructor(private assignedClientsService: AssignedClientsService) {}
 
-  clientesFiltrados() {
-    if (!this.searchText) return this.clientes;
-    return this.clientes.filter(c =>
-      c.nombre.toLowerCase().includes(this.searchText.toLowerCase())
-    );
+  ngOnInit(): void {
+    this.chargeClients();
   }
 
+  chargeClients(): void {
+    this.assignedClientsService.getAssinedClients().subscribe({
+      next: (data: any[]) => {
+        this.clients = data;
+        console.log('Clientes cargados:', this.clients);
+      },
+      error: (err: any) => {
+        console.error('Error al cargar clientes:', err);
+      }
+    });
+  }
+
+  clientesFiltrados() {
+    if (!this.searchText) return this.clients;
+    return this.clients.filter((c: any) =>
+      c.name.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+  }
 
   clearSearch() {
     this.searchText = '';
@@ -50,6 +58,6 @@ export class AssignedClientsComponent   {
 
   actualizarLista() {
     console.log('Actualizar lista...');
-    // Aquí iría tu lógica real para recargar datos
   }
 }
+
