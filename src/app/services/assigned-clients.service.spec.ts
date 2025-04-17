@@ -1,44 +1,48 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AssignedClientsComponent } from '../seller/assigned-clients/assigned-clients.component';
-import { AssignedClientsService, AssignedClient } from './assigned-clients.service';
-import { of } from 'rxjs';
+import { AssignedClientsService } from "./assigned-clients.service";
+import { TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
 
-describe('AssignedClientsComponent', () => {
-  let component: AssignedClientsComponent;
-  let fixture: ComponentFixture<AssignedClientsComponent>;
-  let assignedClientsService: AssignedClientsService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AssignedClientsComponent, HttpClientTestingModule], // Import the component and HttpClientTestingModule
-      providers: [AssignedClientsService],
-    }).compileComponents();
 
-    fixture = TestBed.createComponent(AssignedClientsComponent);
-    component = fixture.componentInstance;
-    assignedClientsService = TestBed.inject(AssignedClientsService);
-    fixture.detectChanges();
+
+describe('AssingedClientService()', () => {
+  let service: AssignedClientsService;
+  let httpMock : HttpTestingController;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [AssignedClientsService]
+    });
+    service = TestBed.inject(AssignedClientsService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  afterEach(() => {
+    httpMock.verify();
   });
 
-  it('should fetch assigned clients', () => {
-    const dummyClients: AssignedClient[] = [
+  it('should get all assined clients', () => {
+    const dummyClients = [
       { id: '1', name: 'Client A', address: 'clientA@example.com', phone: '123456789' },
       { id: '2', name: 'Client B', address: 'clientB@example.com', phone: '987654321' },
     ];
 
-    spyOn(assignedClientsService, 'getAssinedClients').and.returnValue(of(dummyClients));
+    service.getAssinedClients().subscribe((clients) => {
+      expect(clients).toEqual(dummyClients);
+      expect(clients.length).toBe(2);
+    });
 
-    component.ngOnInit();
-
-    expect(component.clients).toEqual(dummyClients);
-    expect(assignedClientsService.getAssinedClients).toHaveBeenCalled();
+    const req = httpMock.expectOne('https://67e8565920e3af747c4108d1.mockapi.io/api/v1/clients');
+    expect(req.request.method).toBe('GET');
+    req.flush(dummyClients);
   });
+
+
+
+  
 });
+
 
 
 

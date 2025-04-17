@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { SellerClientAssignmentComponent } from './seller-client-assignment.component';
 
@@ -8,7 +9,7 @@ describe('SellerClientAssignmentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [SellerClientAssignmentComponent],
+      imports: [SellerClientAssignmentComponent, HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SellerClientAssignmentComponent);
