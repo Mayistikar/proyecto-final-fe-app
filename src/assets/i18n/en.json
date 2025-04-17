@@ -18,7 +18,8 @@
       "clientVisit": "Client Visit Registration",
       "dailyRoute": "Daily Route",
       "videoProcessing": "Video Processing",
-      "recommendations": "Recommendations"
+      "recommendations": "Recommendations",
+      "clientAssignmentTitle": "Client Assignment"
     },
     "clientVisit": {
       "title": "Client Visit Registration",

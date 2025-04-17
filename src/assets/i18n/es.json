@@ -18,7 +18,8 @@
       "clientVisit": "Registro Visita Cliente",
       "dailyRoute": "Ruta Diaria",
       "videoProcessing": "Procesamiento Video",
-      "recommendations": "Recomendaciones"
+      "recommendations": "Recomendaciones",
+      "clientAssignmentTitle": "Asignación de Clientes"
     },
     "clientVisit": {
       "title": "Registro de Visita a Cliente",
