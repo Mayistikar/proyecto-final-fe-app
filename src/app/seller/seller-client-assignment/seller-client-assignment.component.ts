@@ -85,7 +85,6 @@ export class SellerClientAssignmentComponent implements OnInit {
   asignarClientesSeleccionados(): void {
     const seleccionados = this.clients.filter(c => c.selected);
     console.log('Clientes seleccionados para asignar:', seleccionados);
-    // Aquí puedes llamar al servicio para guardar la asignación
   }
 
   updateClients(): void {

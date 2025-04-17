@@ -20,7 +20,7 @@ describe('AssignedClientsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Tests para clientesFiltrados()
+  
   describe('clientesFiltrados', () => {
     beforeEach(() => {
       // Configuramos datos de prueba para los clientes
@@ -78,10 +78,10 @@ describe('AssignedClientsComponent', () => {
       // Crear un espía para console.log
       spyOn(console, 'log');
       
-      // Llamar a la función que queremos probar
+      
       component.actualizarLista();
       
-      // Verificar que console.log fue llamado con el mensaje esperado
+      
       expect(console.log).toHaveBeenCalledWith('Actualizar lista...');
     });
   });

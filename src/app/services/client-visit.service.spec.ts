@@ -70,13 +70,13 @@ describe('ClientVisitService', () => {
       }
     });
     
-    // Simular una respuesta de error desde el servidor
+    
     const req = httpMock.expectOne(`${service['apiUrl']}/api/visits/seller/vendedor_authorized@example.com`);
     req.error(new ErrorEvent('Network error'));
   });
 
   it('should handle errors when registering a client visit', () => {
-    // Crear un espía para console.error
+    
     spyOn(console, 'error');
     
     const dummyPayload = {
