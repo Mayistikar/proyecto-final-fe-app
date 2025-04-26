@@ -75,7 +75,7 @@ describe('AssignedClientsComponent', () => {
 
   describe('actualizarLista', () => {
     it('should log a message to console when called', () => {
-      // Crear un espía para console.log
+      
       spyOn(console, 'log');
       
       
@@ -88,23 +88,23 @@ describe('AssignedClientsComponent', () => {
 
   describe('guardarNota', () => {
     it('should add a new note and save to localStorage', () => {
-      // Establecer una nueva nota
+      
       component.generalNote = 'Nueva nota';
-      spyOn(localStorage, 'setItem'); // Espiar el método setItem de localStorage
+      spyOn(localStorage, 'setItem'); 
 
       // Llamar al método
       component.guardarNota();
 
-      // Verificar que la nota se agregó y se guardó en localStorage
+      
       expect(component.generalNotesList).toContain('Nueva nota');
       expect(localStorage.setItem).toHaveBeenCalledWith('notasGeneralesClientes', JSON.stringify(component.generalNotesList));
       expect(component.generalNote).toBe('');
     });
 
     it('should not add an empty note', () => {
-      // Establecer una nota vacía
+      
       component.generalNote = '';
-      spyOn(localStorage, 'setItem'); // Espiar el método setItem de localStorage
+      spyOn(localStorage, 'setItem'); 
 
       // Llamar al método
       component.guardarNota();
@@ -121,10 +121,10 @@ describe('AssignedClientsComponent', () => {
       const notes = ['Nota 1', 'Nota 2'];
       spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(notes));
 
-      // Llamar al método
+      
       component.loadNotes();
 
-      // Verificar que las notas se cargaron correctamente
+      
       expect(component.generalNotesList).toEqual(notes);
     });
 
@@ -132,24 +132,24 @@ describe('AssignedClientsComponent', () => {
       // Simulamos que no hay notas en localStorage
       spyOn(localStorage, 'getItem').and.returnValue(null);
 
-      // Llamar al método
+      
       component.loadNotes();
 
-      // Verificar que la lista de notas está vacía
+      
       expect(component.generalNotesList).toEqual([]);
     });
   });
 
   describe('eliminarNotas', () => {
     it('should clear all notes from localStorage and the list', () => {
-      // Agregar algunas notas
+      
       component.generalNotesList = ['Nota 1', 'Nota 2'];
       spyOn(localStorage, 'removeItem'); 
 
-      // Llamar al método
+      
       component.eliminarNotas();
 
-      // Verificar que las notas fueron eliminadas de localStorage y la lista
+      
       expect(component.generalNotesList.length).toBe(0);
       expect(localStorage.removeItem).toHaveBeenCalledWith('notasGeneralesClientes');
     });
@@ -159,7 +159,7 @@ describe('AssignedClientsComponent', () => {
     it('should remove a note by index', () => {
       
       component.generalNotesList = ['Nota 1', 'Nota 2', 'Nota 3'];
-      spyOn(component, 'guardarNotasEnLocalStorage'); // Espiar guardarNotasEnLocalStorage
+      spyOn(component, 'guardarNotasEnLocalStorage');
 
       
       component.eliminarNota(1);
@@ -175,10 +175,10 @@ describe('AssignedClientsComponent', () => {
       component.generalNotesList = ['Nota 1', 'Nota 2'];
       spyOn(localStorage, 'setItem'); // Espiar setItem
 
-      // Llamar al método
+      
       component.guardarNotasEnLocalStorage();
 
-      // Verificar que las notas fueron guardadas correctamente
+      
       expect(localStorage.setItem).toHaveBeenCalledWith('generalNotesList', JSON.stringify(component.generalNotesList));
     });
   });

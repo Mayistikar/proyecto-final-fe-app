@@ -25,7 +25,7 @@ describe('AssignedClientsService', () => {
       { id: '2', name: 'Client B', address: 'clientB@example.com', phone: '987654321' },
     ];
 
-    service.getClients().subscribe((clients) => { // <- paréntesis aquí
+    service.getClients().subscribe((clients) => { 
       expect(clients).toEqual(dummyClients);
       expect(clients.length).toBe(2);
     });
@@ -57,7 +57,7 @@ describe('AssignedClientsService', () => {
       { id: '2', name: 'Client B', address: 'clientB@example.com', phone: '987654321' },
     ];
   
-    // Simulamos un sellerId en el localStorage
+    
     localStorage.setItem('user_id', '123');
   
     service.getAssignedClients().subscribe((clients) => {
@@ -71,7 +71,7 @@ describe('AssignedClientsService', () => {
   });
   
   it('should handle error if sellerId is not found in localStorage', () => {
-    // Simulamos que no existe el sellerId en localStorage
+    
     localStorage.removeItem('user_id');
   
     service.getAssignedClients().subscribe(

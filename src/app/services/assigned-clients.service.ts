@@ -54,7 +54,7 @@ export class AssignedClientsService {
   
 
   postAssignedClients(sellerId: string, clients: AssignedClient[]): Observable<any> {
-    const url = `${this.apiUrl}/api/sellers/clients`; // URL que me diste
+    const url = `${this.apiUrl}/api/sellers/clients`; 
     const body = {
       sellerId: sellerId,
       clients: clients.map(client => ({

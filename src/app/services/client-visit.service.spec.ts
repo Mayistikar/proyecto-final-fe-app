@@ -58,14 +58,14 @@ describe('ClientVisitService', () => {
   });
 
   it('should handle errors when getting clients', () => {
-    // Crear un espía para console.error
+    
     spyOn(console, 'error');
     
-    // Llamar al método que queremos probar
+    
     service.getClients().subscribe({
       next: () => fail('Debería haber fallado con un error'),
       error: (error) => {
-        // Verificar que console.error fue llamado con el mensaje esperado
+        
         expect(console.error).toHaveBeenCalledWith('Error al obtener clientes:', jasmine.any(Object));
       }
     });
@@ -87,16 +87,16 @@ describe('ClientVisitService', () => {
       result: 'INTERESTED'
     };
     
-    // Llamar al método que queremos probar
+   
     service.registerClientVisit(dummyPayload).subscribe({
       next: () => fail('Debería haber fallado con un error'),
       error: (error) => {
-        // Verificar que console.error fue llamado con el mensaje esperado
+        
         expect(console.error).toHaveBeenCalledWith('Error al registrar visita:', jasmine.any(Object));
       }
     });
     
-    // Simular una respuesta de error desde el servidor
+    
     const req = httpMock.expectOne(`${service['apiUrl']}/api/visits`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(dummyPayload);
