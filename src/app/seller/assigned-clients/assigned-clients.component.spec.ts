@@ -144,7 +144,7 @@ describe('AssignedClientsComponent', () => {
     it('should clear all notes from localStorage and the list', () => {
       // Agregar algunas notas
       component.generalNotesList = ['Nota 1', 'Nota 2'];
-      spyOn(localStorage, 'removeItem'); // Espiar el método removeItem de localStorage
+      spyOn(localStorage, 'removeItem'); 
 
       // Llamar al método
       component.eliminarNotas();
@@ -157,14 +157,14 @@ describe('AssignedClientsComponent', () => {
 
   describe('eliminarNota', () => {
     it('should remove a note by index', () => {
-      // Agregar algunas notas
+      
       component.generalNotesList = ['Nota 1', 'Nota 2', 'Nota 3'];
       spyOn(component, 'guardarNotasEnLocalStorage'); // Espiar guardarNotasEnLocalStorage
 
-      // Llamar al método para eliminar la segunda nota (índice 1)
+      
       component.eliminarNota(1);
 
-      // Verificar que la nota fue eliminada
+      
       expect(component.generalNotesList).toEqual(['Nota 1', 'Nota 3']);
       expect(component.guardarNotasEnLocalStorage).toHaveBeenCalled();
     });
