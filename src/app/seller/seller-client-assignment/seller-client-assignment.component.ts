@@ -64,16 +64,32 @@ export class SellerClientAssignmentComponent implements OnInit {
 
 
   loadClients(): void {
-    this.assignedClientsService.getClients().subscribe({
-      next: (data: any[]) => {
-        this.clients = data;
-        console.log('Clientes cargados:', this.clients);
+    const assigned$ = this.assignedClientsService.getAssignedClients();
+    const allClients$ = this.assignedClientsService.getClients();
+  
+    assigned$.subscribe({
+      next: (assignedClients) => {
+        allClients$.subscribe({
+          next: (allClients) => {
+            // Creamos un Set con los IDs de los clientes asignados
+            const assignedIds = new Set(assignedClients.map(c => c.id));
+  
+            // Filtramos: nos quedamos solo con los clientes NO asignados
+            this.clients = allClients.filter((client: any) => !assignedIds.has(client.id));
+  
+            console.log('Clientes disponibles:', this.clients);
+          },
+          error: (err) => {
+            console.error('Error al cargar todos los clientes:', err);
+          }
+        });
       },
-      error: (err: any) => {
-        console.error('Error al cargar clientes:', err);
+      error: (err) => {
+        console.error('Error al cargar clientes asignados:', err);
       }
     });
   }
+  
 
   clientesFiltrados(): Client[] {
     if (!this.searchText) return this.clients;
@@ -82,43 +98,6 @@ export class SellerClientAssignmentComponent implements OnInit {
     );
   }
 
-  
-
-  // asignarClientesSeleccionados(): void {
-  //   const sellerId = localStorage.getItem('user_id');
-  
-  //   if (!sellerId) {
-  //     console.error('No se encontró el ID del vendedor.');
-  //     return;
-  //   }
-  
-  //   const seleccionados = this.clients
-  //     .filter(client => client.selected) // aquí filtramos los que el usuario marcó
-  //     .map(client => ({
-  //       id: client.id,
-  //       name: client.full_name,
-  //       address: client.address,
-  //       phone: client.phone,
-  //       notes: client.notes || '' // si quieres incluir notas que el vendedor agregue
-  //     }));
-  
-  //   if (seleccionados.length === 0) {
-  //     console.error('No hay clientes seleccionados para asignar.');
-  //     return;
-  //   }
-  
-  //   this.assignedClientsService.postAssignedClients(sellerId, seleccionados)
-  //     .subscribe({
-  //       next: (response) => {
-  //         console.log('Clientes asignados exitosamente:', response);
-  //         // Aquí podrías mostrar un alert de éxito
-  //       },
-  //       error: (error) => {
-  //         console.error('Error al asignar clientes:', error);
-  //         // Aquí podrías mostrar un alert de error
-  //       }
-  //     });
-  // }
 
   asignarClientesSeleccionados(): void {
     const sellerId = localStorage.getItem('user_id');
@@ -142,6 +121,7 @@ export class SellerClientAssignmentComponent implements OnInit {
       console.error('No hay clientes seleccionados para asignar.');
       return;
     }
+
   
     this.assignedClientsService.postAssignedClients(sellerId, seleccionados)
       .subscribe({

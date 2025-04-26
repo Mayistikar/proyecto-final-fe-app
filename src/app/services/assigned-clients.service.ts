@@ -17,7 +17,7 @@ export interface AssignedClient {
   providedIn: 'root'
 })
 export class AssignedClientsService {
-  private apiUrl = 'https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod'; // cambia esto a tu backend real
+  private apiUrl = 'https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod'; 
 
   constructor(private http: HttpClient) {}
 
@@ -30,27 +30,6 @@ export class AssignedClientsService {
       })
     );
   }
-
- 
-
-  // getAssignedClients(): Observable<AssignedClient[]> {
-  //   const sellerId = localStorage.getItem('user_id');
-  
-  //   if (!sellerId) {
-  //     console.error('No se encontró el ID del vendedor en localStorage.');
-  //     return throwError(() => new Error('No se encontró el ID del vendedor'));
-  //   }
-  
-  //   const url = `${this.apiUrl}/api/sellers/${sellerId}/clients`;
-  
-  //   return this.http.get<AssignedClient[]>(url).pipe(
-  //     tap(clients => console.log('Clientes asignados obtenidos:', clients)),
-  //     catchError((error) => {
-  //       console.error('Error al obtener clientes:', error);
-  //       return throwError(() => error);
-  //     })
-  //   );
-  // }
   
   getAssignedClients(): Observable<AssignedClient[]> {
     const sellerId = localStorage.getItem('user_id');
@@ -64,7 +43,7 @@ export class AssignedClientsService {
   
     return this.http.get<{ sellerId: string; clients: AssignedClient[]; message: string }>(url).pipe(
       tap(response => console.log('Clientes asignados obtenidos:', response)),
-      // Nos quedamos solo con la propiedad clients
+      
       map(response => response.clients),
       catchError(error => {
         console.error('Error al obtener clientes:', error);
@@ -83,7 +62,7 @@ export class AssignedClientsService {
         name: client.name,
         address: client.address,
         phone: client.phone,
-        notes: client['notes'] || '' // Aseguramos el campo notes
+        notes: client['notes'] || '' 
       }))
     };
   

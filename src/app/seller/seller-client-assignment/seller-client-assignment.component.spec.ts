@@ -2,10 +2,12 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { SellerClientAssignmentComponent } from './seller-client-assignment.component';
+import { AssignedClientsService } from 'src/app/services/assigned-clients.service';
 
 describe('SellerClientAssignmentComponent', () => {
   let component: SellerClientAssignmentComponent;
   let fixture: ComponentFixture<SellerClientAssignmentComponent>;
+  let assignedClientsServiceMock: any;
 
   const mockClients = [
     {
@@ -24,13 +26,32 @@ describe('SellerClientAssignmentComponent', () => {
     }
   ];
 
-  const assignedClientsServiceMock = {
-    getAssinedClients: jasmine.createSpy('getAssinedClients').and.returnValue(of(mockClients))
-  };
+  const mockAssignedClients = [
+    {
+      id: '3',
+      full_name: 'Carlos Ruiz',
+      phone: '789',
+      address: 'Calle 3',
+      created_at: '2020-03-01'
+    }
+  ];
 
   beforeEach(waitForAsync(() => {
+    assignedClientsServiceMock = jasmine.createSpyObj('AssignedClientsService', [
+      'getAssignedClients',
+      'getClients',
+      'postAssignedClients'
+    ]);
+
+    assignedClientsServiceMock.getAssignedClients.and.returnValue(of(mockAssignedClients));
+    assignedClientsServiceMock.getClients.and.returnValue(of(mockClients));
+    assignedClientsServiceMock.postAssignedClients.and.returnValue(of({ success: true }));
+
     TestBed.configureTestingModule({
-      imports: [SellerClientAssignmentComponent, HttpClientTestingModule],
+      imports: [HttpClientTestingModule,SellerClientAssignmentComponent],
+      providers: [
+        { provide: AssignedClientsService, useValue: assignedClientsServiceMock }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SellerClientAssignmentComponent);
@@ -42,30 +63,62 @@ describe('SellerClientAssignmentComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  
-
-  it('should return all clients if search text is empty', () => {
-    component.clients = mockClients;
-    component.searchText = '';
-    const result = component.clientesFiltrados();
-    expect(result.length).toBe(2);
-  });
-
-  it('should reload clients on updateClients()', () => {
-    spyOn(component, 'loadClients');
-    component.updateClients();
+  it('should load clients correctly', () => {
+    spyOn(component, 'loadClients').and.callThrough();
+    component.loadClients();
     expect(component.loadClients).toHaveBeenCalled();
+    expect(component.clients.length).toBe(2);  // El cliente id '3' ya está asignado, así que no aparece
   });
 
-  it('should log selected clients', () => {
-    spyOn(console, 'log');
+  it('should filter clients by search text', () => {
+    component.clients = mockClients;
+    component.searchText = 'Juan';
+    const filteredClients = component.clientesFiltrados();
+    expect(filteredClients.length).toBe(1);
+    expect(filteredClients[0].full_name).toBe('Juan Pérez');
+  });
+
+  it('should not assign clients if no clients are selected', () => {
+    spyOn(console, 'error');
+
     component.clients = [
-      { ...mockClients[0], selected: true },
-      { ...mockClients[1], selected: false }
+      { id: '1', full_name: 'Juan', selected: false, phone: '111', address: 'Calle 1', created_at: '2020-01-01' },
+      { id: '2', full_name: 'Ana', selected: false, phone: '222', address: 'Calle 2', created_at: '2020-02-01' }
     ];
+
     component.asignarClientesSeleccionados();
-    expect(console.log).toHaveBeenCalledWith('Clientes seleccionados para asignar:', [
-      jasmine.objectContaining({ full_name: 'Juan Pérez' })
+
+    expect(console.error).toHaveBeenCalledWith('No se encontró el ID del vendedor.');
+    expect(assignedClientsServiceMock.postAssignedClients).not.toHaveBeenCalled();
+  });
+
+  it('should assign selected clients', () => {
+    spyOn(localStorage, 'getItem').and.returnValue('123');
+
+    component.clients = [
+      {
+        id: '1',
+        full_name: 'Juan',
+        phone: '111',
+        address: 'Calle 1',
+        created_at: '2024-04-01',
+        selected: true,
+        notes: ''
+      }
+    ];
+
+    component.asignarClientesSeleccionados();
+
+    expect(assignedClientsServiceMock.postAssignedClients).toHaveBeenCalledWith('123', [
+      {
+        id: '1',
+        name: 'Juan',
+        address: 'Calle 1',
+        phone: '111',
+        notes: ''
+      }
     ]);
   });
+
 });
+

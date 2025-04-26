@@ -82,7 +82,7 @@ describe('AssignedClientsComponent', () => {
       component.actualizarLista();
       
       
-      expect(console.log).toHaveBeenCalledWith('Actualizar lista...');
+      expect(console.log).toHaveBeenCalledWith('Actualizaciones realizadas: 1');
     });
   });
 });
