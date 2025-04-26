@@ -88,7 +88,7 @@ describe('SellerClientAssignmentComponent', () => {
 
     component.asignarClientesSeleccionados();
 
-    expect(console.error).toHaveBeenCalledWith('No se encontró el ID del vendedor.');
+    expect(console.error).toHaveBeenCalledWith('No hay clientes seleccionados para asignar.');
     expect(assignedClientsServiceMock.postAssignedClients).not.toHaveBeenCalled();
   });
 
