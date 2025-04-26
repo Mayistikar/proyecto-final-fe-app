@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>Clientes Asignados</ion-title>
+    <ion-title>{{ 'seller.assignedClients.title' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,12 +12,12 @@
   <ion-card class="search-bar">
     <ion-item lines="none">
       <ion-icon name="search-outline" slot="start"></ion-icon>
-      <ion-input placeholder="Buscar Clientes" [(ngModel)]="searchText"></ion-input>
+      <ion-input [placeholder]="'seller.assignedClients.searchPlaceholder' | translate" [(ngModel)]="searchText"></ion-input>
       <ion-icon name="close-outline" slot="end" (click)="clearSearch()"></ion-icon>
     </ion-item>
   </ion-card>
 
-  <ion-label class="section-title">Lista de Clientes</ion-label>
+  <ion-label class="section-title">{{ 'seller.assignedClients.listTitle' | translate }}</ion-label>
 
   <ion-list>
     <ion-item *ngFor="let cliente of clientesFiltrados()">
@@ -32,10 +32,8 @@
     </ion-item>
   </ion-list>
 
-  
-
   <div class="extra-notes">
-    <ion-label class="section-title">Notas adicionales</ion-label>
+    <ion-label class="section-title">{{ 'seller.assignedClients.additionalNotesTitle' | translate }}</ion-label>
   
     <div *ngFor="let nota of generalNotesList; let i = index" class="nota-item">
       <p class="nota">{{ nota }}</p>
@@ -49,16 +47,12 @@
     </div>
   
     <div class="notas-row">
-      <ion-input placeholder="Notas generales de clientes" [(ngModel)]="generalNote"></ion-input>
-      <ion-button expand="block" class="update-button" (click)="guardarNota()">Guardar</ion-button>
+      <ion-input [placeholder]="'seller.assignedClients.generalNotesPlaceholder' | translate" [(ngModel)]="generalNote"></ion-input>
+      <ion-button expand="block" class="update-button" (click)="guardarNota()">{{ 'seller.assignedClients.saveButton' | translate }}</ion-button>
     </div>
   </div>
-  
-  
-  
 
-
-  <ion-button expand="block" class="update-button" (click)="actualizarLista()">Actualizar Lista</ion-button>
+  <ion-button expand="block" class="update-button" (click)="actualizarLista()">{{ 'seller.assignedClients.updateListButton' | translate }}</ion-button>
 
 </ion-content>
 

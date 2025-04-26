@@ -21,6 +21,12 @@
       "recommendations": "Recomendaciones",
       "clientAssignmentTitle": "Asignación de Clientes"
     },
+    "clientAssignment": {
+      "title": "Asignar Clientes",
+      "searchPlaceholder": "Buscar clientes por nombre",
+      "listTitle": "Lista de Clientes",
+      "assignSelectedButton": "Asignar clientes seleccionados"
+    },
     "clientVisit": {
       "title": "Registro de Visita a Cliente",
       "visitDateTimeLabel": "Fecha y Hora de la visita",
@@ -38,7 +44,16 @@
       "syncButton": "Sincronizar Registro",
       "syncingButton": "Sincronizando Registro",
       "syncSuccess": "Registro sincronizado con éxito",
-        "syncError": "Error al sincronizar el registro"
+      "syncError": "Error al sincronizar el registro"
+    },
+    "assignedClients": {
+      "title": "Clientes Asignados",
+      "searchPlaceholder": "Buscar Clientes",
+      "listTitle": "Lista de Clientes",
+      "additionalNotesTitle": "Notas adicionales",
+      "generalNotesPlaceholder": "Notas generales de clientes",
+      "saveButton": "Guardar",
+      "updateListButton": "Actualizar Lista"
     }
   },
   "client": {
@@ -61,6 +76,23 @@
       "stock": "Disponibles",
       "total": "Total",
       "subtotal": "Subtotal"
+    },
+    "register": {
+      "title": "Registro de Cliente",
+      "full_name": "Nombre Completo",
+      "full_name_placeholder": "Ingrese su nombre completo",
+      "email": "Correo Electrónico",
+      "email_placeholder": "Ingrese su correo electrónico",
+      "phone": "Número de Teléfono",
+      "phone_placeholder": "Ingrese su número de teléfono",
+      "address": "Dirección",
+      "address_placeholder": "Ingrese su dirección",
+      "password": "Contraseña",
+      "password_placeholder": "Ingrese su contraseña",
+      "confirm_password": "Confirmar Contraseña",
+      "confirm_password_placeholder": "Confirme su contraseña",
+      "register_button": "Registrarse"
     }
   }
 }
+

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { RegisterService } from 'src/app/services/register.service';
+import { TranslateModule } from "@ngx-translate/core";
 
 
 @Component({
@@ -12,7 +13,7 @@ import { RegisterService } from 'src/app/services/register.service';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule]
+  imports: [CommonModule, FormsModule, IonicModule, TranslateModule]
 })
 export class RegisterPage  {
 
