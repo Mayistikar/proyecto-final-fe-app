@@ -21,7 +21,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from "@ngx-translate/core";
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { AssignedClientsService } from 'src/app/services/assigned-clients.service'; // Asegúrate que el path sea correcto
+import { AssignedClientsService } from 'src/app/services/assigned-clients.service'; 
 
 interface ClientFromDB {
   id: string;
@@ -71,10 +71,10 @@ export class SellerClientAssignmentComponent implements OnInit {
       next: (assignedClients) => {
         allClients$.subscribe({
           next: (allClients) => {
-            // Creamos un Set con los IDs de los clientes asignados
+            
             const assignedIds = new Set(assignedClients.map(c => c.id));
   
-            // Filtramos: nos quedamos solo con los clientes NO asignados
+            
             this.clients = allClients.filter((client: any) => !assignedIds.has(client.id));
   
             console.log('Clientes disponibles:', this.clients);
@@ -128,7 +128,7 @@ export class SellerClientAssignmentComponent implements OnInit {
         next: (response) => {
           console.log('Clientes asignados exitosamente:', response);
   
-          // 🔥 Remover clientes asignados de la lista
+          
           const asignadosIds = seleccionados.map(c => c.id);
           this.clients = this.clients.filter(c => !asignadosIds.includes(c.id));
         },
