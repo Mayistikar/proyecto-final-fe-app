@@ -26,6 +26,11 @@ export class AssignedClientsComponent implements OnInit {
 
   searchText: string = '';
   clients: any[] = [];
+  generalNote: string = '';
+  generalNotesList: string[] = [];
+
+  private updateClickCount = 0;       // 👉 Cuántos clicks se han hecho
+  private updateClickTimerActive = false;
 
   constructor(private assignedClientsService: AssignedClientsService) {}
 
@@ -34,7 +39,7 @@ export class AssignedClientsComponent implements OnInit {
   }
 
   chargeClients(): void {
-    this.assignedClientsService.getAssinedClients().subscribe({
+    this.assignedClientsService.getAssignedClients().subscribe({
       next: (data: any[]) => {
         this.clients = data;
         console.log('Clientes cargados:', this.clients);
@@ -57,7 +62,56 @@ export class AssignedClientsComponent implements OnInit {
   }
 
   actualizarLista() {
-    console.log('Actualizar lista...');
+    if (this.updateClickCount >= 3) {
+      console.warn('¡Has alcanzado el límite de actualizaciones en 30 segundos!');
+      return;
+    }
+
+    this.chargeClients();
+    this.updateClickCount++;
+
+    console.log(`Actualizaciones realizadas: ${this.updateClickCount}`);
+
+    if (!this.updateClickTimerActive) {
+      this.updateClickTimerActive = true;
+      setTimeout(() => {
+        this.updateClickCount = 0;
+        this.updateClickTimerActive = false;
+        console.log('Contador de actualizaciones reseteado.');
+      }, 30000); // 30 segundos
+    }
   }
+
+  guardarNota() {
+    if (this.generalNote.trim() === '') return;
+
+    this.generalNotesList.push(this.generalNote); // Agregamos la nueva nota a la lista
+    localStorage.setItem('notasGeneralesClientes', JSON.stringify(this.generalNotesList));
+    this.generalNote = ''; // Limpiamos el input
+    console.log('Notas guardadas:', this.generalNotesList);
+  }
+
+  loadNotes() {
+    const savedNotes = localStorage.getItem('notasGeneralesClientes');
+    if (savedNotes) {
+      this.generalNotesList = JSON.parse(savedNotes);
+    }
+  }
+
+  eliminarNotas() {
+    localStorage.removeItem('notasGeneralesClientes');
+    this.generalNotesList = [];
+    console.log('Notas eliminadas.');
+  }
+
+  eliminarNota(index: number) {
+    this.generalNotesList.splice(index, 1);
+    this.guardarNotasEnLocalStorage();
+  }
+  guardarNotasEnLocalStorage() {
+    localStorage.setItem('generalNotesList', JSON.stringify(this.generalNotesList));
+  }
+  
+  
 }
 

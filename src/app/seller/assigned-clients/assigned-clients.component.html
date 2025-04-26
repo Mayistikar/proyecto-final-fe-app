@@ -35,16 +35,27 @@
   
 
   <div class="extra-notes">
-    <ion-label class="notas-title">Notas adicionales</ion-label>
-
-    <p class="nota">Nota 1</p>
-    <div class="notas-row">
-      <ion-input placeholder="Notas generales de clientes"></ion-input>
-      <ion-button expand="block" class="update-button">Guardar</ion-button>
+    <ion-label class="section-title">Notas adicionales</ion-label>
+  
+    <div *ngFor="let nota of generalNotesList; let i = index" class="nota-item">
+      <p class="nota">{{ nota }}</p>
+      <ion-button 
+        fill="clear" 
+        size="small" 
+        color="danger" 
+        (click)="eliminarNota(i)">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
     </div>
-
-
+  
+    <div class="notas-row">
+      <ion-input placeholder="Notas generales de clientes" [(ngModel)]="generalNote"></ion-input>
+      <ion-button expand="block" class="update-button" (click)="guardarNota()">Guardar</ion-button>
+    </div>
   </div>
+  
+  
+  
 
 
   <ion-button expand="block" class="update-button" (click)="actualizarLista()">Actualizar Lista</ion-button>

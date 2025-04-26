@@ -121,5 +121,63 @@ ion-back-button{
   color: #ffffff;
 }
 
+.extra-notes {
+  margin-top: 20px;
+
+  .notas-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .nota-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc; /* Línea separadora */
+    display: flex;
+    align-items: center;
+  }
+
+  .nota {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .notas-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    align-items: center;
+  }
+
+  ion-input {
+    flex: 1;
+  }
+
+  .update-button {
+    --background: #3880ff;
+    --color: white;
+  }
+}
+
+.nota-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  gap: 10px; /* Espacio entre texto y botón */
+  word-break: break-word; /* 🔥 Para que las palabras largas se partan */
+}
+
+.nota {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  flex: 1; /* 🔥 El texto ocupa todo el espacio disponible */
+  overflow-wrap: break-word; /* 🔥 Otra forma de asegurar quiebres de línea */
+}
+
 
 

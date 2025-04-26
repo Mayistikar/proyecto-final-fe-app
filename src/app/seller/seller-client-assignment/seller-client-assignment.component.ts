@@ -64,7 +64,7 @@ export class SellerClientAssignmentComponent implements OnInit {
 
 
   loadClients(): void {
-    this.assignedClientsService.getAssinedClients().subscribe({
+    this.assignedClientsService.getClients().subscribe({
       next: (data: any[]) => {
         this.clients = data;
         console.log('Clientes cargados:', this.clients);
@@ -82,10 +82,83 @@ export class SellerClientAssignmentComponent implements OnInit {
     );
   }
 
+  
+
+  // asignarClientesSeleccionados(): void {
+  //   const sellerId = localStorage.getItem('user_id');
+  
+  //   if (!sellerId) {
+  //     console.error('No se encontró el ID del vendedor.');
+  //     return;
+  //   }
+  
+  //   const seleccionados = this.clients
+  //     .filter(client => client.selected) // aquí filtramos los que el usuario marcó
+  //     .map(client => ({
+  //       id: client.id,
+  //       name: client.full_name,
+  //       address: client.address,
+  //       phone: client.phone,
+  //       notes: client.notes || '' // si quieres incluir notas que el vendedor agregue
+  //     }));
+  
+  //   if (seleccionados.length === 0) {
+  //     console.error('No hay clientes seleccionados para asignar.');
+  //     return;
+  //   }
+  
+  //   this.assignedClientsService.postAssignedClients(sellerId, seleccionados)
+  //     .subscribe({
+  //       next: (response) => {
+  //         console.log('Clientes asignados exitosamente:', response);
+  //         // Aquí podrías mostrar un alert de éxito
+  //       },
+  //       error: (error) => {
+  //         console.error('Error al asignar clientes:', error);
+  //         // Aquí podrías mostrar un alert de error
+  //       }
+  //     });
+  // }
+
   asignarClientesSeleccionados(): void {
-    const seleccionados = this.clients.filter(c => c.selected);
-    console.log('Clientes seleccionados para asignar:', seleccionados);
+    const sellerId = localStorage.getItem('user_id');
+  
+    if (!sellerId) {
+      console.error('No se encontró el ID del vendedor.');
+      return;
+    }
+  
+    const seleccionados = this.clients
+      .filter(client => client.selected)
+      .map(client => ({
+        id: client.id,
+        name: client.full_name,
+        address: client.address,
+        phone: client.phone,
+        notes: client.notes || ''
+      }));
+  
+    if (seleccionados.length === 0) {
+      console.error('No hay clientes seleccionados para asignar.');
+      return;
+    }
+  
+    this.assignedClientsService.postAssignedClients(sellerId, seleccionados)
+      .subscribe({
+        next: (response) => {
+          console.log('Clientes asignados exitosamente:', response);
+  
+          // 🔥 Remover clientes asignados de la lista
+          const asignadosIds = seleccionados.map(c => c.id);
+          this.clients = this.clients.filter(c => !asignadosIds.includes(c.id));
+        },
+        error: (error) => {
+          console.error('Error al asignar clientes:', error);
+        }
+      });
   }
+  
+  
 
   updateClients(): void {
     this.loadClients();

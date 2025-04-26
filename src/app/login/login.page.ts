@@ -49,6 +49,7 @@ export class LoginPage {
           this.router.navigate(['/home-client']);
         }else if(role === 'seller'){
           this.router.navigate(['/home']);
+          console.log(seller_id)
         }else{
           this.showAlert('Error', 'Rol no reconocido.');
         }
