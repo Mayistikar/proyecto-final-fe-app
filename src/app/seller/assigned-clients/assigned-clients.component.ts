@@ -29,7 +29,7 @@ export class AssignedClientsComponent implements OnInit {
   generalNote: string = '';
   generalNotesList: string[] = [];
 
-  private updateClickCount = 0;       // 👉 Cuántos clicks se han hecho
+  private updateClickCount = 0;       
   private updateClickTimerActive = false;
 
   constructor(private assignedClientsService: AssignedClientsService) {}
@@ -87,7 +87,7 @@ export class AssignedClientsComponent implements OnInit {
 
     this.generalNotesList.push(this.generalNote); // Agregamos la nueva nota a la lista
     localStorage.setItem('notasGeneralesClientes', JSON.stringify(this.generalNotesList));
-    this.generalNote = ''; // Limpiamos el input
+    this.generalNote = ''; 
     console.log('Notas guardadas:', this.generalNotesList);
   }
 

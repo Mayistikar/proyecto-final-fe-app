@@ -167,16 +167,16 @@ ion-back-button{
   justify-content: space-between;
   padding: 10px 0;
   border-bottom: 1px solid #ccc;
-  gap: 10px; /* Espacio entre texto y botón */
-  word-break: break-word; /* 🔥 Para que las palabras largas se partan */
+  gap: 10px; 
+  word-break: break-word; 
 }
 
 .nota {
   margin: 0;
   font-size: 16px;
   color: #333;
-  flex: 1; /* 🔥 El texto ocupa todo el espacio disponible */
-  overflow-wrap: break-word; /* 🔥 Otra forma de asegurar quiebres de línea */
+  flex: 1; 
+  overflow-wrap: break-word; 
 }
 
 
