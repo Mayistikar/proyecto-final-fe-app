@@ -46,14 +46,14 @@ ion-button {
 
 
 ion-toolbar {
-  --background: #007bff; /* Color de fondo del header */
-  --color: #fff; /* Color del texto del header */
-  text-align: center; /* Centra el texto (pero no funciona directamente en ion-title) */
+  --background: #007bff; 
+  --color: #fff; 
+  text-align: center; 
 }
 
 ion-title {
-  color: #fff; /* Hace que el texto sea blanco */
-  text-align: center; /* Asegura que el texto esté alineado */
+  color: #fff; 
+  text-align: center; 
   width: 100%;
   font-weight: bold;
 }

@@ -1,0 +1,183 @@
+.search-bar {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-weight: bold;
+  margin-left: 8px;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.avatar-icon {
+  font-size: 40px;
+  color: #ccc;
+}
+
+.nombre {
+  font-weight: bold;
+  color: #1e88e5;
+  margin-bottom: 2px;
+}
+
+ion-note {
+  font-weight: 500;
+  color: #555;
+}
+
+.extra-notes {
+  margin-top: 20px;
+  padding: 0 8px;
+}
+
+.notas-title {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.nota {
+  margin-top: 2px;
+  font-size: 14px;
+  color: #444;
+}
+
+.update-button {
+  margin-top: 24px;
+  font-weight: bold;
+  --background: #0288d1;
+}
+.ion-padding {
+  --ion-background-color: #ffffff !important;
+  --ion-background-color-rgb: 255, 255, 255 !important;
+  background-color: #ffffff !important;
+}
+
+.search-bar {
+  background-color: white; /* Fondo blanco */
+  padding: 2px;
+  color: #ffffff;
+}
+
+.search-item {
+  color: black; /* Texto negro */
+  --ion-item-background: #ffff;
+
+}
+
+.search-input {
+  color: black; 
+  --background: white; 
+  --placeholder-color: black; 
+  background-color: #ffffff;
+
+}
+
+ion-icon{
+  color: black;
+}
+
+ion-input{
+  background-color: #ffffff;
+  color: black;
+  
+}
+
+ion-list{
+  background-color: #ffffff;
+}
+
+ion-label{
+  background-color: #ffffff;
+}
+
+ion-item {
+  background-color: #ffffff;
+  --background:#ffffff ;
+}
+
+ion-title{
+  color: white;
+}
+
+.notas-row {
+  display: flex;
+  gap: 8px; 
+  align-items: center;
+}
+
+.notas-row ion-input {
+  flex: 1; 
+}
+
+.update-button {
+  white-space: nowrap; 
+}
+
+ion-back-button{
+  color: #ffffff;
+}
+
+.extra-notes {
+  margin-top: 20px;
+
+  .notas-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .nota-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc; /* Línea separadora */
+    display: flex;
+    align-items: center;
+  }
+
+  .nota {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .notas-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    align-items: center;
+  }
+
+  ion-input {
+    flex: 1;
+  }
+
+  .update-button {
+    --background: #3880ff;
+    --color: white;
+  }
+}
+
+.nota-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  gap: 10px; 
+  word-break: break-word; 
+}
+
+.nota {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  flex: 1; 
+  overflow-wrap: break-word; 
+}
+
+
+

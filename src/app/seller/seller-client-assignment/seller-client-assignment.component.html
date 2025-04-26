@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Asignar Clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Buscador -->
+  <ion-item class="search-box">
+    <ion-icon name="search" slot="start"></ion-icon>
+    <ion-input [(ngModel)]="searchText" placeholder="Buscar clientes por nombre"></ion-input>
+    <ion-button fill="clear" slot="end" (click)="searchText=''">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </ion-item>
+
+  <ion-label class="section-title">Lista de Clientes</ion-label>
+
+  <!-- Lista de clientes -->
+  <ion-list>
+    <ion-item *ngFor="let client of clientesFiltrados()" class="client-card">
+      <ion-avatar slot="start">
+        <ion-icon name="person-circle-outline" class="avatar-icon"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2 class="nombre">{{ client.full_name }}</h2>
+        <p>{{ client.address }}</p>
+      </ion-label>
+      <ion-note slot="end">{{ client.phone }}</ion-note>
+      <ion-checkbox slot="end" [(ngModel)]="client.selected"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <!-- Botón para asignar -->
+  <ion-button expand="block" class="asignned-button" (click)="asignarClientesSeleccionados()">
+    Asignar clientes seleccionados
+  </ion-button>
+
+</ion-content>

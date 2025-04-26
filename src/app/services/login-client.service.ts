@@ -47,6 +47,7 @@ export class LoginClientService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('role');
     localStorage.removeItem('user_id');
+    localStorage.removeItem('notaGeneralClientes');
   }
 
 

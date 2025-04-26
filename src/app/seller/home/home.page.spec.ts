@@ -18,7 +18,7 @@ describe('HomePage', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of({}), // puedes simular parámetros si es necesario
+            params: of({}), 
             snapshot: {
               paramMap: {
                 get: (key: string) => null
