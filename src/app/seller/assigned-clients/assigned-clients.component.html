@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'seller.assignedClients.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card class="search-bar">
+    <ion-item lines="none">
+      <ion-icon name="search-outline" slot="start"></ion-icon>
+      <ion-input [placeholder]="'seller.assignedClients.searchPlaceholder' | translate" [(ngModel)]="searchText"></ion-input>
+      <ion-icon name="close-outline" slot="end" (click)="clearSearch()"></ion-icon>
+    </ion-item>
+  </ion-card>
+
+  <ion-label class="section-title">{{ 'seller.assignedClients.listTitle' | translate }}</ion-label>
+
+  <ion-list>
+    <ion-item *ngFor="let cliente of clientesFiltrados()">
+      <ion-avatar slot="start">
+        <ion-icon name="person-circle-outline" class="avatar-icon"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2 class="nombre">{{ cliente.name }}</h2>
+        <p>{{ cliente.address }}</p>
+      </ion-label>
+      <ion-note slot="end">{{ cliente.phone }}</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <div class="extra-notes">
+    <ion-label class="section-title">{{ 'seller.assignedClients.additionalNotesTitle' | translate }}</ion-label>
+
+    <div *ngFor="let nota of generalNotesList; let i = index" class="nota-item">
+      <p class="nota">{{ nota }}</p>
+      <ion-button
+        fill="clear"
+        size="small"
+        color="danger"
+        (click)="eliminarNota(i)">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="notas-row">
+      <ion-input [placeholder]="'seller.assignedClients.generalNotesPlaceholder' | translate" [(ngModel)]="generalNote"></ion-input>
+      <ion-button expand="block" class="update-button" (click)="guardarNota()">{{ 'seller.assignedClients.saveButton' | translate }}</ion-button>
+    </div>
+  </div>
+
+  <ion-button expand="block" class="update-button" (click)="actualizarLista()">{{ 'seller.assignedClients.updateListButton' | translate }}</ion-button>
+
+</ion-content>
+

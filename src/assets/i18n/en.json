@@ -18,7 +18,14 @@
       "clientVisit": "Client Visit Registration",
       "dailyRoute": "Daily Route",
       "videoProcessing": "Video Processing",
-      "recommendations": "Recommendations"
+      "recommendations": "Recommendations",
+      "clientAssignmentTitle": "Client Assignment"
+    },
+    "clientAssignment": {
+      "title": "Assign Clients",
+      "searchPlaceholder": "Search clients by name",
+      "listTitle": "Client List",
+      "assignSelectedButton": "Assign selected clients"
     },
     "clientVisit": {
       "title": "Client Visit Registration",
@@ -36,8 +43,17 @@
       "followUpButton": "Follow Up",
       "syncButton": "Sync Registration",
       "syncingButton": "Syncing Registration",
-        "syncSuccess": "Registration synced successfully",
-        "syncError": "Error syncing the registration"
+      "syncSuccess": "Registration synced successfully",
+      "syncError": "Error syncing the registration"
+    },
+    "assignedClients": {
+      "title": "Assigned Clients",
+      "searchPlaceholder": "Search Clients",
+      "listTitle": "Client List",
+      "additionalNotesTitle": "Additional Notes",
+      "generalNotesPlaceholder": "General client notes",
+      "saveButton": "Save",
+      "updateListButton": "Update List"
     }
   },
   "client": {
@@ -60,6 +76,22 @@
       "stock": "Stock",
       "total": "Total",
       "subtotal": "Subtotal"
+    },
+    "register": {
+      "title": "Client Registration",
+      "full_name": "Full Name",
+      "full_name_placeholder": "Enter your full name",
+      "email": "Email",
+      "email_placeholder": "Enter your email",
+      "phone": "Phone Number",
+      "phone_placeholder": "Enter your phone number",
+      "address": "Address",
+      "address_placeholder": "Enter your address",
+      "password": "Password",
+      "password_placeholder": "Enter your password",
+      "confirm_password": "Confirm Password",
+      "confirm_password_placeholder": "Confirm your password",
+      "register_button": "Register"
     }
   }
 }

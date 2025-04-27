@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, LoadingController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -7,6 +7,7 @@ import { LoginClientService } from '../services/login-client.service';
 import { AlertController } from '@ionic/angular';
 import { TranslatePipe } from "@ngx-translate/core";
 import { TranslationService } from "../services/translation.service";
+
 
 @Component({
   selector: 'app-login',
@@ -19,12 +20,14 @@ export class LoginPage {
 
   email: string = '';
   password: string = '';
+  private spinner:any;
 
   constructor(
     private loginClientService: LoginClientService,
     private router: Router,
     private alertCtrl: AlertController,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private loadingController: LoadingController
   ) {}
 
   switchLanguage() {
@@ -37,8 +40,11 @@ export class LoginPage {
       return;
     }
 
+    await this.presentSpinner('Iniciando Sesión..')
+
     this.loginClientService.loginClient(this.email, this.password).subscribe({
       next: async () => {
+        await this.dismissSpinner();
         await this.showAlert('Éxito', 'Inicio de sesión exitoso.');
 
         const role =  this.loginClientService.getUserRole();
@@ -53,7 +59,8 @@ export class LoginPage {
           this.showAlert('Error', 'Rol no reconocido.');
         }
       },
-      error: (err) => {
+      error: async (err) => {
+        await this.dismissSpinner();
         this.showAlert('Error', 'Credenciales incorrectas. Inténtalo nuevamente.');
       }
     });
@@ -66,6 +73,20 @@ export class LoginPage {
       buttons: ['Cerrar']
     });
     await alert.present();
+  }
+
+  async presentSpinner(message: string) {
+    this.spinner = await this.loadingController.create({
+      message: message,
+    });
+    await this.spinner.present();
+  }
+  async dismissSpinner() {
+    if (this.spinner) {
+      await this.spinner.dismiss();
+    }
+
+
   }
 
 }
