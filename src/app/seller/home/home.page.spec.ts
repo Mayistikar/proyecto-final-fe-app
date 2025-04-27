@@ -18,7 +18,7 @@ describe('HomePage', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of({}), 
+            params: of({}),
             snapshot: {
               paramMap: {
                 get: (key: string) => null
@@ -38,5 +38,3 @@ describe('HomePage', () => {
     expect(component).toBeTruthy();
   });
 });
-
-

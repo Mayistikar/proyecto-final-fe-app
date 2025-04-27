@@ -53,32 +53,32 @@ describe('ClientVisitService', () => {
     const req = httpMock.expectOne(`${service['apiUrl']}/api/visits/seller/vendedor_authorized@example.com`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyClients);
-    
-    
+
+
   });
 
   it('should handle errors when getting clients', () => {
-    
+
     spyOn(console, 'error');
-    
-    
+
+
     service.getClients().subscribe({
       next: () => fail('Debería haber fallado con un error'),
       error: (error) => {
-        
+
         expect(console.error).toHaveBeenCalledWith('Error al obtener clientes:', jasmine.any(Object));
       }
     });
-    
-    
+
+
     const req = httpMock.expectOne(`${service['apiUrl']}/api/visits/seller/vendedor_authorized@example.com`);
     req.error(new ErrorEvent('Network error'));
   });
 
   it('should handle errors when registering a client visit', () => {
-    
+
     spyOn(console, 'error');
-    
+
     const dummyPayload = {
       visit_datetime: '2023-08-15T14:30:00',
       duration_minutes: 30,
@@ -86,17 +86,17 @@ describe('ClientVisitService', () => {
       client_id: 'client123',
       result: 'INTERESTED'
     };
-    
-   
+
+
     service.registerClientVisit(dummyPayload).subscribe({
       next: () => fail('Debería haber fallado con un error'),
       error: (error) => {
-        
+
         expect(console.error).toHaveBeenCalledWith('Error al registrar visita:', jasmine.any(Object));
       }
     });
-    
-    
+
+
     const req = httpMock.expectOne(`${service['apiUrl']}/api/visits`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(dummyPayload);

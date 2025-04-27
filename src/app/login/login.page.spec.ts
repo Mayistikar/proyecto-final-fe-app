@@ -87,30 +87,30 @@ describe('LoginPage', () => {
   });
 
   it('debería mostrar una alerta si las credenciales son incorrectas', async () => {
-    
+
     loginClientServiceSpy.loginClient.and.returnValue(throwError(() => new Error('Credenciales incorrectas')));
-  
-    
+
+
     component.email = 'test@example.com';
     component.password = 'wrongpassword';
-  
-    
+
+
     await component.login();
-  
-    
+
+
     await component.dismissSpinner();
-  
-    
+
+
     expect(alertControllerSpy.create).toHaveBeenCalledWith({
       header: 'Error',
       message: 'Credenciales incorrectas. Inténtalo nuevamente.',
       buttons: ['Cerrar']
     });
-  
-    
+
+
     expect(mockAlert.present).toHaveBeenCalled();
   });
-  
+
 
 
 
