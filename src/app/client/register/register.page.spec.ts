@@ -6,6 +6,7 @@ import { AlertController } from '@ionic/angular';
 import { of, throwError } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('RegisterPage', () => {
   let component: RegisterPage;
@@ -19,7 +20,7 @@ describe('RegisterPage', () => {
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule, RegisterPage], // Importa el componente directamente
+      imports: [RouterTestingModule, HttpClientTestingModule, RegisterPage, TranslateModule.forRoot()], // Importa el componente directamente
       providers: [
         { provide: RegisterService, useValue: mockRegisterService },
         { provide: Router, useValue: mockRouter },

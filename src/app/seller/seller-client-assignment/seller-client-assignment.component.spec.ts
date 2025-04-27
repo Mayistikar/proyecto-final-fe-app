@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { SellerClientAssignmentComponent } from './seller-client-assignment.component';
 import { AssignedClientsService } from 'src/app/services/assigned-clients.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 describe('SellerClientAssignmentComponent', () => {
   let component: SellerClientAssignmentComponent;
@@ -48,9 +49,13 @@ describe('SellerClientAssignmentComponent', () => {
     assignedClientsServiceMock.postAssignedClients.and.returnValue(of({ success: true }));
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule,SellerClientAssignmentComponent],
+      imports: [
+        HttpClientTestingModule,
+        TranslateModule.forRoot(), // Asegúrate de importar TranslateModule aquí
+      ],
       providers: [
-        { provide: AssignedClientsService, useValue: assignedClientsServiceMock }
+        { provide: AssignedClientsService, useValue: assignedClientsServiceMock },
+        TranslateService // Añade el TranslateService aquí si es necesario
       ]
     }).compileComponents();
 
@@ -67,7 +72,7 @@ describe('SellerClientAssignmentComponent', () => {
     spyOn(component, 'loadClients').and.callThrough();
     component.loadClients();
     expect(component.loadClients).toHaveBeenCalled();
-    expect(component.clients.length).toBe(2);  // El cliente id '3' ya está asignado, así que no aparece
+    expect(component.clients.length).toBe(2); 
   });
 
   it('should filter clients by search text', () => {
@@ -121,4 +126,5 @@ describe('SellerClientAssignmentComponent', () => {
   });
 
 });
+
 

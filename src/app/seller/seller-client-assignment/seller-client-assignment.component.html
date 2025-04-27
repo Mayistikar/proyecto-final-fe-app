@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Asignar Clientes</ion-title>
+    <ion-title>{{ 'seller.clientAssignment.title' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,13 +12,13 @@
   <!-- Buscador -->
   <ion-item class="search-box">
     <ion-icon name="search" slot="start"></ion-icon>
-    <ion-input [(ngModel)]="searchText" placeholder="Buscar clientes por nombre"></ion-input>
+    <ion-input [(ngModel)]="searchText" [placeholder]="'seller.clientAssignment.searchPlaceholder' | translate"></ion-input>
     <ion-button fill="clear" slot="end" (click)="searchText=''">
       <ion-icon name="close"></ion-icon>
     </ion-button>
   </ion-item>
 
-  <ion-label class="section-title">Lista de Clientes</ion-label>
+  <ion-label class="section-title">{{ 'seller.clientAssignment.listTitle' | translate }}</ion-label>
 
   <!-- Lista de clientes -->
   <ion-list>
@@ -37,7 +37,7 @@
 
   <!-- Botón para asignar -->
   <ion-button expand="block" class="asignned-button" (click)="asignarClientesSeleccionados()">
-    Asignar clientes seleccionados
+    {{ 'seller.clientAssignment.assignSelectedButton' | translate }}
   </ion-button>
 
 </ion-content>
