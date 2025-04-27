@@ -1,7 +1,8 @@
 {
   "name": "Proyecto-Final-FE-App",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular",
   "id": "7588c521"
