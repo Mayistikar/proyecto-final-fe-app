@@ -6,6 +6,7 @@ import { LoginClientService } from '../services/login-client.service';
 import { of, throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { TranslationService } from '../services/translation.service';
 
 
 describe('LoginPage', () => {
@@ -15,13 +16,17 @@ describe('LoginPage', () => {
   let routerSpy: jasmine.SpyObj<Router>;
   let alertControllerSpy: jasmine.SpyObj<AlertController>;
   let navControllerSpy: jasmine.SpyObj<NavController>;
-  let mockAlert: any; // Simulación de una alerta de Ionic
+  let mockAlert: any;
+  let translationServiceSpy: jasmine.SpyObj<TranslationService>;
+
 
   beforeEach(waitForAsync(() => {
     loginClientServiceSpy = jasmine.createSpyObj('LoginClientService', ['loginClient', 'getUserRole', 'getUserId']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     alertControllerSpy = jasmine.createSpyObj('AlertController', ['create']);
     navControllerSpy = jasmine.createSpyObj('NavController', ['navigateForward', 'navigateBack']);
+    translationServiceSpy = jasmine.createSpyObj('TranslationService', ['switchLanguage']);
+
 
     const mockStorage: Record<string, string> = {
       access_token: 'fake_token',
@@ -57,6 +62,7 @@ describe('LoginPage', () => {
         { provide: LoginClientService, useValue: loginClientServiceSpy },
         { provide: AlertController, useValue: alertControllerSpy },
         { provide: NavController, useValue: navControllerSpy },
+        { provide: TranslationService, useValue: translationServiceSpy },
       ]
     }).compileComponents();
 
@@ -129,8 +135,10 @@ describe('LoginPage', () => {
     expect(loginClientServiceSpy.loginClient).toHaveBeenCalledWith(testEmail, testPassword);
   });
 
-
-
+  it('debería cambiar el idioma al llamar switchLanguage', () => {
+    component.switchLanguage();
+    expect(translationServiceSpy.switchLanguage).toHaveBeenCalled();
+  });
 
 
 })
