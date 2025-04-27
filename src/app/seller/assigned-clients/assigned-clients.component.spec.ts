@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AssignedClientsComponent } from './assigned-clients.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('AssignedClientsComponent', () => {
   let component: AssignedClientsComponent;
@@ -8,7 +9,7 @@ describe('AssignedClientsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [AssignedClientsComponent, HttpClientTestingModule]
+      imports: [AssignedClientsComponent, HttpClientTestingModule, TranslateModule.forRoot()]
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(AssignedClientsComponent);
       component = fixture.componentInstance;
