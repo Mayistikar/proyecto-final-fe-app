@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mis pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-searchbar placeholder="Buscar entrega"></ion-searchbar>
+
+  <h2 class="section-title">Entregas Programadas</h2>
+
+  <ng-container *ngIf="deliveries.length > 0; else sinEntregas">
+    <ion-item *ngFor="let entrega of deliveries" lines="none">
+      <ion-label>
+        <h3 class="entrega-title">Pedido: {{ entrega.order_id }}</h3>
+        <p>Fecha: {{ entrega.delivery_date | date: 'dd/MM/yyyy' }}</p>
+      </ion-label>
+      <ion-text class="direccion">
+        <strong>Dirección:</strong><br />
+        {{ entrega.client_address }}
+      </ion-text>
+    </ion-item>
+    <ion-item lines="full"></ion-item>
+  </ng-container>
+
+  <ng-template #sinEntregas>
+    <ion-text color="medium">
+      <p>No se encontraron entregas programadas.</p>
+    </ion-text>
+  </ng-template>
+
+  <ion-button expand="block" fill="outline" class="filter-button">
+    Filtrar por Numero de Pedido
+  </ion-button>
+
+  <ion-button expand="block" (click)="openCalendar()">
+    Filtrar por Fecha
+  </ion-button>
+
+  <!-- ✅ Botón para limpiar el filtro de fecha -->
+  <ion-button
+    expand="block"
+    fill="clear"
+    color="medium"
+    (click)="clearDate()"
+    *ngIf="selectedDate"
+  >
+    Limpiar filtro de fecha
+  </ion-button>
+
+  <!-- Pop-up de calendario -->
+  <ion-item *ngIf="showCalendar">
+    <ion-datetime
+      presentation="date"
+      (ionChange)="onDateSelected($event)"
+      [value]="selectedDate"
+    ></ion-datetime>
+  </ion-item>
+</ion-content>
+
+
+

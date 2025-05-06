@@ -57,7 +57,13 @@ const routes: Routes = [
     loadComponent: () => import('./seller/seller-client-assignment/seller-client-assignment.component').then(m => m.SellerClientAssignmentComponent),
     canActivate: [RoleGuard],
     data: { expectedRole: 'seller' }
-  }
+  },
+  {
+    path: 'scheduled-deliveries',
+    loadComponent: () => import('./client/scheduled-deliveries/scheduled-deliveries.component').then(m => m.ScheduledDeliveriesComponent),
+    // canActivate: [RoleGuard],
+    // data: { expectedRole: 'client' } // Rol esperado para esta ruta
+  },
 ];
 
 @NgModule({
