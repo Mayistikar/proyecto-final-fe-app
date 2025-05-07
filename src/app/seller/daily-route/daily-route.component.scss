@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  background: var(--ion-background-color);
+  padding: 1rem;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-card,
+.map-card,
+.client-list-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.map-container {
+  height: 300px;
+  width: 100%;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f4f5f8;
+}
+
+.map {
+  height: 100%;
+  width: 100%;
+}
+
+.spinner-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ion-avatar {
+  background: transparent;
+}
+
+.reorder-button {
+  padding-top: 0.5rem;
+  padding-bottom: 1.5rem;
+
+  ion-button {
+    --border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+}
+
+.empty-message {
+  text-align: center;
+  font-size: 0.9rem;
+  font-style: italic;
+}

@@ -8,7 +8,6 @@ import { AlertController } from '@ionic/angular';
 import { TranslatePipe } from "@ngx-translate/core";
 import { TranslationService } from "../services/translation.service";
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -20,7 +19,7 @@ export class LoginPage {
 
   email: string = '';
   password: string = '';
-  private spinner:any;
+  private spinner: HTMLIonLoadingElement | null = null;
 
   constructor(
     private loginClientService: LoginClientService,
@@ -36,32 +35,38 @@ export class LoginPage {
 
   async login() {
     if (!this.email || !this.password) {
-      this.showAlert('Error', 'Todos los campos son obligatorios.');
+      await this.showAlert('Error', 'Todos los campos son obligatorios.');
       return;
     }
 
-    await this.presentSpinner('Iniciando Sesión..')
+    await this.presentSpinner('Iniciando sesión...');
 
     this.loginClientService.loginClient(this.email, this.password).subscribe({
       next: async () => {
         await this.dismissSpinner();
         await this.showAlert('Éxito', 'Inicio de sesión exitoso.');
 
-        const role =  this.loginClientService.getUserRole();
-        const seller_id = this.loginClientService.getUserId();
+        const role = this.loginClientService.getUserRole();
+        const sellerId = this.loginClientService.getUserId();
         this.loginClientService.setUserEmail(this.email);
 
-        if(role === 'client'){
-          this.router.navigate(['/home-client']);
-        }else if(role === 'seller'){
+        localStorage.setItem('role', role);
+        localStorage.setItem('userEmail', this.email);
+
+        if (role === 'seller') {
+          localStorage.setItem('sellerId', sellerId);
+          localStorage.setItem('sellerEmail', this.email);
           this.router.navigate(['/home']);
-        }else{
-          this.showAlert('Error', 'Rol no reconocido.');
+        } else if (role === 'client') {
+          localStorage.setItem('clientId', sellerId);
+          this.router.navigate(['/home-client']);
+        } else {
+          await this.showAlert('Error', 'Rol no reconocido.');
         }
       },
-      error: async (err) => {
+      error: async () => {
         await this.dismissSpinner();
-        this.showAlert('Error', 'Credenciales incorrectas. Inténtalo nuevamente.');
+        await this.showAlert('Error', 'Credenciales incorrectas. Inténtalo nuevamente.');
       }
     });
   }
@@ -77,16 +82,15 @@ export class LoginPage {
 
   async presentSpinner(message: string) {
     this.spinner = await this.loadingController.create({
-      message: message,
+      message: message
     });
     await this.spinner.present();
   }
+
   async dismissSpinner() {
     if (this.spinner) {
       await this.spinner.dismiss();
+      this.spinner = null;
     }
-
-
   }
-
 }

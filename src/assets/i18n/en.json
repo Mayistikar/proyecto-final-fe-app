@@ -54,6 +54,20 @@
       "generalNotesPlaceholder": "General client notes",
       "saveButton": "Save",
       "updateListButton": "Update List"
+    }, 
+
+    "dailyRoute": {
+      "title": "Seller's Daily Route",
+      "dateLabel": "Select Date",
+      "noClients": "No clients assigned for this date.",
+      "mapLoading": "Loading map...",
+      "mapAriaLabel": "Daily route map",
+      "clientListAria": "Client list for daily route",
+      "reorderButton": "Reorder Clients", 
+      "recommendationsTitle": "Recommendations to optimize your route",
+      "recommendation1": "Arrive early to avoid traffic.",
+      "recommendation2": "Confirm availability with clients.",
+      "recommendation3": "Prioritize visits by proximity."
     }
   },
   "client": {
@@ -92,6 +106,11 @@
       "confirm_password": "Confirm Password",
       "confirm_password_placeholder": "Confirm your password",
       "register_button": "Register"
+    }, 
+    "dailyRoute": {
+      "noClients": "You have no clients assigned for this date.",
+      "mapAriaLabel": "Daily route map"
     }
   }
+
 }

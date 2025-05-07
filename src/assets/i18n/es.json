@@ -54,6 +54,20 @@
       "generalNotesPlaceholder": "Notas generales de clientes",
       "saveButton": "Guardar",
       "updateListButton": "Actualizar Lista"
+    }, 
+    "dailyRoute": {
+      "title": "Ruta Diaria del Vendedor",
+      "dateLabel": "Seleccionar Fecha",
+      "noClients": "No hay clientes asignados para esta fecha.",
+      "mapLoading": "Cargando mapa...", 
+      "mapAriaLabel": "Mapa de ruta diaria",
+      "clientListAria": "Lista de clientes para la ruta diaria",
+      "reorderButton": "Reordenar Clientes", 
+      "recommendationsTitle": "Recomendaciones para optimizar tu ruta",
+      "recommendation1": "Llega temprano para evitar tráfico.",
+      "recommendation2": "Confirma disponibilidad con los clientes.",
+      "recommendation3": "Prioriza las visitas por cercanía."
+  
     }
   },
   "client": {
@@ -92,6 +106,10 @@
       "confirm_password": "Confirmar Contraseña",
       "confirm_password_placeholder": "Confirme su contraseña",
       "register_button": "Registrarse"
+    }, 
+    "dailyRoute": {
+      "noClients": "No tienes clientes asignados para esta fecha.",
+      "mapAriaLabel": "Mapa de ruta diaria"
     }
   }
 }

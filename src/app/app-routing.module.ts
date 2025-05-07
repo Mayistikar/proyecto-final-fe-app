@@ -57,7 +57,15 @@ const routes: Routes = [
     loadComponent: () => import('./seller/seller-client-assignment/seller-client-assignment.component').then(m => m.SellerClientAssignmentComponent),
     canActivate: [RoleGuard],
     data: { expectedRole: 'seller' }
-  }
+  },
+
+  {
+    path: 'daily-route',
+    loadComponent: () => import('./seller/daily-route/daily-route.component').then(m => m.DailyRouteComponent),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'seller' }
+  },
+
 ];
 
 @NgModule({

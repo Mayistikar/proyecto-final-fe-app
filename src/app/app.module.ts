@@ -14,14 +14,15 @@ import { HomePageClient } from './client/home/home-client.page';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
-  ],
+   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
