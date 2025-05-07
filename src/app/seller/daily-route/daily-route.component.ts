@@ -12,7 +12,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DailyRouteService } from 'src/app/services/daily-route.service';
 
-declare const google: any; // necesario si estás usando el script clásico
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-daily-route',
@@ -23,8 +23,8 @@ declare const google: any; // necesario si estás usando el script clásico
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DailyRouteComponent implements OnInit, AfterViewInit {
-  @ViewChild('googleMap', { static: true }) mapElementRef!: ElementRef;
-  map!: google.maps.Map;
+  @ViewChild('leafletMap', { static: false }) mapElementRef!: ElementRef;
+  map!: L.Map;
 
   selectedDate: string = new Date().toISOString();
   minDate: string = new Date().toISOString();
@@ -48,8 +48,7 @@ export class DailyRouteComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Inicializa el mapa aunque no haya clientes
-    this.initGoogleMap([]);
+    // Se inicializa al filtrar
   }
 
   loadRouteData(): void {
@@ -95,42 +94,38 @@ export class DailyRouteComponent implements OnInit, AfterViewInit {
     this.filteredClients = this.assignedClients.filter(
       (client) => new Date(client.visit_date).toDateString() === selected
     );
-    this.initGoogleMap(this.filteredClients);
+    this.initLeafletMap(this.filteredClients);
   }
 
-  initGoogleMap(clients: any[]): void {
-    if (typeof google === 'undefined' || !google.maps) {
-      console.error('Google Maps API no está cargada');
-      return;
+  initLeafletMap(clients: any[]): void {
+    if (!this.map) {
+      this.map = L.map(this.mapElementRef.nativeElement).setView([4.65, -74.05], 13); // Bogotá por defecto
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+      }).addTo(this.map);
+    } else {
+      this.map.eachLayer(layer => {
+        if (layer instanceof L.Marker || layer instanceof L.CircleMarker) {
+          this.map.removeLayer(layer);
+        }
+      });
     }
 
-    const center = clients.length > 0
-      ? { lat: clients[0].latitude, lng: clients[0].longitude }
-      : { lat: 4.65, lng: -74.05 }; // Centro por defecto (Bogotá)
-
-    this.map = new google.maps.Map(this.mapElementRef.nativeElement, {
-      center,
-      zoom: 13,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    const bounds = new google.maps.LatLngBounds();
+    const bounds: L.LatLngBounds = L.latLngBounds([]);
 
     clients.forEach(client => {
-      const position = {
-        lat: client.latitude,
-        lng: client.longitude
-      };
+      const position = L.latLng(client.latitude, client.longitude);
+      L.marker(position)
+        .addTo(this.map)
+        .bindPopup(client.full_name)
+        .openPopup();
       bounds.extend(position);
-      new google.maps.Marker({
-        position,
-        map: this.map,
-        title: client.full_name
-      });
     });
 
     if (clients.length > 1) {
       this.map.fitBounds(bounds);
+    } else if (clients.length === 1) {
+      this.map.setView(bounds.getCenter(), 15);
     }
 
     this.loadingMap = false;
@@ -138,7 +133,7 @@ export class DailyRouteComponent implements OnInit, AfterViewInit {
 
   reorderClients(): void {
     this.filteredClients.reverse();
-    this.initGoogleMap(this.filteredClients);
+    this.initLeafletMap(this.filteredClients);
   }
 
   getFormattedDepartureTime(): string {

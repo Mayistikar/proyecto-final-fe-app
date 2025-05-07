@@ -38,7 +38,9 @@
           class="map-container"
           role="region"
           [attr.aria-label]="'client.dailyRoute.mapAriaLabel' | translate">
-          <div #googleMap id="googleMap"></div>
+          
+          <div #leafletMap id="leafletMap" class="leaflet-map"></div>
+
           <ion-spinner *ngIf="loadingMap" name="crescent" class="spinner-center"></ion-spinner>
         </div>
       </ion-card-content>

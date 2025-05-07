@@ -1,8 +1,12 @@
-import { TestBed, waitForAsync, inject } from '@angular/core/testing';
-import { ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 
 import { DailyRouteComponent } from './daily-route.component';
+import { DailyRouteService } from 'src/app/services/daily-route.service';
 
 describe('DailyRouteComponent', () => {
   let component: DailyRouteComponent;
@@ -10,8 +14,20 @@ describe('DailyRouteComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DailyRouteComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [
+        IonicModule.forRoot(),
+        HttpClientTestingModule,
+        TranslateModule.forRoot(),
+        FormsModule
+      ],
+      declarations: [DailyRouteComponent],
+      providers: [
+        {
+          provide: DailyRouteService,
+          useValue: jasmine.createSpyObj('DailyRouteService', ['getClientsBySellerId', 'getVisitsBySellerAndDate'])
+        }
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
 
     fixture = TestBed.createComponent(DailyRouteComponent);
@@ -19,7 +35,7 @@ describe('DailyRouteComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 });
