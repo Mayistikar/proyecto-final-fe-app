@@ -1,4 +1,5 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed, waitForAsync, inject } from '@angular/core/testing';
+import { ComponentFixture } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { DailyRouteComponent } from './daily-route.component';
