@@ -62,7 +62,10 @@
       "createOrder": "Crear Pedido",
       "myOrders": "Mis Pedidos",
       "orderStatus": "Estado del Pedido",
-      "deliveryTracking": "Entregas Programadas"
+      "deliveryTracking": "Entregas Programadas",
+      "filterByDate": "Filtrar por Fecha",
+      "clearDateFilter": "Limpiar filtro de fecha",
+      "noScheduledDeliveries": "No se encontraron entregas programadas"
     },
     "order": {
       "confirmation-title": "Confirmar Orden",
@@ -95,3 +98,4 @@
     }
   }
 }
+

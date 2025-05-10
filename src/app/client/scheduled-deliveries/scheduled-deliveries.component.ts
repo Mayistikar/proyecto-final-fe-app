@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ScheduledDeliveriesService } from 'src/app/services/scheduled-deliveries.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-scheduled-deliveries',
   templateUrl: './scheduled-deliveries.component.html',
   styleUrls: ['./scheduled-deliveries.component.scss'],
   standalone: true,
-  imports: [IonicModule, FormsModule, CommonModule]
+  imports: [IonicModule, FormsModule, CommonModule, TranslateModule],
 })
 export class ScheduledDeliveriesComponent implements OnInit {
 
