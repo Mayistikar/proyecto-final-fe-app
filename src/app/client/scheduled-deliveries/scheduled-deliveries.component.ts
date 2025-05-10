@@ -15,82 +15,29 @@ export class ScheduledDeliveriesComponent implements OnInit {
 
   constructor(private scheduledDeliveriesService: ScheduledDeliveriesService) { }
 
-  clientId = '8c0933cd-9a1d-40fb-8b89-5e3578582f6c';
+  clientId = localStorage.getItem('user_id') || '';
   deliveries: any[] = [];
   allDeliveries: any[] = [];
 
-  // ngOnInit(): void {
-  //   console.log('ngOnInit ejecutado');
-  //   this.scheduledDeliveriesService.getOrdersByClientId(this.clientId).subscribe(
-  //     (res: any) => {
-  //       console.log('Respuesta del servicio:', res);
-  //       this.deliveries = res;
-  //     },
-  //     (error: any) => {
-  //       console.error('Error obteniendo órdenes:', error);
-  //     }
-  //   );
-  // }
-
-  // ngOnInit(): void {
-  //   console.log('ngOnInit ejecutado');
-  //   this.scheduledDeliveriesService.getOrdersByClientId(this.clientId).subscribe(
-  //     (res: any) => {
-  //       console.log('Respuesta del servicio:', res);
-  //       this.allDeliveries = res;
-  //       this.deliveries = res;
-  //     },
-  //     (error: any) => {
-  //       console.error('Error obteniendo órdenes:', error);
-  //     }
-  //   );
-  // }
-
-
   ngOnInit(): void {
-    console.log('ngOnInit ejecutado (modo mock)');
-
-    this.deliveries = [
-      {
-        order_id: '123e4567-e89b-12d3-a456-426614174001',
-        order_data: {
-          products: [
-            {
-              id: 'abc123',
-              name: 'Cámara DSLR',
-              quantity: 1,
-              price: 2500.00
-            }
-          ],
-          total: 2560.00
-        },
-        delivery_date: '2025-05-15',
-        client_address: 'Carrera 15 #82-45'
+    console.log('ngOnInit ejecutado');
+    this.scheduledDeliveriesService.getOrdersByClientId(this.clientId).subscribe(
+      (res: any) => {
+        console.log('Respuesta del servicio:', res);
+        this.allDeliveries = res || [];
+        this.applyAllFilters(); // Aplicar filtros al cargar
       },
-      {
-        order_id: '456fgh78-1234-5678-aaaa-bbbbccccdddd',
-        order_data: {
-          products: [
-            {
-              id: 'def456',
-              name: 'Lente 50mm',
-              quantity: 2,
-              price: 800.00
-            }
-          ],
-          total: 1600.00
-        },
-        delivery_date: '2025-05-20',
-        client_address: 'Calle 100 #10-20'
+      (error: any) => {
+        console.error('Error obteniendo órdenes:', error);
+        this.allDeliveries = [];
+        this.deliveries = [];
       }
-    ];
-    this.allDeliveries = [...this.deliveries];
+    );
   }
-
-
 
   showCalendar = false;
   selectedDate: string | null = null;
+  searchTerm: string = '';
 
   openCalendar() {
     this.showCalendar = true;
@@ -99,27 +46,60 @@ export class ScheduledDeliveriesComponent implements OnInit {
   onDateSelected(event: any) {
     this.selectedDate = event.detail.value;
     console.log('Fecha seleccionada:', this.selectedDate);
+    this.showCalendar = false;
+    this.applyAllFilters();
+  }
 
+  clearDate() {
+    this.selectedDate = null;
+    this.applyAllFilters();
+  }
+
+  onSearchChange(event: any) {
+    this.searchTerm = event.detail.value || '';
+    this.applyAllFilters();
+  }
+
+  getFilteredByDate(deliveriesToFilter: any[]): any[] {
     if (!this.selectedDate) {
-      return; // no hagas nada si no se seleccionó una fecha
+      return [...deliveriesToFilter];
     }
-
-    const selected = new Date(this.selectedDate).toISOString().split('T')[0]; // YYYY-MM-DD
-
-    this.deliveries = this.allDeliveries.filter(entrega => {
+    const selected = new Date(this.selectedDate).toISOString().split('T')[0];
+    return deliveriesToFilter.filter(entrega => {
+      if (!entrega.delivery_date) return false;
       const entregaDate = new Date(entrega.delivery_date).toISOString().split('T')[0];
       return entregaDate === selected;
     });
-
-    this.showCalendar = false;
-  }
-  clearDate() {
-    this.selectedDate = null;
-    this.deliveries = this.allDeliveries;
-    this.showCalendar = false;
   }
 
+  applyAllFilters() {
+    let filteredByDate = this.getFilteredByDate(this.allDeliveries);
+    const currentSearchTerm = this.searchTerm.trim();
 
+    if (!currentSearchTerm) {
+      this.deliveries = filteredByDate;
+    } else {
+      const numPedido = parseInt(currentSearchTerm, 10);
 
+      if (!isNaN(numPedido) && numPedido > 0) {
+        if (numPedido >= 1 && numPedido <= filteredByDate.length) {
+          this.deliveries = [filteredByDate[numPedido - 1]];
+        } else {
+          this.deliveries = [];
+        }
+      } else {
+        this.deliveries = [];
+      }
+    }
+
+    console.log('✅ Entregas finales a mostrar:', JSON.parse(JSON.stringify(this.deliveries)));
+    if (this.deliveries.length === 0 && currentSearchTerm) {
+      console.log('⚠️ No se encontraron entregas para el término de búsqueda:', currentSearchTerm);
+    }
+  }
+
+  isNotANumber(value: any): boolean {
+    return isNaN(value);
+  }
 }
 

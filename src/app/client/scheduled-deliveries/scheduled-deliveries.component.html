@@ -7,14 +7,27 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <ion-searchbar placeholder="Buscar entrega"></ion-searchbar>
+  <ion-searchbar
+  placeholder="Buscar entrega"
+  [(ngModel)]="searchTerm"
+  (ionInput)="onSearchChange($event)">
+  </ion-searchbar>
+
 
   <h2 class="section-title">Entregas Programadas</h2>
 
   <ng-container *ngIf="deliveries.length > 0; else sinEntregas">
-    <ion-item *ngFor="let entrega of deliveries" lines="none">
+    <ion-item *ngFor="let entrega of deliveries; let i = index" lines="full">
       <ion-label>
-        <h3 class="entrega-title">Pedido: {{ entrega.order_id }}</h3>
+        <h3 class="entrega-title">
+          Pedido:
+          <ng-container *ngIf="searchTerm && !isNotANumber(searchTerm)">
+            {{ searchTerm }}
+          </ng-container>
+          <ng-container *ngIf="!searchTerm || isNotANumber(searchTerm)">
+            {{ i + 1 }}
+          </ng-container>
+        </h3>
         <p>Fecha: {{ entrega.delivery_date | date: 'dd/MM/yyyy' }}</p>
       </ion-label>
       <ion-text class="direccion">
@@ -31,15 +44,15 @@
     </ion-text>
   </ng-template>
 
-  <ion-button expand="block" fill="outline" class="filter-button">
+  <!-- <ion-button expand="block" fill="outline" class="filter-button">
     Filtrar por Numero de Pedido
-  </ion-button>
+  </ion-button> -->
 
   <ion-button expand="block" (click)="openCalendar()">
     Filtrar por Fecha
   </ion-button>
 
-  <!-- ✅ Botón para limpiar el filtro de fecha -->
+
   <ion-button
     expand="block"
     fill="clear"
