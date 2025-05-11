@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'home-client',
     loadComponent: () => import('./client/home/home-client.page').then( m => m.HomePageClient),
-    // canActivate: [RoleGuard],
+    canActivate: [RoleGuard],
     data: { expectedRole: 'client' } // Rol esperado para esta ruta
   },
   {
@@ -43,7 +43,7 @@ const routes: Routes = [
   {
     path:'order-confirmation',
     loadComponent : () => import('./client/order-confirmation/order-confirmation.component').then( m => m.OrderConfirmationComponent),
-    // canActivate: [RoleGuard],
+    canActivate: [RoleGuard],
     data: { expectedRole: 'client' } // Rol esperado para esta ruta
   },
   {
@@ -61,8 +61,8 @@ const routes: Routes = [
   {
     path: 'scheduled-deliveries',
     loadComponent: () => import('./client/scheduled-deliveries/scheduled-deliveries.component').then(m => m.ScheduledDeliveriesComponent),
-    // canActivate: [RoleGuard],
-    // data: { expectedRole: 'client' } // Rol esperado para esta ruta
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'client' } // Rol esperado para esta ruta
   },
 ];
 
