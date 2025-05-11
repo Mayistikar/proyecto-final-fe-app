@@ -102,6 +102,15 @@
       "confirm_password_placeholder": "Confirm your password",
       "register_button": "Register"
     },
+    "tracking": {
+      "title": "Delivery Tracking",
+      "searchPlaceholder": "Search by order number",
+      "listTitle": "Delivery List",
+      "orderNumber": "Order Number",
+      "deliveryDate": "Delivery Date",
+      "status": "Status",
+      "detailsButton": "Details"
+    },
     "myOrders": "My Orders",
     "deliveryTracking": "Delivery Tracking",
     "search": "Search",

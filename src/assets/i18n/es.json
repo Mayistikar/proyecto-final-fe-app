@@ -95,6 +95,15 @@
       "confirm_password": "Confirmar Contraseña",
       "confirm_password_placeholder": "Confirme su contraseña",
       "register_button": "Registrarse"
+    },
+    "tracking": {
+      "title": "Seguimiento de Entregas",
+      "searchPlaceholder": "Buscar por número de pedido",
+      "listTitle": "Lista de Entregas",
+      "orderNumber": "Número de Pedido",
+      "deliveryDate": "Fecha de Entrega",
+      "status": "Estado",
+      "detailsButton": "Detalles"
     }
   }
 }
