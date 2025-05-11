@@ -1,0 +1,59 @@
+.section-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.entrega-title {
+  color: #0078d4;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.direccion {
+  text-align: right;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.filter-button {
+  margin-top: 20px;
+  border: 1px solid #000;
+}
+
+ion-button {
+  font-weight: bold;
+}
+
+ion-content {
+  background-color: #ffffff;
+  --background:#ffffff ;
+}
+
+ion-item {
+  background-color: #ffffff;
+  --background:#ffffff ;
+}
+
+ion-searchbar {
+  --background: #ffffff;
+  --color: #000000;
+  background: #ffffff !important;
+  color: #000000;
+  border-radius: 20px;
+  //box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sc-ion-searchbar-md-h {
+  background: #ffffff;
+}
+
+h2{
+  font-size: 0.6rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  color: #000;
+  border-bottom: 1px solid;
+}

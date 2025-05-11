@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'client.home.myOrders' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-searchbar
+    [placeholder]="'client.order.search' | translate"
+    [(ngModel)]="searchTerm"
+    (ionInput)="onSearchChange($event)">
+  </ion-searchbar>
+
+  <h2 class="section-title">{{ 'client.home.deliveryTracking' | translate }}</h2>
+
+  <ng-container *ngIf="deliveries.length > 0; else sinEntregas">
+    <ion-item *ngFor="let entrega of deliveries; let i = index" lines="full">
+      <ion-label>
+        <h3 class="entrega-title">
+          {{ 'client.order.details' | translate }}:
+          <ng-container *ngIf="searchTerm && !isNotANumber(searchTerm)">
+            {{ searchTerm }}
+          </ng-container>
+          <ng-container *ngIf="!searchTerm || isNotANumber(searchTerm)">
+            {{ i + 1 }}
+          </ng-container>
+        </h3>
+        <p>{{ 'Fecha' | translate }}: {{ entrega.delivery_date | date: 'dd/MM/yyyy' }}</p>
+      </ion-label>
+      <ion-text class="direccion">
+        <strong>{{ 'client.register.address' | translate }}:</strong><br />
+        {{ entrega.client_address }}
+      </ion-text>
+    </ion-item>
+    <ion-item lines="full"></ion-item>
+  </ng-container>
+
+  <ng-template #sinEntregas>
+    <ion-text color="medium">
+      <p>{{ 'No se encontraron entregas programadas.' | translate }}</p>
+      <!-- Este string lo puedes agregar a tu archivo de traducción -->
+    </ion-text>
+  </ng-template>
+
+  <ion-button expand="block" (click)="openCalendar()">
+    {{ 'Filtrar por Fecha' | translate }}
+    <!-- Este string también debe agregarse al archivo JSON -->
+  </ion-button>
+
+  <ion-button
+    expand="block"
+    fill="clear"
+    color="medium"
+    (click)="clearDate()"
+    *ngIf="selectedDate">
+    {{ 'Limpiar filtro de fecha' | translate }}
+    <!-- Igual, agréguese al archivo de i18n -->
+  </ion-button>
+
+  <ion-item *ngIf="showCalendar">
+    <ion-datetime
+      presentation="date"
+      (ionChange)="onDateSelected($event)"
+      [value]="selectedDate">
+    </ion-datetime>
+  </ion-item>
+</ion-content>
+
+
+
+
