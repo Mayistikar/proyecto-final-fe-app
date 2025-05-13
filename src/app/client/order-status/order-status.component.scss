@@ -1,0 +1,75 @@
+/* src/app/client/order-status/order-status.component.scss */
+ion-content {
+  --background: #fff;
+  background: #fff;
+}
+
+.section-header {
+  span {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  hr {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin-bottom: 16px;
+  }
+}
+
+ion-item {
+  --inner-padding-top: 8px;
+  --inner-padding-bottom: 8px;
+  --background: #fff;
+  background: #fff;
+
+  ion-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  ion-label {
+    h3, p {
+      margin: 0;
+    }
+    h3 {
+      font-size: 16px;
+    }
+    p {
+      font-size: 14px;
+      color: #666;
+      margin-top: 2px;
+    }
+  }
+}
+
+.order-number {
+  color: var(--ion-color-primary);
+}
+.order-number.neutral {
+  color: #000;
+}
+
+.order-status {
+  /* ya está definido en ion-label p */
+}
+
+.order-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.details-btn {
+  margin: 16px 0;
+}
+
+.client-name {
+  font-size: 16px;
+  color: var(--ion-color-primary);
+}
+.client-last {
+  font-size: 14px;
+  color: #666;
+}

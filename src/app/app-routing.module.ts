@@ -69,6 +69,10 @@ const routes: Routes = [
     loadComponent: () => import('./client/tracking/tracking.component').then(m => m.TrackingComponent),
     // canActivate: [RoleGuard],
     // data: { expectedRole: 'client' } // Rol esperado para esta ruta
+  },
+  {
+    path: 'order-status',
+    loadComponent: () => import('./client/order-status/order-status.component').then(m => m.OrderStatusComponent),
   }
 ];
 

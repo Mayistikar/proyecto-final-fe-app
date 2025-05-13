@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mis pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+
+  <!-- Sección: Estado de pedidos -->
+  <div class="section-header">
+    <span>Estado de pedidos</span>
+    <hr>
+  </div>
+
+  <!-- Lista de pedidos -->
+  <ion-list lines="none">
+    <ion-item *ngFor="let order of orders">
+      <ion-label>
+        <h3 class="order-number">Order #{{ order.number }}</h3>
+        <p class="order-status">{{ order.status }}</p>
+      </ion-label>
+      <ion-note slot="end" class="order-date">{{ order.date | date:'dd/MM/yyyy' }}</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <!-- Botón Ver detalles -->
+  <ion-button expand="block" color="primary" class="details-btn">
+    Ver Detalles
+  </ion-button>
+
+  <!-- Información del cliente -->
+  <ion-list lines="none">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="assets/img/user-placeholder.png" alt="Icono cliente" />
+      </ion-avatar>
+      <ion-label>
+        <h3 class="client-name">Nombre del cliente</h3>
+        <p class="client-last">Última compra: 10/10/2025</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

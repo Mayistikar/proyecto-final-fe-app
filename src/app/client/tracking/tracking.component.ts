@@ -9,7 +9,7 @@ import { TranslatePipe } from "@ngx-translate/core";
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
-  styleUrls: ['./tracking.component.scss'],
+  styleUrls: [],
   standalone: true,
   imports: [CommonModule, FormsModule, IonicModule, TranslatePipe],
 })
@@ -22,10 +22,9 @@ export class TrackingComponent implements AfterViewInit {
     this.initMap();
   }
 
-
   async initMap(): Promise<void> {
     const warehousePosition = { lat: 4.711, lng: -74.072 }; // Coordinates of the warehouse
-    const deliveryPosition = { lat: 4.701, lng: -74.146 }; // Coordinates of the delivery
+    const deliveryPosition = { lat: 4.6695391, lng: -74.1173893 }; // Coordinates of the delivery
 
     try {
       // Request needed libraries.
@@ -92,7 +91,7 @@ export class TrackingComponent implements AfterViewInit {
           let step = 0;
 
           const truckMarker = new Marker({
-            position: interpolatedRoute[0],
+            position: route[0],
             map: this.map,
             title: '🚛', // Truck icon
             label: '🚛', // Display the truck emoji
@@ -102,11 +101,31 @@ export class TrackingComponent implements AfterViewInit {
             step++;
             if (step >= interpolatedRoute.length) {
               clearInterval(interval); // Stop the animation when the truck reaches the destination
+
+              // Make a request to the delivered endpoint
+              fetch('http://localhost:3000/delivered', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status: 'delivered' }),
+              })
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+                })
+                .then((data) => {
+                  console.log('Delivery status updated:', data);
+                })
+                .catch((error) => {
+                  console.error('Error making request:', error);
+                });
             } else {
               truckMarker.setPosition(interpolatedRoute[step]); // Move the truck to the next point
             }
           }, 500); // Update position every 500ms
-
 
         } else {
           console.error('Error fetching directions:', status);
