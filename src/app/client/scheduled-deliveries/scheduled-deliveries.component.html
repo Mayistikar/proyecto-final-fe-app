@@ -34,6 +34,9 @@
         <strong>{{ 'client.register.address' | translate }}:</strong><br />
         {{ entrega.client_address }}
       </ion-text>
+      <ion-button fill="outline" slot="end" size="small" (click)="openDeliveryDetails(entrega)">
+        {{ 'Detalles' | translate }}
+      </ion-button>
     </ion-item>
     <ion-item lines="full"></ion-item>
   </ng-container>
@@ -41,13 +44,11 @@
   <ng-template #sinEntregas>
     <ion-text color="medium">
       <p>{{ 'No se encontraron entregas programadas.' | translate }}</p>
-      <!-- Este string lo puedes agregar a tu archivo de traducción -->
     </ion-text>
   </ng-template>
 
   <ion-button expand="block" (click)="openCalendar()">
     {{ 'Filtrar por Fecha' | translate }}
-    <!-- Este string también debe agregarse al archivo JSON -->
   </ion-button>
 
   <ion-button
@@ -57,7 +58,6 @@
     (click)="clearDate()"
     *ngIf="selectedDate">
     {{ 'Limpiar filtro de fecha' | translate }}
-    <!-- Igual, agréguese al archivo de i18n -->
   </ion-button>
 
   <ion-item *ngIf="showCalendar">
@@ -67,7 +67,49 @@
       [value]="selectedDate">
     </ion-datetime>
   </ion-item>
+
+  <!-- Modal inline para mostrar detalle de productos -->
+  <ion-modal [isOpen]="showModal" (didDismiss)="closeModal()">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <ion-header>
+          <ion-toolbar class="toolbar-contenedor" style="--background: #007BFF; --color: white;">
+            <ion-title class="detalles-modal-header">{{ 'client.order.details' | translate }}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button class="boton-cerrar" (click)="closeModal()">{{ 'Cerrar' | translate }}</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+
+        <ng-container *ngIf="selectedDelivery && selectedDelivery.order_data?.products?.length">
+          <ion-list>
+            <ion-item *ngFor="let product of selectedDelivery.order_data.products" class="detalles-producto">
+              <ion-label>
+                <h2>{{ product.name }}</h2>
+                <p>{{ 'Cantidad' | translate }}: {{ product.quantity }}</p>
+                <p>{{ 'Precio' | translate }}: {{ product.price }} {{ product.currency }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+
+          <ion-item>
+            <ion-label class="total-label">
+              <strong>{{ 'Total' | translate }}:</strong> {{ selectedDelivery.order_data.total }} {{ selectedDelivery.order_data.products[0]?.currency }}
+            </ion-label>
+          </ion-item>
+        </ng-container>
+
+        <ng-container *ngIf="selectedDelivery && (!selectedDelivery.order_data || !selectedDelivery.order_data.products?.length)">
+          <ion-text color="danger">{{ 'No hay productos disponibles para esta entrega.' | translate }}</ion-text>
+        </ng-container>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
+
+
+
+
 
 
 
