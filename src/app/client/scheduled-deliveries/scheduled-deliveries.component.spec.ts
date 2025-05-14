@@ -66,13 +66,7 @@ describe('ScheduledDeliveriesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should load deliveries on ngOnInit', () => {
-  //   setupSuccessfulLoad();
-  //   //expect(scheduledDeliveriesService.getOrdersByClientId).toHaveBeenCalledWith('testUserId');
-  //   expect(component.allDeliveries).toEqual(mockDeliveries);
-  //   expect(component.deliveries).toEqual(mockDeliveries);
-  //   expect(component.applyAllFilters).toHaveBeenCalled();
-  // });
+
 
   it('should handle error on ngOnInit', () => {
     setupFailedLoad();

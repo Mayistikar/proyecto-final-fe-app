@@ -124,7 +124,17 @@
     "client.order.quantity": "Quantity",
     "client.order.addProduct": "Add Product",
     "client.order.subtotal": "Subtotal",
-    "client.order.total": "Total"
+    "client.order.total": "Total",
+    "client.order.detalles": "Details",
+    "client.order.limpiarFiltroFecha": "Clear Date Filter",
+    "client.order.noProductosDisponibles": "No products available for this delivery.",
+    "client.order.detallesModal": "Order Details",
+    "client.order.producto": "Product",
+    "client.order.cantidad": "Quantity",
+    "client.order.precio": "Price",
+    "client.order.moneda": "Currency",
+    "client.order.totalDetalle": "Total"
   }
 }
+
 

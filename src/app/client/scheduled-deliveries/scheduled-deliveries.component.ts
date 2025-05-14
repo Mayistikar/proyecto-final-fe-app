@@ -61,17 +61,34 @@ export class ScheduledDeliveriesComponent implements OnInit {
     this.applyAllFilters();
   }
 
+  // ✅ Función para formatear la fecha en formato YYYY-MM-DD (local)
+  formatDate(dateStr: string): string {
+    const date = new Date(dateStr);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+
   getFilteredByDate(deliveriesToFilter: any[]): any[] {
     if (!this.selectedDate) {
       return [...deliveriesToFilter];
     }
-    const selected = new Date(this.selectedDate).toISOString().split('T')[0];
+
+    // ⚠️ Solo tomar los primeros 10 caracteres para obtener YYYY-MM-DD sin zona horaria
+    const selected = this.selectedDate.substring(0, 10);
+
     return deliveriesToFilter.filter(entrega => {
       if (!entrega.delivery_date) return false;
-      const entregaDate = new Date(entrega.delivery_date).toISOString().split('T')[0];
+
+      // También limitar delivery_date a YYYY-MM-DD sin parsearlo con Date()
+      const entregaDate = entrega.delivery_date.substring(0, 10);
+
+      console.log('🧪 Comparando:', entregaDate, 'con', selected);
       return entregaDate === selected;
     });
   }
+
 
   applyAllFilters() {
     let filteredByDate = this.getFilteredByDate(this.allDeliveries);
@@ -102,5 +119,19 @@ export class ScheduledDeliveriesComponent implements OnInit {
   isNotANumber(value: any): boolean {
     return isNaN(value);
   }
+
+  selectedDelivery: any = null;
+  showModal = false;
+
+  openDeliveryDetails(delivery: any) {
+    this.selectedDelivery = delivery;
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+    this.selectedDelivery = null;
+  }
 }
+
 
