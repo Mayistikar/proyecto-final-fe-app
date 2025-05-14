@@ -1,26 +1,78 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, NgZone, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+
+interface OrderItem {
+  product_id: string;
+  product_name: string;
+  quantity: number;
+  price: number;
+  subtotal: number;
+  status: string;
+}
+
+interface Order {
+  id: string;
+  client_id: string;
+  seller_id: string;
+  state: string;
+  total: number;
+  deliver_date: string | null;
+  created_at: string;
+  items: OrderItem[];
+}
 
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
   styleUrls: ['./tracking.component.scss'],
-  imports: [IonicModule],
+  imports: [IonicModule, CommonModule],
   standalone: true
 })
-export class TrackingComponent implements AfterViewInit {
+export class TrackingComponent implements AfterViewInit, OnInit {
   @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
   map: any;
   truckMarker: any;
   animationPath: any[] = [];
   animationIndex = 0;
   animationTimeout: any;
+  orderId: string | null = null;
+  order: Order | null = null;
 
   // Locations for warehouse and client (example coordinates)
   warehouseLocation = { lat: 4.7110, lng: -74.0721 }; // Bogotá, Colombia
   clientLocation = { lat: 4.7000, lng: -74.0800 };   // Bogotá, Colombia (más cerca de la bodega)
 
-  constructor(private ngZone: NgZone) {}
+  constructor(private ngZone: NgZone, private http: HttpClient) {}
+
+  ngOnInit() {
+    // Get order_id from localStorage
+    this.orderId = localStorage.getItem('order_id');
+    console.log('Tracking order ID:', this.orderId);
+
+    if (this.orderId) {
+      this.fetchOrderDetails(this.orderId);
+    } else {
+      console.error('No order_id found in localStorage');
+    }
+  }
+
+  private fetchOrderDetails(orderId: string) {
+    const apiUrl = `https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod/api/orders/${orderId}`;
+
+    this.http.get<Order>(apiUrl).subscribe({
+      next: (data) => {
+        this.order = data;
+        console.log('Order details loaded:', this.order);
+
+        // You could update the map or tracking information based on order details if needed
+      },
+      error: (error) => {
+        console.error('Error fetching order details:', error);
+      }
+    });
+  }
 
   ngAfterViewInit() {
     this.loadGoogleMapsAPI();
