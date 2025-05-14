@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import {DeliveriesService, Product, Order, OrderItem, ProductAdded} from 'src/app/services/deliveries.service';
+import { DeliveriesService, Product, Order, OrderItem, ProductAdded } from 'src/app/services/deliveries.service';
 import { Router } from '@angular/router';
-import {TranslateModule} from "@ngx-translate/core";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-deliveries',

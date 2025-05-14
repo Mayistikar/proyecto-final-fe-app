@@ -9,39 +9,28 @@
 
 <ion-content class="ion-padding-horizontal">
 
-  <!-- Sección: Estado de pedidos -->
-  <div class="section-header">
-    <span>Estado de pedidos</span>
-    <hr>
-  </div>
-
-  <!-- Lista de pedidos -->
-  <ion-list lines="none">
-    <ion-item *ngFor="let order of orders">
-      <ion-label>
-        <h3 class="order-number">Order #{{ order.number }}</h3>
-        <p class="order-status">{{ order.status }}</p>
-      </ion-label>
-      <ion-note slot="end" class="order-date">{{ order.date | date:'dd/MM/yyyy' }}</ion-note>
-    </ion-item>
-  </ion-list>
-
-  <!-- Botón Ver detalles -->
-  <ion-button expand="block" color="primary" class="details-btn">
-    Ver Detalles
-  </ion-button>
-
   <!-- Información del cliente -->
   <ion-list lines="none">
     <ion-item>
       <ion-avatar slot="start">
-        <img src="assets/img/user-placeholder.png" alt="Icono cliente" />
+        <img src="assets/login-image.jpg" alt="Cliente" />
       </ion-avatar>
       <ion-label>
-        <h3 class="client-name">Nombre del cliente</h3>
-        <p class="client-last">Última compra: 10/10/2025</p>
+        <h3 class="client-name">{{ user_email }}</h3>
+        <p class="client-last">Última Compra: {{ last_buy }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <!-- Lista de pedidos -->
+  <ion-list lines="none">
+    <ion-item *ngFor="let order of orders">
+      <ion-label (click)="saveOrderId(order.id)" style="cursor:pointer;" [routerLink]="['/tracking']" routerLinkActive="router-link-active" >
+        <h3 class="order-number">Order #{{ order.id.split('-')[0] }}</h3>
+        <p class="order-status">{{ order.state }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
 
 </ion-content>

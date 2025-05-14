@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TranslatePipe } from "@ngx-translate/core";
+import { Order } from "../../services/deliveries.service";
 
 @Component({
   selector: 'app-tracking',
@@ -15,25 +16,43 @@ import { TranslatePipe } from "@ngx-translate/core";
 })
 export class TrackingComponent implements AfterViewInit {
   private map: any;
+  orderId: string | null = null;
+  order: Order | null = null;
 
-  constructor() {}
+  constructor() {
+    this.orderId = localStorage.getItem('order_id');
+    if (this.orderId) {
+      fetch(`https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod/api/orders/${this.orderId}`)
+        .then(async (response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          this.order = await response.json();
+          console.log('Order details:', this.order);
+        })
+        .then((data) => {
+          console.log('Order details:', data);
+        })
+        .catch((error) => {
+          console.error('Error fetching order details:', error);
+        });
+    }
+  }
 
   ngAfterViewInit(): void {
     this.initMap();
   }
 
   async initMap(): Promise<void> {
-    const warehousePosition = { lat: 4.711, lng: -74.072 }; // Coordinates of the warehouse
-    const deliveryPosition = { lat: 4.6695391, lng: -74.1173893 }; // Coordinates of the delivery
+    const warehousePosition = { lat: 4.711, lng: -74.072 };
+    const deliveryPosition = { lat: 4.6695391, lng: -74.1173893 };
 
     try {
-      // Request needed libraries.
       //@ts-ignore
       const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
       const { DirectionsService, DirectionsRenderer } = await google.maps.importLibrary("routes") as google.maps.RoutesLibrary;
       const { Marker } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
 
-      // Initialize the map
       this.map = new Map(
         document.getElementById('map') as HTMLElement,
         {
@@ -123,9 +142,9 @@ export class TrackingComponent implements AfterViewInit {
                   console.error('Error making request:', error);
                 });
             } else {
-              truckMarker.setPosition(interpolatedRoute[step]); // Move the truck to the next point
+              truckMarker.setPosition(interpolatedRoute[step]);
             }
-          }, 500); // Update position every 500ms
+          }, 500);
 
         } else {
           console.error('Error fetching directions:', status);

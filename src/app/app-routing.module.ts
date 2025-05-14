@@ -73,6 +73,8 @@ const routes: Routes = [
   {
     path: 'order-status',
     loadComponent: () => import('./client/order-status/order-status.component').then(m => m.OrderStatusComponent),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'client' }
   }
 ];
 
