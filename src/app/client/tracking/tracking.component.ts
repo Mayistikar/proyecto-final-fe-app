@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, NgZone, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 interface OrderItem {
@@ -70,6 +70,25 @@ export class TrackingComponent implements AfterViewInit, OnInit {
       },
       error: (error) => {
         console.error('Error fetching order details:', error);
+      }
+    });
+  }
+
+  private updateOrderState(orderId: string, newState: string) {
+    const apiUrl = 'https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod/api/orders/update-state';
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const payload = {
+      order_id: orderId,
+      state: newState
+    };
+
+    this.http.post(apiUrl, payload, { headers }).subscribe({
+      next: (response) => {
+        console.log('Order state updated successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error updating order state:', error);
       }
     });
   }
@@ -204,6 +223,13 @@ export class TrackingComponent implements AfterViewInit, OnInit {
     // Check if animation is complete
     if (this.animationIndex >= this.animationPath.length) {
       console.log('Delivery completed');
+
+      // Update order state to delivered when animation completes
+      if (this.orderId) {
+        // Using "OrderDelivered" as the logical next state after delivery
+        this.updateOrderState(this.orderId, "OrderDelivered");
+      }
+
       return;
     }
 
