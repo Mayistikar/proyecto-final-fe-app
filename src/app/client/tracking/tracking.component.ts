@@ -39,6 +39,7 @@ export class TrackingComponent implements AfterViewInit, OnInit {
   animationTimeout: any;
   orderId: string | null = null;
   order: Order | null = null;
+  deliveryMessage: string | null = null;
 
   // Locations for warehouse and client (example coordinates)
   warehouseLocation = { lat: 4.7110, lng: -74.0721 }; // Bogotá, Colombia
@@ -66,7 +67,14 @@ export class TrackingComponent implements AfterViewInit, OnInit {
         this.order = data;
         console.log('Order details loaded:', this.order);
 
-        // You could update the map or tracking information based on order details if needed
+        if (this.order.state === "OrderDelivered") {
+          this.deliveryMessage = "¡Orden entregada con éxito!";
+        }
+
+        // If map is already initialized, update it based on order state
+        if (this.map) {
+          this.updateMapBasedOnOrderState();
+        }
       },
       error: (error) => {
         console.error('Error fetching order details:', error);
@@ -86,6 +94,12 @@ export class TrackingComponent implements AfterViewInit, OnInit {
     this.http.post(apiUrl, payload, { headers }).subscribe({
       next: (response) => {
         console.log('Order state updated successfully:', response);
+
+        // Update local order state and message
+        if (this.order && newState === "OrderDelivered") {
+          this.order.state = newState;
+          this.deliveryMessage = "¡Orden entregada con éxito!";
+        }
       },
       error: (error) => {
         console.error('Error updating order state:', error);
@@ -145,19 +159,31 @@ export class TrackingComponent implements AfterViewInit, OnInit {
         label: 'C'
       });
 
-      // Create truck marker at warehouse initially
-      this.createTruckMarker(this.warehouseLocation);
-
       // Adjust bounds to show both markers
       const bounds = new (window as any).google.maps.LatLngBounds();
       bounds.extend(this.warehouseLocation);
       bounds.extend(this.clientLocation);
       this.map.fitBounds(bounds);
 
-      // Draw route and start animation
-      this.calculateAndDisplayRoute();
+      // Handle map display based on order state
+      this.updateMapBasedOnOrderState();
     } catch (error) {
       console.error('Failed to initialize map:', error);
+    }
+  }
+
+  private updateMapBasedOnOrderState(): void {
+    // If no order or map data yet, exit
+    if (!this.order || !this.map) return;
+
+    if (this.order.state === "OrderDelivered") {
+      // For delivered orders, show truck at destination without animation
+      this.createTruckMarker(this.clientLocation);
+      this.displayRouteWithoutAnimation();
+    } else {
+      // For orders in progress, start the animation
+      this.createTruckMarker(this.warehouseLocation);
+      this.calculateAndDisplayRoute();
     }
   }
 
@@ -177,6 +203,33 @@ export class TrackingComponent implements AfterViewInit, OnInit {
         scale: 0
       }
     });
+  }
+
+  private displayRouteWithoutAnimation(): void {
+    try {
+      const directionsService = new (window as any).google.maps.DirectionsService();
+      const directionsRenderer = new (window as any).google.maps.DirectionsRenderer({
+        map: this.map,
+        suppressMarkers: true // Keep our custom markers
+      });
+
+      directionsService.route(
+        {
+          origin: this.warehouseLocation,
+          destination: this.clientLocation,
+          travelMode: (window as any).google.maps.TravelMode.DRIVING
+        },
+        (response: any, status: any) => {
+          if (status === (window as any).google.maps.DirectionsStatus.OK) {
+            directionsRenderer.setDirections(response);
+          } else {
+            console.error('Directions request failed due to ' + status);
+          }
+        }
+      );
+    } catch (error) {
+      console.error('Failed to calculate route:', error);
+    }
   }
 
   private calculateAndDisplayRoute(): void {

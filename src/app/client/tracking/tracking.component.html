@@ -5,5 +5,8 @@
 </ion-header>
 
 <ion-content>
+  <div *ngIf="deliveryMessage" class="delivery-message centered-message">
+    🎉 {{ deliveryMessage }} 🚚
+  </div>
   <div #mapContainer class="map-container"></div>
 </ion-content>
