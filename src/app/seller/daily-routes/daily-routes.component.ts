@@ -12,7 +12,62 @@ interface Client {
   phone: string;
   address: string;
   notes: string;
+  client_x_location: number;
+  client_y_location: number;
 }
+
+const randomClients: Client[] = [
+  {
+    id: '1',
+    name: 'Alice Smith',
+    email: 'alice@example.com',
+    phone: '555-1234',
+    address: '123 Main St',
+    notes: 'VIP client',
+    client_x_location: 4.700,
+    client_y_location: -74.100
+  },
+  {
+    id: '2',
+    name: 'Bob Johnson',
+    email: 'bob@example.com',
+    phone: '555-5678',
+    address: '456 Elm St',
+    notes: 'Prefers morning visits',
+    client_x_location: 4.500,
+    client_y_location: -74.200
+  },
+  {
+    id: '3',
+    name: 'Carol Lee',
+    email: 'carol@example.com',
+    phone: '555-9012',
+    address: '789 Oak St',
+    notes: '',
+    client_x_location: 4.800,
+    client_y_location: -74.000
+  },
+  {
+    id: '4',
+    name: 'David Brown',
+    email: 'david@example.com',
+    phone: '555-3456',
+    address: '321 Pine St',
+    notes: 'New client',
+    client_x_location: 4.600,
+    client_y_location: -74.300
+  },
+  {
+    id: '5',
+    name: 'Eva Green',
+    email: 'eva@example.com',
+    phone: '555-7890',
+    address: '654 Maple St',
+    notes: 'Requires special attention',
+    client_x_location: 4.900,
+    client_y_location: -74.250
+  }
+];
 
 interface Visit {
   lat: number;
@@ -34,16 +89,7 @@ interface Visit {
 export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
 
-  selectedDate: string = new Date().toISOString();
-
-  visits: Visit[] = [];
-
   private map!: google.maps.Map;
-  private markers: google.maps.Marker[] = [];
-  private polyline!: google.maps.Polyline;
-  private animationMarker!: google.maps.Marker;
-  private animationPath: google.maps.LatLngLiteral[] = [];
-  private animationIndex = 0;
   private animationTimeout: any;
   private user_id: string | null = null;
 
@@ -93,6 +139,11 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
+    // Add markers if clients are loaded
+    if (this.clients.length > 0) {
+      this.addClientMarkers();
+    }
+
     // Asegúrate de que el mapa se redimensione correctamente
     setTimeout(() => {
       google.maps.event.trigger(this.map, 'resize');
@@ -105,7 +156,8 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.http.get<{ seller_id: string; clients: Client[]; message: string }>(apiUrl).subscribe({
       next: async (data) => {
-        this.clients = data.clients; // Extrae los clientes de la respuesta
+        // this.clients = data.clients; // Extrae los clientes de la respuesta
+        this.clients = randomClients; // Usa datos de ejemplo para pruebas
         this.isLoading = false;
 
         // Inicializa el mapa después de cargar los clientes
@@ -119,14 +171,45 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  private addClientMarker(location: google.maps.LatLngLiteral, clientName: string): void {
-    const marker = new google.maps.Marker({
-      position: location,
-      map: this.map,
-      title: clientName,
-      label: clientName[0], // Usa la primera letra del nombre del cliente como etiqueta
-    });
-    this.markers.push(marker);
-  }
+  private addClientMarkers(): void {
+    if (!this.map || this.clients.length === 0) return;
 
+    // Create bounds object to fit all markers in view
+    const bounds = new google.maps.LatLngBounds();
+
+    this.clients.forEach(client => {
+      // Check if client has valid location data
+      if (client.client_x_location && client.client_y_location) {
+        const position = {
+          lat: client.client_x_location,
+          lng: client.client_y_location
+        };
+
+        // Create marker
+        const marker = new google.maps.Marker({
+          position: position,
+          map: this.map,
+          title: client.name
+        });
+
+        // Add info window with client details
+        const infoWindow = new google.maps.InfoWindow({
+          content: `<div><strong>${client.name}</strong><br>${client.address}<br>${client.phone}</div>`
+        });
+
+        // Add click listener to show info window
+        marker.addListener('click', () => {
+          infoWindow.open(this.map, marker);
+        });
+
+        // Extend bounds to include this marker
+        bounds.extend(position);
+      }
+    });
+
+    // Adjust map to show all markers
+    if (!bounds.isEmpty()) {
+      this.map.fitBounds(bounds);
+    }
+  }
 }
