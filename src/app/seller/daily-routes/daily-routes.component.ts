@@ -24,8 +24,8 @@ const randomClients: Client[] = [
     phone: '555-1234',
     address: '123 Main St',
     notes: 'VIP client',
-    client_x_location: 4.700,
-    client_y_location: -74.100
+    client_x_location: 4.610,
+    client_y_location: -74.081
   },
   {
     id: '2',
@@ -34,8 +34,8 @@ const randomClients: Client[] = [
     phone: '555-5678',
     address: '456 Elm St',
     notes: 'Prefers morning visits',
-    client_x_location: 4.500,
-    client_y_location: -74.200
+    client_x_location: 4.612,
+    client_y_location: -74.083
   },
   {
     id: '3',
@@ -44,8 +44,8 @@ const randomClients: Client[] = [
     phone: '555-9012',
     address: '789 Oak St',
     notes: '',
-    client_x_location: 4.800,
-    client_y_location: -74.000
+    client_x_location: 4.614,
+    client_y_location: -74.080
   },
   {
     id: '4',
@@ -54,8 +54,8 @@ const randomClients: Client[] = [
     phone: '555-3456',
     address: '321 Pine St',
     notes: 'New client',
-    client_x_location: 4.600,
-    client_y_location: -74.300
+    client_x_location: 4.609,
+    client_y_location: -74.079
   },
   {
     id: '5',
@@ -64,11 +64,10 @@ const randomClients: Client[] = [
     phone: '555-7890',
     address: '654 Maple St',
     notes: 'Requires special attention',
-    client_x_location: 4.900,
-    client_y_location: -74.250
+    client_x_location: 4.611,
+    client_y_location: -74.082
   }
 ];
-
 interface Visit {
   lat: number;
   lng: number;
@@ -174,32 +173,49 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
   private addClientMarkers(): void {
     if (!this.map || this.clients.length === 0) return;
 
-    // Create bounds object to fit all markers in view
     const bounds = new google.maps.LatLngBounds();
 
+    let currentInfoWindow: google.maps.InfoWindow | null = null;
+
+    google.maps.event.addListener(this.map, 'click', () => {
+      if (currentInfoWindow) currentInfoWindow.close();
+    });
+
     this.clients.forEach(client => {
-      // Check if client has valid location data
       if (client.client_x_location && client.client_y_location) {
         const position = {
           lat: client.client_x_location,
           lng: client.client_y_location
         };
 
-        // Create marker
         const marker = new google.maps.Marker({
           position: position,
           map: this.map,
-          title: client.name
+          title: client.name,
+          animation: google.maps.Animation.DROP
         });
 
-        // Add info window with client details
+        const infoContent = `
+        <div style="padding: 8px; max-width: 200px;">
+          <h3 style="margin-top: 0; color: #007aff;">${client.name}</h3>
+          <p style="margin: 5px 0;  color: #007aff;"><strong>Dirección:</strong> ${client.address}</p>
+          <p style="margin: 5px 0;  color: #007aff;"><strong>Teléfono:</strong> ${client.phone}</p>
+        </div>
+      `;
+
         const infoWindow = new google.maps.InfoWindow({
-          content: `<div><strong>${client.name}</strong><br>${client.address}<br>${client.phone}</div>`
+          content: infoContent,
+          maxWidth: 250
         });
 
-        // Add click listener to show info window
+        // Add click listener with proper handling
         marker.addListener('click', () => {
+          // Close currently open info window if exists
+          if (currentInfoWindow) currentInfoWindow.close();
+
+          // Open this info window
           infoWindow.open(this.map, marker);
+          currentInfoWindow = infoWindow;
         });
 
         // Extend bounds to include this marker
@@ -212,4 +228,5 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
       this.map.fitBounds(bounds);
     }
   }
+
 }
