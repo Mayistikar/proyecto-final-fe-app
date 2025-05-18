@@ -40,10 +40,14 @@ export class TrackingComponent implements AfterViewInit, OnInit {
   orderId: string | null = null;
   order: Order | null = null;
   deliveryMessage: string | null = null;
+  client_x_location: number = 4.6109;
+  client_y_location: number = -74.0817;
+  manufacturer_x_location: number = 4.6209;
+  manufacturer_y_location: number = -74.517;
 
   // Locations for warehouse and client (example coordinates)
-  warehouseLocation = { lat: 4.7110, lng: -74.0721 }; // Bogotá, Colombia
-  clientLocation = { lat: 4.7000, lng: -74.0800 };   // Bogotá, Colombia (más cerca de la bodega)
+  warehouseLocation = { lat: 4.6580, lng: -74.1036 }; // Bogotá, Colombia
+  clientLocation = { lat: 4.667727, lng: -74.056307 }; // Default to warehouse location
 
   constructor(private ngZone: NgZone, private http: HttpClient) {}
 
@@ -71,13 +75,51 @@ export class TrackingComponent implements AfterViewInit, OnInit {
           this.deliveryMessage = "¡Orden entregada con éxito!";
         }
 
-        // If map is already initialized, update it based on order state
         if (this.map) {
           this.updateMapBasedOnOrderState();
         }
+
+        this.fetchClientAddress(this.order?.client_id);
+        this.fetchSellerAddress(this.order?.seller_id);
       },
       error: (error) => {
         console.error('Error fetching order details:', error);
+      }
+    });
+  }
+
+  private fetchClientAddress(clientId: string | null | undefined) {
+    if (!clientId) return;
+
+    const apiUrl = `https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod/api/id_client/${clientId}`;
+
+    this.http.get<any>(apiUrl).subscribe({
+      next: (data) => {
+        this.client_x_location = data("client_location_x");
+        this.client_y_location = data("client_location_y");
+        this.clientLocation = { lat: this.client_x_location, lng: this.client_y_location };
+      },
+      error: (error) => {
+        console.error('Error fetching client address:', error);
+      }
+    });
+  }
+
+  private fetchSellerAddress(sellerId: string | null | undefined) {
+    if (!sellerId) return;
+
+    const apiUrl = `https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod/api/manufacturers/search?id=${sellerId}`;
+
+    this.http.get<any>(apiUrl).subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          this.manufacturer_x_location = data[0].location_x;
+          this.manufacturer_y_location = data[0].location_y;
+          this.warehouseLocation = { lat: this.manufacturer_x_location, lng: this.manufacturer_y_location };
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching manufacturer address:', error);
       }
     });
   }
@@ -100,6 +142,11 @@ export class TrackingComponent implements AfterViewInit, OnInit {
           this.order.state = newState;
           this.deliveryMessage = "¡Orden entregada con éxito!";
         }
+
+        setTimeout(() => {
+          window.location.href = '/order-status';
+        }, 3000);
+
       },
       error: (error) => {
         console.error('Error updating order state:', error);
@@ -128,6 +175,7 @@ export class TrackingComponent implements AfterViewInit, OnInit {
   }
 
   private initMap(): void {
+
     if (!this.mapContainer) {
       console.error('Map container not found');
       return;

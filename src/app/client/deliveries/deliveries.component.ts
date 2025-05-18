@@ -23,7 +23,6 @@ export class DeliveriesComponent   {
   }
   constructor(private deliveryService : DeliveriesService, private router: Router) {
     this.order.client_id = <string>localStorage.getItem('user_id');
-    this.order.seller_id = <string>localStorage.getItem('user_id');
     this.cargarProductos();
   }
 
@@ -40,6 +39,7 @@ export class DeliveriesComponent   {
   // Seleccionar producto desde el card
   seleccionarProducto(producto: Product): void {
     this.productoSeleccionado = producto;
+    this.order.seller_id = this.productoSeleccionado["manufacturer_id"];
     this.cantidadDeseada = 0;
   }
 
@@ -84,6 +84,8 @@ export class DeliveriesComponent   {
       subtotal: precioTotal,
       status: 'empty'
     });
+
+    this.order.seller_id = this.productoSeleccionado["manufacturer_id"];
 
     // Limpiar selección
     this.cantidadDeseada = 0;

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {RouterLink} from "@angular/router";
+import {TranslatePipe} from "@ngx-translate/core";
 
 interface OrderItem {
   product_id: string;
@@ -30,7 +31,7 @@ interface Order {
   templateUrl: './order-status.component.html',
   styleUrls: ['./order-status.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, HttpClientModule, RouterLink],
+  imports: [CommonModule, IonicModule, HttpClientModule, RouterLink, TranslatePipe],
 })
 export class OrderStatusComponent implements OnInit {
   orders: Order[] = [];

@@ -84,7 +84,13 @@
       "orderConfirmation": "Order Confirmation",
       "stock": "Stock",
       "total": "Total",
-      "subtotal": "Subtotal"
+      "subtotal": "Subtotal",
+      "list": "My Orders",
+      "lastOrder": "Last Order",
+      "statusDelivered": "Delivered",
+      "statusInTransit": "In Transit",
+      "statusPending": "Pending",
+      "statusConfirmed": "Confirmed"
     },
     "register": {
       "title": "Client Registration",

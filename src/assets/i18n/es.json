@@ -78,7 +78,13 @@
       "orderConfirmation": "Confirmar Orden",
       "stock": "Disponibles",
       "total": "Total",
-      "subtotal": "Subtotal"
+      "subtotal": "Subtotal",
+      "list": "Mis Pedidos",
+      "lastOrder": "Último Compra",
+      "statusDelivered": "Entregado",
+      "statusInTransit": "En Tránsito",
+      "statusPending": "Pendiente",
+      "statusConfirmed": "Confirmado"
     },
     "register": {
       "title": "Registro de Cliente",
