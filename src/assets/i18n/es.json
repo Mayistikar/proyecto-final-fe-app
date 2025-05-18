@@ -15,9 +15,9 @@
       "title": "CCP STORE VENDEDOR",
       "createOrder": "Crear Pedido",
       "assignedClients": "Clientes Asignados",
-      "clientVisit": "Registro Visita Cliente",
+      "clientVisit": "Registro de Visita al Cliente",
       "dailyRoute": "Ruta Diaria",
-      "videoProcessing": "Procesamiento Video",
+      "videoProcessing": "Procesamiento de Video",
       "recommendations": "Recomendaciones",
       "clientAssignmentTitle": "Asignación de Clientes"
     },
@@ -28,15 +28,15 @@
       "assignSelectedButton": "Asignar clientes seleccionados"
     },
     "clientVisit": {
-      "title": "Registro de Visita a Cliente",
-      "visitDateTimeLabel": "Fecha y Hora de la visita",
-      "visitDateTimePlaceholder": "Ingrese su Fecha y Hora",
-      "durationLabel": "Duración de la visita",
-      "durationPlaceholder": "Ingrese duración en minutos",
+      "title": "Registro de Visita al Cliente",
+      "visitDateTimeLabel": "Fecha y Hora de la Visita",
+      "visitDateTimePlaceholder": "Ingrese la fecha y hora de la visita",
+      "durationLabel": "Duración de la Visita",
+      "durationPlaceholder": "Ingrese la duración en minutos",
       "observationsLabel": "Observaciones",
       "observationsPlaceholder": "Escriba sus observaciones",
-      "clientIdLabel": "Correo Cliente",
-      "clientIdPlaceholder": "Escriba el email del cliente",
+      "clientIdLabel": "Correo del Cliente",
+      "clientIdPlaceholder": "Escriba el correo del cliente",
       "resultsTitle": "Resultados",
       "interestedButton": "Interesado",
       "notInterestedButton": "No Interesado",
@@ -50,7 +50,7 @@
       "title": "Clientes Asignados",
       "searchPlaceholder": "Buscar Clientes",
       "listTitle": "Lista de Clientes",
-      "additionalNotesTitle": "Notas adicionales",
+      "additionalNotesTitle": "Notas Adicionales",
       "generalNotesPlaceholder": "Notas generales de clientes",
       "saveButton": "Guardar",
       "updateListButton": "Actualizar Lista"
@@ -62,7 +62,7 @@
       "createOrder": "Crear Pedido",
       "myOrders": "Mis Pedidos",
       "orderStatus": "Estado del Pedido",
-      "deliveryTracking": "Entregas Programadas",
+      "deliveryTracking": "Seguimiento de Entregas",
       "filterByDate": "Filtrar por Fecha",
       "clearDateFilter": "Limpiar filtro de fecha",
       "noScheduledDeliveries": "No se encontraron entregas programadas"
@@ -98,5 +98,6 @@
     }
   }
 }
+
 
 

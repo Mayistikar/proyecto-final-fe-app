@@ -63,15 +63,9 @@
       "myOrders": "My Orders",
       "orderStatus": "Order Status",
       "deliveryTracking": "Delivery Tracking",
-      "search": "Search",
-      "details": "Order Details",
-      "quantity": "Quantity",
-      "addProduct": "Add Product",
-      "orderCreation": "Buy",
-      "orderConfirmation": "Order Confirmation",
-      "stock": "Stock",
-      "total": "Total",
-      "subtotal": "Subtotal"
+      "filterByDate": "Filter by Date",
+      "clearDateFilter": "Clear Date Filter",
+      "noScheduledDeliveries": "No scheduled deliveries found"
     },
     "order": {
       "confirmation-title": "Confirm Order",
@@ -101,31 +95,9 @@
       "confirm_password": "Confirm Password",
       "confirm_password_placeholder": "Confirm your password",
       "register_button": "Register"
-    },
-    "myOrders": "My Orders",
-    "deliveryTracking": "Delivery Tracking",
-    "search": "Search",
-    "Filtrar por Fecha": "Filter by Date",
-    "Limpiar filtro de fecha": "Clear Date Filter",
-    "Fecha": "Date",
-    "No se encontraron entregas programadas.": "No scheduled deliveries found.",
-    "client.order.details": "Order",
-    "client.register.address": "Address",
-    "client.order.search": "Search",
-    "client.order.quantity": "Quantity",
-    "client.order.addProduct": "Add Product",
-    "client.order.subtotal": "Subtotal",
-    "client.order.total": "Total",
-    "client.order.detalles": "Details",
-    "client.order.limpiarFiltroFecha": "Clear Date Filter",
-    "client.order.noProductosDisponibles": "No products available for this delivery.",
-    "client.order.detallesModal": "Order Details",
-    "client.order.producto": "Product",
-    "client.order.cantidad": "Quantity",
-    "client.order.precio": "Price",
-    "client.order.moneda": "Currency",
-    "client.order.totalDetalle": "Total"
+    }
   }
 }
+
 
 
