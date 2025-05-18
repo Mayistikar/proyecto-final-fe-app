@@ -55,6 +55,7 @@ jobs:
           aws-region: us-east-2
 
       - name: List build output
+        if: false
         run: ls -la android/app/build/outputs/apk/release
 
       - name: Deploy to S3
