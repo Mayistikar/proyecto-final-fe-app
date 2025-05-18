@@ -26,6 +26,14 @@
         <h2>{{ client.name }}</h2>
         <p>{{ client.address }}</p>
         <p>{{ client.phone }}</p>
+
+        <ng-container *ngIf="client.client_location_x !== null && client.client_location_y !== null; else noCoords">
+        </ng-container>
+        <ng-template #noCoords>
+          <ion-icon name="alert-circle-outline" color="warning" style="vertical-align: middle;"></ion-icon>
+          <span style="color: #ff9800; margin-left: 4px;">{{ 'seller.assignedClients.noCoords' | translate }}</span>
+        </ng-template>
+
       </ion-label>
       <ion-button fill="clear" slot="end">
         <ion-icon

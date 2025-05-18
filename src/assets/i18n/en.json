@@ -59,7 +59,8 @@
       "additionalNotesTitle": "Additional Notes",
       "generalNotesPlaceholder": "General client notes",
       "saveButton": "Save",
-      "updateListButton": "Update List"
+      "updateListButton": "Update List",
+      "noCoords": "No coords available for this client"
     }
   },
   "client": {

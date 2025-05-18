@@ -12,62 +12,10 @@ interface Client {
   phone: string;
   address: string;
   notes: string;
-  client_x_location: number;
-  client_y_location: number;
+  client_location_x: number;
+  client_location_y: number;
 }
 
-const randomClients: Client[] = [
-  {
-    id: '1',
-    name: 'Alice Smith',
-    email: 'alice@example.com',
-    phone: '555-1234',
-    address: '123 Main St',
-    notes: 'VIP client',
-    client_x_location: 4.610,
-    client_y_location: -74.081
-  },
-  {
-    id: '2',
-    name: 'Bob Johnson',
-    email: 'bob@example.com',
-    phone: '555-5678',
-    address: '456 Elm St',
-    notes: 'Prefers morning visits',
-    client_x_location: 4.612,
-    client_y_location: -74.083
-  },
-  {
-    id: '3',
-    name: 'Carol Lee',
-    email: 'carol@example.com',
-    phone: '555-9012',
-    address: '789 Oak St',
-    notes: '',
-    client_x_location: 4.614,
-    client_y_location: -74.080
-  },
-  {
-    id: '4',
-    name: 'David Brown',
-    email: 'david@example.com',
-    phone: '555-3456',
-    address: '321 Pine St',
-    notes: 'New client',
-    client_x_location: 4.609,
-    client_y_location: -74.079
-  },
-  {
-    id: '5',
-    name: 'Eva Green',
-    email: 'eva@example.com',
-    phone: '555-7890',
-    address: '654 Maple St',
-    notes: 'Requires special attention',
-    client_x_location: 4.611,
-    client_y_location: -74.082
-  }
-];
 interface Visit {
   lat: number;
   lng: number;
@@ -91,6 +39,9 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
   private map!: google.maps.Map;
   private animationTimeout: any;
   private user_id: string | null = null;
+
+  private directionsService: google.maps.DirectionsService | null = null;
+  private directionsRenderer: google.maps.DirectionsRenderer | null = null;
 
   private markers = new Map<string, google.maps.Marker>();
   private infoWindows = new Map<string, google.maps.InfoWindow>();
@@ -159,8 +110,7 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.http.get<{ seller_id: string; clients: Client[]; message: string }>(apiUrl).subscribe({
       next: async (data) => {
-        // this.clients = data.clients; // Extrae los clientes de la respuesta
-        this.clients = randomClients; // Usa datos de ejemplo para pruebas
+        this.clients = data.clients; // Extrae los clientes de la respuesta
         this.isLoading = false;
 
         // Inicializa el mapa después de cargar los clientes
@@ -184,10 +134,10 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.clients.forEach(client => {
-      if (client.client_x_location && client.client_y_location) {
+      if (client.client_location_x && client.client_location_y) {
         const position = {
-          lat: client.client_x_location,
-          lng: client.client_y_location
+          lat: client.client_location_x,
+          lng: client.client_location_y,
         };
 
         const marker = new google.maps.Marker({
@@ -226,10 +176,10 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (!bounds.isEmpty()) {
       this.map.fitBounds(bounds);
+      this.displayRoute();
     }
   }
 
-// Add method to focus on a specific client
   public focusOnClient(clientId: string): void {
     const marker = this.markers.get(clientId);
 
@@ -249,7 +199,6 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-// Helper method to open info window
   private openInfoWindow(clientId: string): void {
     const marker = this.markers.get(clientId);
     const infoWindow = this.infoWindows.get(clientId);
@@ -264,6 +213,80 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
       infoWindow.open(this.map, marker);
       this.currentInfoWindow = infoWindow;
     }
+  }
+
+  private displayRoute(): void {
+    if (!this.map || this.clients.length < 2) return;
+
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsRenderer = new google.maps.DirectionsRenderer({
+      map: this.map,
+      suppressMarkers: true, // Don't show default markers, we have our own
+      polylineOptions: {
+        strokeColor: '#007aff',
+        strokeWeight: 5,
+        strokeOpacity: 0.7
+      }
+    });
+
+    // Extract locations from clients for waypoints
+    const waypoints = this.clients
+      .filter(client => client.client_location_x && client.client_location_y)
+      .slice(1, -1)
+      .map(client => {
+        return {
+          location: new google.maps.LatLng(
+            client.client_location_x,
+            client.client_location_y
+          ),
+          stopover: true
+        };
+      });
+
+    const validClients = this.clients.filter(
+      client => client.client_location_x && client.client_location_y
+    );
+
+    if (validClients.length < 1) return;
+
+    const origin = new google.maps.LatLng(
+      validClients[0].client_location_x,
+      validClients[0].client_location_y
+    );
+
+    const destination = new google.maps.LatLng(
+      validClients[validClients.length - 1].client_location_x,
+      validClients[validClients.length - 1].client_location_y
+    );
+
+    this.directionsService.route(
+      {
+        origin: origin,
+        destination: destination,
+        waypoints: waypoints,
+        optimizeWaypoints: true,
+        travelMode: google.maps.TravelMode.DRIVING
+      },
+      (response, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.directionsRenderer!.setDirections(response);
+
+          // Calculate total distance and time
+          const route = response!.routes[0];
+          let totalDistance = 0;
+          let totalDuration = 0;
+
+          route.legs.forEach((leg) => {
+            totalDistance += leg.distance?.value || 0;
+            totalDuration += leg.duration?.value || 0;
+          });
+
+          console.log(`Route created: ${(totalDistance/1000).toFixed(1)}km, ${Math.round(totalDuration/60)} minutes`);
+        } else {
+          console.error('Directions request failed due to ' + status);
+        }
+      }
+    );
   }
 
 }
