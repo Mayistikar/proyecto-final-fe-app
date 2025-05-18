@@ -59,4 +59,5 @@ jobs:
         run: ls -la android/app/build/outputs/apk/release
 
       - name: Deploy to S3
+        if: false
         run: aws s3 sync android/app/build/outputs/apk/release s3://${{ secrets.S3_BUCKET_NAME }}/apk/ --delete
