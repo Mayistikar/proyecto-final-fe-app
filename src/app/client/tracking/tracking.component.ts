@@ -322,11 +322,9 @@ export class TrackingComponent implements AfterViewInit, OnInit {
   private animateStep(): void {
     // Check if animation is complete
     if (this.animationIndex >= this.animationPath.length) {
-      console.log('Delivery completed');
 
       // Update order state to delivered when animation completes
       if (this.orderId) {
-        // Using "OrderDelivered" as the logical next state after delivery
         this.updateOrderState(this.orderId, "OrderDelivered");
       }
 

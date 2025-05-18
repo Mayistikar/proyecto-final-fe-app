@@ -49,7 +49,7 @@ export class OrderStatusComponent implements OnInit {
       .get<Order[]>('https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod/api/orders')
       .subscribe({
         next: (data) => {
-          this.orders = data.filter(order => order.client_id === this.user_id);
+          this.orders = data.filter(order => order.client_id === this.user_id).sort((a, b) => (a.state === 'OrderDelivered' ? 1 : b.state === 'OrderDelivered' ? -1 : 0));
           this.last_buy = this.orders.length > 0 ? this.orders[0].created_at : '';
         },
         error: (err) => {
