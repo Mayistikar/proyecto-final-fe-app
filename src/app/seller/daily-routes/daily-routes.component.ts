@@ -92,6 +92,10 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
   private animationTimeout: any;
   private user_id: string | null = null;
 
+  private markers = new Map<string, google.maps.Marker>();
+  private infoWindows = new Map<string, google.maps.InfoWindow>();
+  private currentInfoWindow: google.maps.InfoWindow | null = null;
+
   clients: Client[] = [];
   isLoading = true;
   errorMessage: string | null = null;
@@ -175,10 +179,8 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const bounds = new google.maps.LatLngBounds();
 
-    let currentInfoWindow: google.maps.InfoWindow | null = null;
-
     google.maps.event.addListener(this.map, 'click', () => {
-      if (currentInfoWindow) currentInfoWindow.close();
+      if (this.currentInfoWindow) this.currentInfoWindow.close();
     });
 
     this.clients.forEach(client => {
@@ -195,6 +197,9 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
           animation: google.maps.Animation.DROP
         });
 
+        // Store marker reference
+        this.markers.set(client.id, marker);
+
         const infoContent = `
         <div style="padding: 8px; max-width: 200px;">
           <h3 style="margin-top: 0; color: #007aff;">${client.name}</h3>
@@ -208,24 +213,56 @@ export class DailyRoutesComponent implements OnInit, AfterViewInit, OnDestroy {
           maxWidth: 250
         });
 
-        // Add click listener with proper handling
-        marker.addListener('click', () => {
-          // Close currently open info window if exists
-          if (currentInfoWindow) currentInfoWindow.close();
+        // Store info window reference
+        this.infoWindows.set(client.id, infoWindow);
 
-          // Open this info window
-          infoWindow.open(this.map, marker);
-          currentInfoWindow = infoWindow;
+        marker.addListener('click', () => {
+          this.openInfoWindow(client.id);
         });
 
-        // Extend bounds to include this marker
         bounds.extend(position);
       }
     });
 
-    // Adjust map to show all markers
     if (!bounds.isEmpty()) {
       this.map.fitBounds(bounds);
+    }
+  }
+
+// Add method to focus on a specific client
+  public focusOnClient(clientId: string): void {
+    const marker = this.markers.get(clientId);
+
+    if (marker && this.map) {
+      // Center the map on the marker
+      this.map.setCenter(marker.getPosition()!);
+      this.map.setZoom(15); // Zoom in closer
+
+      // Open the info window
+      this.openInfoWindow(clientId);
+
+      // Add a bounce animation to highlight the marker
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(() => {
+        marker.setAnimation(null);
+      }, 1500);
+    }
+  }
+
+// Helper method to open info window
+  private openInfoWindow(clientId: string): void {
+    const marker = this.markers.get(clientId);
+    const infoWindow = this.infoWindows.get(clientId);
+
+    if (marker && infoWindow && this.map) {
+      // Close the currently open info window if there is one
+      if (this.currentInfoWindow) {
+        this.currentInfoWindow.close();
+      }
+
+      // Open the new info window
+      infoWindow.open(this.map, marker);
+      this.currentInfoWindow = infoWindow;
     }
   }
 

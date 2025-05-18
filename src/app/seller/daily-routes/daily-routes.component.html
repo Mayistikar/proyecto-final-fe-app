@@ -15,7 +15,7 @@
   </div>
 
   <ion-list>
-    <ion-item *ngFor="let client of clients">
+    <ion-item *ngFor="let client of clients" (click)="focusOnClient(client.id)">
       <ion-avatar slot="start">
         <ion-icon
           name="person-circle-outline"
@@ -35,4 +35,5 @@
       </ion-button>
     </ion-item>
   </ion-list>
+
 </ion-content>
