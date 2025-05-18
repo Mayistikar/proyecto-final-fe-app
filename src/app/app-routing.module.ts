@@ -64,6 +64,30 @@ const routes: Routes = [
     canActivate: [RoleGuard],
     data: { expectedRole: 'client' } // Rol esperado para esta ruta
   },
+  {
+    path: 'tracking',
+    loadComponent: () => import('./client/tracking/tracking.component').then(m => m.TrackingComponent),
+    // canActivate: [RoleGuard],
+    // data: { expectedRole: 'client' } // Rol esperado para esta ruta
+  },
+  {
+    path: 'order-status',
+    loadComponent: () => import('./client/order-status/order-status.component').then(m => m.OrderStatusComponent),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'client' }
+  },
+  {
+    path: 'daily-routes',
+    loadComponent: () => import('./seller/daily-routes/daily-routes.component').then(m => m.DailyRoutesComponent),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'seller' } // Rol esperado para esta ruta
+  },
+  {
+    path: 'recommendations',
+    loadComponent: () => import('./seller/recommendations/recommendations.component').then(m => m.RecommendationsComponent),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'seller' }
+  }
 ];
 
 @NgModule({

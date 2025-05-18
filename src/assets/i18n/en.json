@@ -11,6 +11,12 @@
     "register_button": "Register"
   },
   "seller": {
+    "recommendations": {
+      "title": "Recommendations",
+      "selectClient": "Select a client",
+      "uploadVideo": "Upload Video",
+      "submit": "Submit"
+    },
     "home": {
       "title": "CCP STORE SELLER",
       "createOrder": "Create Order",
@@ -53,7 +59,8 @@
       "additionalNotesTitle": "Additional Notes",
       "generalNotesPlaceholder": "General client notes",
       "saveButton": "Save",
-      "updateListButton": "Update List"
+      "updateListButton": "Update List",
+      "noCoords": "No coords available for this client"
     }
   },
   "client": {
@@ -84,7 +91,13 @@
       "orderConfirmation": "Order Confirmation",
       "stock": "Stock",
       "total": "Total",
-      "subtotal": "Subtotal"
+      "subtotal": "Subtotal",
+      "list": "My Orders",
+      "lastOrder": "Last Order",
+      "statusDelivered": "Delivered",
+      "statusInTransit": "In Transit",
+      "statusPending": "Pending",
+      "statusConfirmed": "Confirmed"
     },
     "register": {
       "title": "Client Registration",
@@ -101,6 +114,15 @@
       "confirm_password": "Confirm Password",
       "confirm_password_placeholder": "Confirm your password",
       "register_button": "Register"
+    },
+    "tracking": {
+      "title": "Delivery Tracking",
+      "searchPlaceholder": "Search by order number",
+      "listTitle": "Delivery List",
+      "orderNumber": "Order Number",
+      "deliveryDate": "Delivery Date",
+      "status": "Status",
+      "detailsButton": "Details"
     },
     "myOrders": "My Orders",
     "deliveryTracking": "Delivery Tracking",

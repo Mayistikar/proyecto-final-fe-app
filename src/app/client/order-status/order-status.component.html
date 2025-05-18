@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'client.order.list' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+
+  <!-- Información del cliente -->
+  <ion-list lines="none">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="assets/login-image.jpg" alt="Cliente" />
+      </ion-avatar>
+      <ion-label>
+        <h3 class="client-name">{{ user_email }}</h3>
+        <p class="client-last">{{ 'client.order.lastOrder' | translate }} {{ last_buy }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Lista de pedidos -->
+  <ion-list lines="none">
+    <ion-item *ngFor="let order of orders">
+      <ion-label (click)="saveOrderId(order.id)" style="cursor:pointer;" [routerLink]="['/tracking']" routerLinkActive="router-link-active" >
+        <h3 class="order-number">Order #{{ order.id.split('-')[0] }}</h3>
+        <p class="order-status">
+          <ng-container [ngSwitch]="order.state">
+            <span *ngSwitchCase="'OrderDelivered'">✅ {{ 'client.order.statusDelivered' | translate }}</span>
+            <span *ngSwitchCase="'InTransit'">🚚 {{ 'client.order.statusInTransit' | translate }}</span>
+            <span *ngSwitchCase="'Pending'">⏳  {{ 'client.order.statusPending' | translate }}</span>
+            <span *ngSwitchCase="'OrderConfirmed'">📝 {{ 'client.order.statusConfirmed' | translate }}</span>
+            <span *ngSwitchDefault>{{ order.state }}</span>
+          </ng-container>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>

@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/order-status"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="deliveryMessage" class="delivery-message centered-message">
+    🎉 {{ deliveryMessage }} 🚚
+  </div>
+  <div #mapContainer class="map-container"></div>
+</ion-content>

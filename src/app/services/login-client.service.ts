@@ -7,8 +7,6 @@ import { tap } from 'rxjs/operators';
 })
 export class LoginClientService {
 
-
-
   private apiUrl = 'https://kxa0nfrh14.execute-api.us-east-1.amazonaws.com/prod';
 
   constructor(private http:HttpClient) { }
