@@ -137,7 +137,6 @@ export class TrackingComponent implements AfterViewInit, OnInit {
       next: (response) => {
         console.log('Order state updated successfully:', response);
 
-        // Update local order state and message
         if (this.order && newState === "OrderDelivered") {
           this.order.state = newState;
           this.deliveryMessage = "¡Orden entregada con éxito!";

@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'seller.recommendations.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="recommendations-content">
+
+  <ion-card class="recommendation-card">
+    <ion-card-header>
+      <ion-card-title>
+        {{ 'seller.recommendations.title' | translate }}
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list lines="none">
+
+        <ion-item fill="outline" class="form-item">
+          <ion-label position="stacked">
+            {{ 'seller.recommendations.selectClient' | translate }}
+          </ion-label>
+          <ion-select [(ngModel)]="selectedClientId" interface="popover" placeholder="– Selecciona –">
+            <ion-select-option *ngFor="let client of clients" [value]="client.id">
+              {{ client.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item fill="outline" class="form-item file-item">
+          <ion-label position="stacked">
+            {{ 'seller.recommendations.uploadVideo' | translate }}
+          </ion-label>
+          <input
+            type="file"
+            (change)="onFileSelected($event)"
+            accept="video/*"
+          />
+        </ion-item>
+
+        <ion-button
+          expand="block"
+          shape="round"
+          class="submit-btn"
+          (click)="uploadVideo()"
+          [disabled]="!selectedClientId || !selectedFile"
+        >
+          {{ 'seller.recommendations.submit' | translate }}
+        </ion-button>
+
+        <div class="feedback">
+          <ion-spinner *ngIf="isLoading"></ion-spinner>
+          <ion-text color="danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </ion-text>
+        </div>
+
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="recommendationResponse" class="recommendations-result">
+    <h2>{{ recommendationResponse.name }}</h2>
+    <ion-list>
+      <ion-item *ngFor="let recommendation of recommendationResponse.recommendations">
+        <ion-label>
+          <h3>{{ recommendation.product_name }}</h3>
+          <p>{{ recommendation.observations }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

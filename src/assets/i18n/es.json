@@ -11,6 +11,12 @@
     "register_button": "Registrarse"
   },
   "seller": {
+    "recommendations": {
+      "title": "Recomendaciones",
+      "selectClient": "Seleccionar cliente",
+      "uploadVideo": "Cargar Video",
+      "submit": "Cargar"
+    },
     "home": {
       "title": "CCP STORE VENDEDOR",
       "createOrder": "Crear Pedido",
