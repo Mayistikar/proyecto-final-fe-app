@@ -41,6 +41,7 @@ jobs:
         run: npx cap sync android
 
       - name: Build APK
+        if: false
         run: |
           cd android
           chmod +x ./gradlew
