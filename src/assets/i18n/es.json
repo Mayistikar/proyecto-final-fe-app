@@ -11,6 +11,12 @@
     "register_button": "Registrarse"
   },
   "seller": {
+    "recommendations": {
+      "title": "Recomendaciones",
+      "selectClient": "Seleccionar cliente",
+      "uploadVideo": "Cargar Video",
+      "submit": "Cargar"
+    },
     "home": {
       "title": "CCP STORE VENDEDOR",
       "createOrder": "Crear Pedido",
@@ -53,7 +59,8 @@
       "additionalNotesTitle": "Notas adicionales",
       "generalNotesPlaceholder": "Notas generales de clientes",
       "saveButton": "Guardar",
-      "updateListButton": "Actualizar Lista"
+      "updateListButton": "Actualizar Lista",
+      "noCoords": "No hay coordenadas disponibles para este cliente"
     }
   },
   "client": {
@@ -62,7 +69,10 @@
       "createOrder": "Crear Pedido",
       "myOrders": "Mis Pedidos",
       "orderStatus": "Estado del Pedido",
-      "deliveryTracking": "Entregas Programadas"
+      "deliveryTracking": "Entregas Programadas",
+      "filterByDate": "Filtrar por Fecha",
+      "clearDateFilter": "Limpiar filtro de fecha",
+      "noScheduledDeliveries": "No se encontraron entregas programadas"
     },
     "order": {
       "confirmation-title": "Confirmar Orden",
@@ -75,7 +85,13 @@
       "orderConfirmation": "Confirmar Orden",
       "stock": "Disponibles",
       "total": "Total",
-      "subtotal": "Subtotal"
+      "subtotal": "Subtotal",
+      "list": "Mis Pedidos",
+      "lastOrder": "Último Compra",
+      "statusDelivered": "Entregado",
+      "statusInTransit": "En Tránsito",
+      "statusPending": "Pendiente",
+      "statusConfirmed": "Confirmado"
     },
     "register": {
       "title": "Registro de Cliente",
@@ -92,6 +108,17 @@
       "confirm_password": "Confirmar Contraseña",
       "confirm_password_placeholder": "Confirme su contraseña",
       "register_button": "Registrarse"
+    },
+    "tracking": {
+      "title": "Seguimiento de Entregas",
+      "searchPlaceholder": "Buscar por número de pedido",
+      "listTitle": "Lista de Entregas",
+      "orderNumber": "Número de Pedido",
+      "deliveryDate": "Fecha de Entrega",
+      "status": "Estado",
+      "detailsButton": "Detalles"
     }
   }
 }
+
+

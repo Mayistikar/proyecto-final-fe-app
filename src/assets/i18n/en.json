@@ -11,6 +11,12 @@
     "register_button": "Register"
   },
   "seller": {
+    "recommendations": {
+      "title": "Recommendations",
+      "selectClient": "Select a client",
+      "uploadVideo": "Upload Video",
+      "submit": "Submit"
+    },
     "home": {
       "title": "CCP STORE SELLER",
       "createOrder": "Create Order",
@@ -53,7 +59,8 @@
       "additionalNotesTitle": "Additional Notes",
       "generalNotesPlaceholder": "General client notes",
       "saveButton": "Save",
-      "updateListButton": "Update List"
+      "updateListButton": "Update List",
+      "noCoords": "No coords available for this client"
     }
   },
   "client": {
@@ -62,7 +69,16 @@
       "createOrder": "Create Order",
       "myOrders": "My Orders",
       "orderStatus": "Order Status",
-      "deliveryTracking": "Delivery Tracking"
+      "deliveryTracking": "Delivery Tracking",
+      "search": "Search",
+      "details": "Order Details",
+      "quantity": "Quantity",
+      "addProduct": "Add Product",
+      "orderCreation": "Buy",
+      "orderConfirmation": "Order Confirmation",
+      "stock": "Stock",
+      "total": "Total",
+      "subtotal": "Subtotal"
     },
     "order": {
       "confirmation-title": "Confirm Order",
@@ -75,7 +91,13 @@
       "orderConfirmation": "Order Confirmation",
       "stock": "Stock",
       "total": "Total",
-      "subtotal": "Subtotal"
+      "subtotal": "Subtotal",
+      "list": "My Orders",
+      "lastOrder": "Last Order",
+      "statusDelivered": "Delivered",
+      "statusInTransit": "In Transit",
+      "statusPending": "Pending",
+      "statusConfirmed": "Confirmed"
     },
     "register": {
       "title": "Client Registration",
@@ -92,6 +114,40 @@
       "confirm_password": "Confirm Password",
       "confirm_password_placeholder": "Confirm your password",
       "register_button": "Register"
-    }
+    },
+    "tracking": {
+      "title": "Delivery Tracking",
+      "searchPlaceholder": "Search by order number",
+      "listTitle": "Delivery List",
+      "orderNumber": "Order Number",
+      "deliveryDate": "Delivery Date",
+      "status": "Status",
+      "detailsButton": "Details"
+    },
+    "myOrders": "My Orders",
+    "deliveryTracking": "Delivery Tracking",
+    "search": "Search",
+    "Filtrar por Fecha": "Filter by Date",
+    "Limpiar filtro de fecha": "Clear Date Filter",
+    "Fecha": "Date",
+    "No se encontraron entregas programadas.": "No scheduled deliveries found.",
+    "client.order.details": "Order",
+    "client.register.address": "Address",
+    "client.order.search": "Search",
+    "client.order.quantity": "Quantity",
+    "client.order.addProduct": "Add Product",
+    "client.order.subtotal": "Subtotal",
+    "client.order.total": "Total",
+    "client.order.detalles": "Details",
+    "client.order.limpiarFiltroFecha": "Clear Date Filter",
+    "client.order.noProductosDisponibles": "No products available for this delivery.",
+    "client.order.detallesModal": "Order Details",
+    "client.order.producto": "Product",
+    "client.order.cantidad": "Quantity",
+    "client.order.precio": "Price",
+    "client.order.moneda": "Currency",
+    "client.order.totalDetalle": "Total"
   }
 }
+
+

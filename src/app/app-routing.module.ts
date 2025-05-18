@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'home-client',
     loadComponent: () => import('./client/home/home-client.page').then( m => m.HomePageClient),
-    // canActivate: [RoleGuard],
+    canActivate: [RoleGuard],
     data: { expectedRole: 'client' } // Rol esperado para esta ruta
   },
   {
@@ -43,7 +43,7 @@ const routes: Routes = [
   {
     path:'order-confirmation',
     loadComponent : () => import('./client/order-confirmation/order-confirmation.component').then( m => m.OrderConfirmationComponent),
-    // canActivate: [RoleGuard],
+    canActivate: [RoleGuard],
     data: { expectedRole: 'client' } // Rol esperado para esta ruta
   },
   {
@@ -55,6 +55,36 @@ const routes: Routes = [
   {
     path: 'seller-client-assignment',
     loadComponent: () => import('./seller/seller-client-assignment/seller-client-assignment.component').then(m => m.SellerClientAssignmentComponent),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'seller' }
+  },
+  {
+    path: 'scheduled-deliveries',
+    loadComponent: () => import('./client/scheduled-deliveries/scheduled-deliveries.component').then(m => m.ScheduledDeliveriesComponent),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'client' } // Rol esperado para esta ruta
+  },
+  {
+    path: 'tracking',
+    loadComponent: () => import('./client/tracking/tracking.component').then(m => m.TrackingComponent),
+    // canActivate: [RoleGuard],
+    // data: { expectedRole: 'client' } // Rol esperado para esta ruta
+  },
+  {
+    path: 'order-status',
+    loadComponent: () => import('./client/order-status/order-status.component').then(m => m.OrderStatusComponent),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'client' }
+  },
+  {
+    path: 'daily-routes',
+    loadComponent: () => import('./seller/daily-routes/daily-routes.component').then(m => m.DailyRoutesComponent),
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'seller' } // Rol esperado para esta ruta
+  },
+  {
+    path: 'recommendations',
+    loadComponent: () => import('./seller/recommendations/recommendations.component').then(m => m.RecommendationsComponent),
     canActivate: [RoleGuard],
     data: { expectedRole: 'seller' }
   }

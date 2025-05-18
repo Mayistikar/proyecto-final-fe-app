@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'seller.assignedClients.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-bottom">
+  <div *ngIf="isLoading" class="map-loader">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <div #mapContainer class="map-box" *ngIf="!isLoading">
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let client of clients" (click)="focusOnClient(client.id)">
+      <ion-avatar slot="start">
+        <ion-icon
+          name="person-circle-outline"
+          class="avatar-icon"
+        ></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ client.name }}</h2>
+        <p>{{ client.address }}</p>
+        <p>{{ client.phone }}</p>
+
+        <ng-container *ngIf="client.client_location_x !== null && client.client_location_y !== null; else noCoords">
+        </ng-container>
+        <ng-template #noCoords>
+          <ion-icon name="alert-circle-outline" color="warning" style="vertical-align: middle;"></ion-icon>
+          <span style="color: #ff9800; margin-left: 4px;">{{ 'seller.assignedClients.noCoords' | translate }}</span>
+        </ng-template>
+
+      </ion-label>
+      <ion-button fill="clear" slot="end">
+        <ion-icon
+          slot="icon-only"
+          name="reorder-two-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
